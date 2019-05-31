@@ -138,15 +138,21 @@ class Teacher: UIViewController {
     @IBOutlet weak var out_test: UILabel!
     
     // Variables for generating code
-    var numOfQuestions_add: UInt8 = 1;
-    var numOfQuestions_sub: UInt8 = 1;
-    var numOfQuestions_mul: UInt8 = 1;
-    var numOfQuestions_div: UInt8 = 1;
+    var numOfQuestions_add: Int = 1;
+    var numOfQuestions_sub: Int = 2;
+    var numOfQuestions_mul: Int = 0;
+    var numOfQuestions_div: Int = 1;
     
-    var difficulty_add: UInt8 = 1;
-    var difficulty_sub: UInt8 = 1;
-    var difficulty_mul: UInt8 = 1;
-    var difficulty_div: UInt8 = 1;
+    var difficulty_add: Int = 1;
+    var difficulty_sub: Int = 0;
+    var difficulty_mul: Int = 1;
+    var difficulty_div: Int = 2;
+    
+    var year: String = "25"
+    var month: String = "12"
+    var day: String = "31"
+    var hour: String = "24"
+    var min: String = "60"
     
     var shuffle: Bool = false;
     
@@ -168,6 +174,28 @@ class Teacher: UIViewController {
         
     }
     
+    func intToBin(number: Int) -> String{
+        var num = number
+        var str: String = ""
+        
+        while (num > 1) {
+            str.append(contentsOf: (String(num%2)))
+            num = num / 2
+        }
+        if (num > 0){
+            str.append(contentsOf: "1")
+            num = num - 1;
+        }
+        
+        var strSwap: String = ""
+        var count: Int = (str.count - 1)
+        for index in 0..<str.count {
+            strSwap.append(contentsOf: String(str.character(at: count)!))
+            count = count - 1;
+        }
+        return strSwap
+    }
+    
     func assembleCode(){
         codedInfo = ""
         /*
@@ -175,14 +203,95 @@ class Teacher: UIViewController {
          questionsType: number for + - * %
          */
         // addNum:11111111 subNum:11111111 mulNum:11111111 divNum:11111111 addDiff:11 subDiff: 11 mulDiff:11 divDiff:11
-        // questionsType:11 difficulty:11 date:Year-to-63:1111111 Month:1100 Day-to-31:11111 Hr-to-24:11000 Min-to-60:111100 binSortNum:0000 parity:0
+        // date:Year-to-63:1111111 Month:1111 Day-to-31:111111 Hr-to-24:11000 Min-to-60:111100 shuffle:0 binSortNum:000 parity:0
         
         //codedInfo.append(contentsOf: BinaryInteger)
-        print("Binary : \(padString(num: Int(numOfQuestions_add), length: 8, padding: "0"))")
+        
+        
+        
+        //print("Binary : \(padString(num: Int(numOfQuestions_add), length: 8, padding: "0"))")
+        
+        
+        
+        var addNum: String = padStringInt(num: numOfQuestions_add, length: 8, padding: "0")
+        var subNum: String = padStringInt(num: numOfQuestions_sub, length: 8, padding: "0")
+        var mulNum: String = padStringInt(num: numOfQuestions_mul, length: 8, padding: "0")
+        var divNum: String = padStringInt(num: numOfQuestions_div, length: 8, padding: "0")
+        var addDiff: String = padStringInt(num: difficulty_add, length: 2, padding: "0")
+        var subDiff: String = padStringInt(num: difficulty_sub, length: 2, padding: "0")
+        var mulDiff: String = padStringInt(num: difficulty_mul, length: 2, padding: "0")
+        var divDiff: String = padStringInt(num: difficulty_div, length: 2, padding: "0")
+//        var yr: String = padString(str: year, length: 7, padding: "0")
+//        var mo: String = padString(str: month, length: 4, padding: "0")
+//        var d: String = padString(str: day, length: 7, padding: "0")
+//        var h: String = padString(str: year, length: 5, padding: "0")
+//        var m: String = padString(str: min, length: 6, padding: "0")
+        var date = getDate(yr: year, mo: month, d: day, h: hour, m: min)
+        var sh: String = "1" //padString(str: String(shuffle), length: 1, padding: "0")
+        var sort: String = "111"
+        var parity: String = "0"
+        
+        var wholeString: String = ""
+        //wholeString.append(contentsOf: "NUM")
+        wholeString.append(contentsOf: addNum)
+        wholeString.append(contentsOf: subNum)
+        wholeString.append(contentsOf: mulNum)
+        wholeString.append(contentsOf: divNum)
+        //wholeString.append(contentsOf: "DIFF")
+        wholeString.append(contentsOf: addDiff)
+        wholeString.append(contentsOf: subDiff)
+        wholeString.append(contentsOf: mulDiff)
+        wholeString.append(contentsOf: divDiff)
+        //wholeString.append(contentsOf: "DATE")
+        wholeString.append(contentsOf: date)
+        //wholeString.append(contentsOf: "ETC")
+        wholeString.append(contentsOf: sh)
+        wholeString.append(contentsOf: sort)
+        wholeString.append(contentsOf: parity)
+        
+        print("Whole String: \(wholeString)")
+        print("Count: \(wholeString.count)")
+    }
+    
+    func getDate(yr: String, mo: String, d: String, h: String, m: String) -> String{
+        //let formatter = DateFormatter()
+        //formatter.dateFormat = "yyyy/MM/dd HH:mm"
+        //let someDateTime = formatter.date(from: "20\(year)/\(month)/\(day) \(hour):\(min)")
+        
+        // convert Date to TimeInterval (typealias for Double)
+        //let timeInterval = (someDateTime?.timeIntervalSince1970)!
+        
+        // convert to Integer
+        //let myInt = Int(timeInterval)
+        
+        // convert Int to Double
+        //let timeInterval = Double(myInt)
+        
+        // create NSDate from Double (NSTimeInterval)
+        //let myNSDate = Date(timeIntervalSince1970: timeInterval)
+        var temp: String = ""
+        
+        // Year
+        var tempYr = padStringInt(num: Int(yr)!, length: 7, padding: "0")
+        temp.append(contentsOf: tempYr)
+        // Month
+        var tempMo = padStringInt(num: Int(mo)!, length: 4, padding: "0")
+        temp.append(contentsOf: tempMo)
+        // Day
+        var tempD = padStringInt(num: Int(d)!, length: 6, padding: "0")
+        temp.append(contentsOf: tempD)
+        // Hour
+        var tempH = padStringInt(num: Int(h)!, length: 5, padding: "0")
+        temp.append(contentsOf: tempH)
+        // Minute
+        var tempM = padStringInt(num: Int(m)!, length: 6, padding: "0")
+        temp.append(contentsOf: tempM)
+        
+        return temp
     }
     
     // Used for padding a string
-    func padString(str: String, length: Int, padding: String) -> String {
+    func padStringStr(str: String, length: Int, padding: String) -> String {
         let diff: Int = length - str.count
         var temp: String = ""
         if (diff > 0){
@@ -195,8 +304,9 @@ class Teacher: UIViewController {
     }
     
     // Used for taking an int and turning it into padded binary string
-    func padString(num: Int, length: Int, padding: String) -> String{
-        return padString(str: String(num), length: length, padding: padding)
+    func padStringInt(num: Int, length: Int, padding: String) -> String{
+        let str: String = padStringStr(str: intToBin(number: num), length: length, padding: padding)
+        return str
     }
     
     func codeConversion(str: String) -> String {
