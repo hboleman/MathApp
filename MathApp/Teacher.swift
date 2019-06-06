@@ -136,11 +136,11 @@ class Teacher: UIViewController {
     // Variables for generating code
     var numOfQuestions_add: Int = 1;
     var numOfQuestions_sub: Int = 2;
-    var numOfQuestions_mul: Int = 0;
+    var numOfQuestions_mul: Int = 1;
     var numOfQuestions_div: Int = 1;
     
     var difficulty_add: Int = 1;
-    var difficulty_sub: Int = 0;
+    var difficulty_sub: Int = 1;
     var difficulty_mul: Int = 1;
     var difficulty_div: Int = 2;
     
@@ -151,26 +151,161 @@ class Teacher: UIViewController {
     var min: String = "60"
     
     var shuffle: Bool = false;
-    var dueDate: String = "Y19M03D02H16M10";
+    var dueDate: String = "1903021610";
     var instructorCode: Int = 1234;
+    var parityBit: Bool = false
+    
     var checkFailed = false;
-    var codeInBin: String = ""
+    var assembledBinCode: String = ""
     var codeInHR: String = ""
+    var assembledHrCode: String = ""
     var disCodeInBin: String = ""
     var disCodeInHR: String = ""
-    let testHR = "2ja22ptXE<hh2"
-    let testBin = "0000000100000010000000000000000101000110001100111000111111100011110011110"
+    let leadingBuffer = 4
+    let testHR = "2ja32qtXE<hhc"
+    let testBin = "11111111000000001111111100000000110011001111111111111111111111111111011110"
     
     // Test Button
     @IBAction func btn_test(_ sender: Any) {
         checkFailed = false
         // Looks to make sure input is valid, if so assemble binary code
         if (checkFailed == false){
-            //assembleBinaryCode()
-            //assembleHumanReadableCode()
+            assembleBinaryCode()
+            assembleHumanReadableCode(binCode: assembledBinCode)
             disassembleHumanReadableCode(hrCode: testHR)
+            disassembleBinaryCode(binCode: testBin)
         }
+    }
+    
+    func disassembleBinaryCode(binCode: String) {
+        var binaryCode = binCode
+        var binarySnipit = ""
         
+        print("disCount: \(binaryCode.count)")
+        
+        // Extracting Add Question Number
+        binarySnipit = ""
+        for index in 0..<8 {
+            binarySnipit.append(binaryCode.character(at: index)!)
+        }
+        print(binarySnipit)
+        for _ in 0..<8 {
+            binaryCode.removeFirst()
+        }
+        numOfQuestions_add = Int(binarySnipit)!; // 8
+        
+        // Extracting Sub Question Number
+        binarySnipit = ""
+        for index in 0..<8 {
+            binarySnipit.append(binaryCode.character(at: index)!)
+        }
+        print(binarySnipit)
+        for _ in 0..<8 {
+            binaryCode.removeFirst()
+        }
+        numOfQuestions_sub = Int(binarySnipit)!; // 8
+        
+        // Extracting Mul Question Number
+        binarySnipit = ""
+        for index in 0..<8 {
+            binarySnipit.append(binaryCode.character(at: index)!)
+        }
+        print(binarySnipit)
+        for _ in 0..<8 {
+            binaryCode.removeFirst()
+        }
+        numOfQuestions_mul = Int(binarySnipit)!; // 8
+        
+        // Extracting Div Question Number
+        binarySnipit = ""
+        for index in 0..<8 {
+            binarySnipit.append(binaryCode.character(at: index)!)
+        }
+        print(binarySnipit)
+        for _ in 0..<8 {
+            binaryCode.removeFirst()
+        }
+        numOfQuestions_div = Int(binarySnipit)!; // 8
+        
+        // Extracting Add Diff Number
+        binarySnipit = ""
+        for index in 0..<2 {
+            binarySnipit.append(binaryCode.character(at: index)!)
+        }
+        print(binarySnipit)
+        for _ in 0..<2 {
+            binaryCode.removeFirst()
+        }
+        difficulty_add = Int(binarySnipit)!; // 2
+        
+        // Extracting Sub Diff Number
+        binarySnipit = ""
+        for index in 0..<2 {
+            binarySnipit.append(binaryCode.character(at: index)!)
+        }
+        print(binarySnipit)
+        for _ in 0..<2 {
+            binaryCode.removeFirst()
+        }
+        difficulty_sub = Int(binarySnipit)!; // 2
+        
+        // Extracting Mul Diff Number
+        binarySnipit = ""
+        for index in 0..<2 {
+            binarySnipit.append(binaryCode.character(at: index)!)
+        }
+        print(binarySnipit)
+        for _ in 0..<2 {
+            binaryCode.removeFirst()
+        }
+        difficulty_mul = Int(binarySnipit)!; // 2
+        
+        // Extracting Div Diff Number
+        binarySnipit = ""
+        for index in 0..<2 {
+            binarySnipit.append(binaryCode.character(at: index)!)
+        }
+        print(binarySnipit)
+        for _ in 0..<2 {
+            binaryCode.removeFirst()
+        }
+        difficulty_div = Int(binarySnipit)!; // 2
+        
+        // Extracting Date
+        binarySnipit = ""
+        for index in 0..<28 {
+            binarySnipit.append(binaryCode.character(at: index)!)
+        }
+        print(binarySnipit)
+        for _ in 0..<28 {
+            binaryCode.removeFirst()
+        }
+        setDate(dateStr: binarySnipit)  // 28
+        
+        // Extracting Shuffle Bool
+        binarySnipit = ""
+        binarySnipit.append(binaryCode.character(at: 0)!)
+        binaryCode.removeFirst()
+        if (binarySnipit == "1"){shuffle = true}
+        else {shuffle = false} // 1
+        
+        // Extracting Instructor Code
+        binarySnipit = ""
+        for index in 0..<4 {
+            binarySnipit.append(binaryCode.character(at: index)!)
+        }
+        print(binarySnipit)
+        for _ in 0..<4 {
+            binaryCode.removeFirst()
+        }
+        instructorCode = Int(binarySnipit)!; // 4
+        
+        // Extracting Parity
+        binarySnipit = ""
+        binarySnipit.append(binaryCode.character(at: 0)!)
+        binaryCode.removeFirst()
+        if (binarySnipit == "1"){parityBit = true}
+        else {parityBit = false} // 1
     }
     
     func disassembleHumanReadableCode(hrCode: String){
@@ -182,41 +317,41 @@ class Teacher: UIViewController {
             fullBinString.append(contentsOf: codeStr)
         }
         
-        // Remove extra 5 zeros at end
-        for _ in 0..<5 {
-            fullBinString.removeLast()
+        // Remove extra zeros at end
+        for _ in 0..<leadingBuffer {
+            //fullBinString.removeLast()
         }
         
         print("Reassembled Binary Code:")
         print(fullBinString)
         print("Orig Binary Code:")
-        print(testBin)
         
-        
+        print("DisassembleHR Code: \(testBin)")
+        print("DisassembleHR Count: \(testBin.count)")
     }
     
     func assembleBinaryCode(){
-        codeInBin = ""
+        assembledBinCode = ""
          //Function Info
          //binSortNum: used for finding differnt permetations of the most efficent option when comparing differnt generations.
          //questionsType: number for + - * %
  
         // addNum:11111111 subNum:11111111 mulNum:11111111 divNum:11111111 addDiff:11 subDiff: 11 mulDiff:11 divDiff:11
-        // date:Year-to-63:1111111 Month:1111 Day-to-31:111111 Hr-to-24:11000 Min-to-60:111100 shuffle:0 binSortNum:000 parity:0
+        // date:Year-to-63:1111111 Month:1111 Day-to-31:111111 Hr-to-24:11000 Min-to-60:111100 shuffle:0 teacherCode:0000 parity:0
         
-        // Should have 73 characters
-        var addNum: String = padStringInt(num: numOfQuestions_add, length: 8, padding: "0")
-        var subNum: String = padStringInt(num: numOfQuestions_sub, length: 8, padding: "0")
-        var mulNum: String = padStringInt(num: numOfQuestions_mul, length: 8, padding: "0")
-        var divNum: String = padStringInt(num: numOfQuestions_div, length: 8, padding: "0")
-        var addDiff: String = padStringInt(num: difficulty_add, length: 2, padding: "0")
-        var subDiff: String = padStringInt(num: difficulty_sub, length: 2, padding: "0")
-        var mulDiff: String = padStringInt(num: difficulty_mul, length: 2, padding: "0")
-        var divDiff: String = padStringInt(num: difficulty_div, length: 2, padding: "0")
-        var date = getDate(yr: year, mo: month, d: day, h: hour, m: min)
-        var sh: String = "1" //padString(str: String(shuffle), length: 1, padding: "0")
-        var sort: String = "111"
-        var parity: String = "0"
+        // Should have 74 characters
+        let addNum: String = padStringInt(num: numOfQuestions_add, length: 8, padding: "0")
+        let subNum: String = padStringInt(num: numOfQuestions_sub, length: 8, padding: "0")
+        let mulNum: String = padStringInt(num: numOfQuestions_mul, length: 8, padding: "0")
+        let divNum: String = padStringInt(num: numOfQuestions_div, length: 8, padding: "0")
+        let addDiff: String = padStringInt(num: difficulty_add, length: 2, padding: "0")
+        let subDiff: String = padStringInt(num: difficulty_sub, length: 2, padding: "0")
+        let mulDiff: String = padStringInt(num: difficulty_mul, length: 2, padding: "0")
+        let divDiff: String = padStringInt(num: difficulty_div, length: 2, padding: "0")
+        let date = getDate(yr: year, mo: month, d: day, h: hour, m: min)
+        let sh: String = "1" //padString(str: String(shuffle), length: 1, padding: "0")
+        let teacherCode: String = "1111"
+        let parity: String = "0"
         
         var wholeString: String = ""
         //wholeString.append(contentsOf: " NUM ") // should be 32
@@ -233,17 +368,17 @@ class Teacher: UIViewController {
         wholeString.append(contentsOf: date)
         //wholeString.append(contentsOf: " ETC ")
         wholeString.append(contentsOf: sh)
-        wholeString.append(contentsOf: sort)
+        wholeString.append(contentsOf: teacherCode)
         wholeString.append(contentsOf: parity)
         
         print("Whole String: \(wholeString)")
         print("Count: \(wholeString.count)")
-        codeInBin = wholeString
+        assembledBinCode = wholeString
     }
     
-    func assembleHumanReadableCode(){
+    func assembleHumanReadableCode(binCode: String){
         var formingFullString = ""
-        var codeToCrunch = codeInBin
+        var codeToCrunch = binCode
         var strOfSix = ""
         
         while (codeToCrunch.count > 0) {
@@ -279,7 +414,7 @@ class Teacher: UIViewController {
         
         print("FULL CODE: \(formingFullString)")
         
-        
+        assembledHrCode = formingFullString
     }
     
     func getDate(yr: String, mo: String, d: String, h: String, m: String) -> String{
@@ -302,6 +437,28 @@ class Teacher: UIViewController {
         temp.append(contentsOf: tempM)
         
         return temp
+    }
+    
+    func setDate(dateStr: String){
+        var temp: String = ""
+        
+        print("set date count: \(dateStr.count)")
+//        // Year
+//        let tempYr = padStringInt(num: Int(yr)!, length: 7, padding: "0")
+//        temp.append(contentsOf: tempYr)
+//        // Month
+//        let tempMo = padStringInt(num: Int(mo)!, length: 4, padding: "0")
+//        temp.append(contentsOf: tempMo)
+//        // Day
+//        let tempD = padStringInt(num: Int(d)!, length: 6, padding: "0")
+//        temp.append(contentsOf: tempD)
+//        // Hour
+//        let tempH = padStringInt(num: Int(h)!, length: 5, padding: "0")
+//        temp.append(contentsOf: tempH)
+//        // Minute
+//        let tempM = padStringInt(num: Int(m)!, length: 6, padding: "0")
+//        temp.append(contentsOf: tempM)
+        
     }
     
     // Returns a padded string to specified length and paddign character
