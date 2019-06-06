@@ -11,9 +11,7 @@ import UIKit
 // This class controls the options view controler
 class Options: UIViewController {
     
-    //************************************************************************
-    //**************************CLASS_SETUP_START*****************************
-    //************************************************************************
+    //-------------------- CLASS SETUP END --------------------//
     
     // Make UserDefautls Accessable
     let defaults = UserDefaults.standard
@@ -149,9 +147,7 @@ class Options: UIViewController {
         print("VC:ViewDidDis");
     }
     
-    //************************************************************************
-    //**************************CLASS_SETUP_COMPLETE**************************
-    //************************************************************************
+    //-------------------- CLASS SETUP END --------------------//
     
     // Outlets
     @IBOutlet weak var out_plus: UIButton!

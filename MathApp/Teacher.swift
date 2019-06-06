@@ -11,9 +11,7 @@ import Foundation
 
 // This class controls the Teaching View Controler
 class Teacher: UIViewController {
-    //************************************************************************
-    //**************************CLASS_SETUP_START*****************************
-    //************************************************************************
+    //-------------------- CLASS SETUP START --------------------//
     
     // Make UserDefautls Accessable
     let defaults = UserDefaults.standard
@@ -126,9 +124,7 @@ class Teacher: UIViewController {
         print("VC:ViewDidDis");
     }
     
-    //************************************************************************
-    //**************************CLASS_SETUP_COMPLETE**************************
-    //************************************************************************
+    //-------------------- CLASS SETUP END --------------------//
     
     //Variable Charts
     //mode_symbol         1=+ 2=- 3=* 4=%
@@ -155,64 +151,32 @@ class Teacher: UIViewController {
     var min: String = "60"
     
     var shuffle: Bool = false;
-    
     var dueDate: String = "Y19M03D02H16M10";
-    
     var instructorCode: Int = 1234;
-    
     var checkFailed = false;
-    
-    var codedInfo: String = ""
+    var codeInBin: String = ""
     
     // Test Button
     @IBAction func btn_test(_ sender: Any) {
         checkFailed = false
-        // check if options valid
-        
-        
-        if (checkFailed == false){assembleCode()}
-        
-    }
-    
-    func intToBin(number: Int) -> String{
-        var num = number
-        var str: String = ""
-        
-        while (num > 1) {
-            str.append(contentsOf: (String(num%2)))
-            num = num / 2
-        }
-        if (num > 0){
-            str.append(contentsOf: "1")
-            num = num - 1;
+        // Looks to make sure input is valid, if so assemble binary code
+        if (checkFailed == false){
+            assembleCode()
+            assembleHumanReadableCode()
         }
         
-        var strSwap: String = ""
-        var count: Int = (str.count - 1)
-        for index in 0..<str.count {
-            strSwap.append(contentsOf: String(str.character(at: count)!))
-            count = count - 1;
-        }
-        return strSwap
     }
     
     func assembleCode(){
-        codedInfo = ""
-        /*
-         binSortNum: used for finding differnt permetations of the most efficent option when comparing differnt generations.
-         questionsType: number for + - * %
-         */
+        codeInBin = ""
+         //Function Info
+         //binSortNum: used for finding differnt permetations of the most efficent option when comparing differnt generations.
+         //questionsType: number for + - * %
+ 
         // addNum:11111111 subNum:11111111 mulNum:11111111 divNum:11111111 addDiff:11 subDiff: 11 mulDiff:11 divDiff:11
         // date:Year-to-63:1111111 Month:1111 Day-to-31:111111 Hr-to-24:11000 Min-to-60:111100 shuffle:0 binSortNum:000 parity:0
         
-        //codedInfo.append(contentsOf: BinaryInteger)
-        
-        
-        
-        //print("Binary : \(padString(num: Int(numOfQuestions_add), length: 8, padding: "0"))")
-        
         // Should have 73 characters
-        
         var addNum: String = padStringInt(num: numOfQuestions_add, length: 8, padding: "0")
         var subNum: String = padStringInt(num: numOfQuestions_sub, length: 8, padding: "0")
         var mulNum: String = padStringInt(num: numOfQuestions_mul, length: 8, padding: "0")
@@ -221,11 +185,6 @@ class Teacher: UIViewController {
         var subDiff: String = padStringInt(num: difficulty_sub, length: 2, padding: "0")
         var mulDiff: String = padStringInt(num: difficulty_mul, length: 2, padding: "0")
         var divDiff: String = padStringInt(num: difficulty_div, length: 2, padding: "0")
-//        var yr: String = padString(str: year, length: 7, padding: "0")
-//        var mo: String = padString(str: month, length: 4, padding: "0")
-//        var d: String = padString(str: day, length: 7, padding: "0")
-//        var h: String = padString(str: year, length: 5, padding: "0")
-//        var m: String = padString(str: min, length: 6, padding: "0")
         var date = getDate(yr: year, mo: month, d: day, h: hour, m: min)
         var sh: String = "1" //padString(str: String(shuffle), length: 1, padding: "0")
         var sort: String = "111"
@@ -251,51 +210,73 @@ class Teacher: UIViewController {
         
         print("Whole String: \(wholeString)")
         print("Count: \(wholeString.count)")
+        codeInBin = wholeString
+    }
+    
+    func assembleHumanReadableCode(){
+        var formingFullString = ""
+        var codeToCrunch = codeInBin
+        var strOfSix = ""
+        
+        while (codeToCrunch.count > 0) {
+            if (codeToCrunch.count > 6){
+                strOfSix = ""
+                for index in 0..<6 {
+                    strOfSix.append(codeToCrunch.character(at: index)!)
+                }
+                print(codeToCrunch)
+                for index in 0..<6 {
+                    codeToCrunch.removeFirst()
+                }
+                print(codeToCrunch)
+                print("of6: \(strOfSix)")
+            }
+            else {
+                strOfSix = ""
+                for index in 0..<codeToCrunch.count {
+                    strOfSix.append(codeToCrunch.character(at: index)!)
+                }
+                print(codeToCrunch)
+                for index in 0..<codeToCrunch.count {
+                    codeToCrunch.removeFirst()
+                }
+                print(codeToCrunch)
+                print("ofX: \(strOfSix)")
+            }
+            
+            let codeCharacter = codeConversion(str: strOfSix)
+            formingFullString.append(contentsOf: codeCharacter)
+            print("HR: \(codeCharacter)")
+        }
+        
+        print("FULL CODE: \(formingFullString)")
+        
+        
     }
     
     func getDate(yr: String, mo: String, d: String, h: String, m: String) -> String{
-        //let formatter = DateFormatter()
-        //formatter.dateFormat = "yyyy/MM/dd HH:mm"
-        //let someDateTime = formatter.date(from: "20\(year)/\(month)/\(day) \(hour):\(min)")
-        
-        // convert Date to TimeInterval (typealias for Double)
-        //let timeInterval = (someDateTime?.timeIntervalSince1970)!
-        
-        // convert to Integer
-        //let myInt = Int(timeInterval)
-        
-        // convert Int to Double
-        //let timeInterval = Double(myInt)
-        
-        // create NSDate from Double (NSTimeInterval)
-        //let myNSDate = Date(timeIntervalSince1970: timeInterval)
         var temp: String = ""
         
         // Year
-        let iYr = Int(yr)!
-        var tempYr = padStringInt(num: iYr, length: 7, padding: "0")
+        let tempYr = padStringInt(num: Int(yr)!, length: 7, padding: "0")
         temp.append(contentsOf: tempYr)
         // Month
-        let iMo = Int(mo)!
-        var tempMo = padStringInt(num: iMo, length: 4, padding: "0")
+        let tempMo = padStringInt(num: Int(mo)!, length: 4, padding: "0")
         temp.append(contentsOf: tempMo)
         // Day
-        let iD = Int(d)!
-        var tempD = padStringInt(num: iD, length: 6, padding: "0")
+        let tempD = padStringInt(num: Int(d)!, length: 6, padding: "0")
         temp.append(contentsOf: tempD)
         // Hour
-        let iH = Int(h)!
-        var tempH = padStringInt(num: iH, length: 5, padding: "0")
+        let tempH = padStringInt(num: Int(h)!, length: 5, padding: "0")
         temp.append(contentsOf: tempH)
         // Minute
-        let iM = Int(m)!
-        var tempM = padStringInt(num: iM, length: 6, padding: "0")
+        let tempM = padStringInt(num: Int(m)!, length: 6, padding: "0")
         temp.append(contentsOf: tempM)
         
         return temp
     }
     
-    // Used for padding a string
+    // Returns a padded string to specified length and paddign character
     func padStringStr(str: String, length: Int, padding: String) -> String {
         let diff: Int = length - str.count
         var temp: String = ""
@@ -312,207 +293,241 @@ class Teacher: UIViewController {
         return temp
     }
     
-    // Used for taking an int and turning it into padded binary string
+    // Taked in an Int and feeds it to the string padder
     func padStringInt(num: Int, length: Int, padding: String) -> String{
         let tempStr = intToBin(number: num)
         let str: String = padStringStr(str: tempStr, length: length, padding: padding)
         return str
     }
     
+    //------------------ Utilities ------------------//
+    
+    // Converts an Int to binary as a String
+    func intToBin(number: Int) -> String{
+        var num = number
+        var str: String = ""
+        
+        while (num > 1) {
+            str.append(contentsOf: (String(num%2)))
+            num = num / 2
+        }
+        if (num > 0){
+            str.append(contentsOf: "1")
+            num = num - 1;
+        }
+        
+        var strSwap: String = ""
+        var count: Int = (str.count - 1)
+        for _ in 0..<str.count {
+            strSwap.append(contentsOf: String(str.character(at: count)!))
+            count = count - 1;
+        }
+        return strSwap
+    }
+    
+    // Converts binary into Human Readable Characters and vise versa
     func codeConversion(str: String) -> String {
+        
+        var codeStr = str
+        
+        // If num less than 6, padd it to 6
+        if (str.count < 6){
+            codeStr = padStringInt(num: Int(str)!, length: 6, padding: "0")
+        }
+        
         // Binary String Values
         // 2 = 000000
-        if (str == "000000"){return "2"}
-        else if (str == "2"){return "000000"}
+        if (codeStr == "000000"){return "2"}
+        else if (codeStr == "2"){return "000000"}
         // 3 = 000001
-        else if (str == "000001"){return "3"}
-        else if (str == "3"){return "000001"}
+        else if (codeStr == "000001"){return "3"}
+        else if (codeStr == "3"){return "000001"}
         // 4 = 000010
-        else if (str == "000010"){return "4"}
-        else if (str == "4"){return "000010"}
+        else if (codeStr == "000010"){return "4"}
+        else if (codeStr == "4"){return "000010"}
         // 5 = 000011
-        else if (str == "000011"){return "5"}
-        else if (str == "5"){return "000011"}
+        else if (codeStr == "000011"){return "5"}
+        else if (codeStr == "5"){return "000011"}
         // 6 = 000100
-        else if (str == "000100"){return "6"}
-        else if (str == "6"){return "000100"}
+        else if (codeStr == "000100"){return "6"}
+        else if (codeStr == "6"){return "000100"}
         // 7 = 000101
-        else if (str == "000101"){return "7"}
-        else if (str == "7"){return "000101"}
+        else if (codeStr == "000101"){return "7"}
+        else if (codeStr == "7"){return "000101"}
         // 8 = 000110
-        else if (str == "000110"){return "8"}
-        else if (str == "8"){return "000110"}
+        else if (codeStr == "000110"){return "8"}
+        else if (codeStr == "8"){return "000110"}
         // 9 = 000111
-        else if (str == "000111"){return "9"}
-        else if (str == "9"){return "000111"}
+        else if (codeStr == "000111"){return "9"}
+        else if (codeStr == "9"){return "000111"}
         // a = 001000
-        else if (str == "001000"){return "a"}
-        else if (str == "a"){return "001000"}
+        else if (codeStr == "001000"){return "a"}
+        else if (codeStr == "a"){return "001000"}
         // b = 001001
-        else if (str == "001001"){return "b"}
-        else if (str == "b"){return "001001"}
+        else if (codeStr == "001001"){return "b"}
+        else if (codeStr == "b"){return "001001"}
         // c = 001010
-        else if (str == "001010"){return "c"}
-        else if (str == "c"){return "001010"}
+        else if (codeStr == "001010"){return "c"}
+        else if (codeStr == "c"){return "001010"}
         // d = 001011
-        else if (str == "001011"){return "d"}
-        else if (str == "d"){return "001011"}
+        else if (codeStr == "001011"){return "d"}
+        else if (codeStr == "d"){return "001011"}
         // e = 001100
-        else if (str == "001100"){return "e"}
-        else if (str == "e"){return "001100"}
+        else if (codeStr == "001100"){return "e"}
+        else if (codeStr == "e"){return "001100"}
         // f = 001101
-        else if (str == "001101"){return "f"}
-        else if (str == "f"){return "001101"}
+        else if (codeStr == "001101"){return "f"}
+        else if (codeStr == "f"){return "001101"}
         // g = 001110
-        else if (str == "001110"){return "g"}
-        else if (str == "g"){return "001110"}
+        else if (codeStr == "001110"){return "g"}
+        else if (codeStr == "g"){return "001110"}
         // h = 001111
-        else if (str == "001111"){return "h"}
-        else if (str == "h"){return "001111"}
+        else if (codeStr == "001111"){return "h"}
+        else if (codeStr == "h"){return "001111"}
         // j = 010000
-        else if (str == "010000"){return "j"}
-        else if (str == "j"){return "010000"}
+        else if (codeStr == "010000"){return "j"}
+        else if (codeStr == "j"){return "010000"}
         // k = 010001
-        else if (str == "010001"){return "k"}
-        else if (str == "k"){return "010001"}
+        else if (codeStr == "010001"){return "k"}
+        else if (codeStr == "k"){return "010001"}
         // m = 010010
-        else if (str == "010010"){return "m"}
-        else if (str == "m"){return "010010"}
+        else if (codeStr == "010010"){return "m"}
+        else if (codeStr == "m"){return "010010"}
         // n = 010011
-        else if (str == "010011"){return "n"}
-        else if (str == "n"){return "010011"}
+        else if (codeStr == "010011"){return "n"}
+        else if (codeStr == "n"){return "010011"}
         // p = 010100
-        else if (str == "010100"){return "p"}
-        else if (str == "p"){return "010100"}
+        else if (codeStr == "010100"){return "p"}
+        else if (codeStr == "p"){return "010100"}
         // q = 010101
-        else if (str == "010101"){return "q"}
-        else if (str == "q"){return "010101"}
+        else if (codeStr == "010101"){return "q"}
+        else if (codeStr == "q"){return "010101"}
         // r = 010110
-        else if (str == "010110"){return "r"}
-        else if (str == "r"){return "010110"}
+        else if (codeStr == "010110"){return "r"}
+        else if (codeStr == "r"){return "010110"}
         // s = 010111
-        else if (str == "010111"){return "s"}
-        else if (str == "s"){return "010111"}
+        else if (codeStr == "010111"){return "s"}
+        else if (codeStr == "s"){return "010111"}
         // t = 011000
-        else if (str == "011000"){return "t"}
-        else if (str == "t"){return "011000"}
+        else if (codeStr == "011000"){return "t"}
+        else if (codeStr == "t"){return "011000"}
         // u = 011001
-        else if (str == "011001"){return "u"}
-        else if (str == "u"){return "011001"}
+        else if (codeStr == "011001"){return "u"}
+        else if (codeStr == "u"){return "011001"}
         // v = 011010
-        else if (str == "011010"){return "v"}
-        else if (str == "v"){return "011010"}
+        else if (codeStr == "011010"){return "v"}
+        else if (codeStr == "v"){return "011010"}
         // w = 011011
-        else if (str == "011011"){return "w"}
-        else if (str == "w"){return "011011"}
+        else if (codeStr == "011011"){return "w"}
+        else if (codeStr == "w"){return "011011"}
         // x = 011100
-        else if (str == "011100"){return "x"}
-        else if (str == "x"){return "011100"}
+        else if (codeStr == "011100"){return "x"}
+        else if (codeStr == "x"){return "011100"}
         // y = 011101
-        else if (str == "011101"){return "y"}
-        else if (str == "y"){return "011101"}
+        else if (codeStr == "011101"){return "y"}
+        else if (codeStr == "y"){return "011101"}
         // z = 011110
-        else if (str == "011110"){return "z"}
-        else if (str == "z"){return "011110"}
+        else if (codeStr == "011110"){return "z"}
+        else if (codeStr == "z"){return "011110"}
         // A = 011111
-        else if (str == "011111"){return "A"}
-        else if (str == "A"){return "011111"}
+        else if (codeStr == "011111"){return "A"}
+        else if (codeStr == "A"){return "011111"}
         // B = 100000
-        else if (str == "100000"){return "B"}
-        else if (str == "B"){return "100000"}
+        else if (codeStr == "100000"){return "B"}
+        else if (codeStr == "B"){return "100000"}
         // C = 100001
-        else if (str == "100001"){return "C"}
-        else if (str == "C"){return "100001"}
+        else if (codeStr == "100001"){return "C"}
+        else if (codeStr == "C"){return "100001"}
         // D = 100010
-        else if (str == "100010"){return "D"}
-        else if (str == "D"){return "100010"}
+        else if (codeStr == "100010"){return "D"}
+        else if (codeStr == "D"){return "100010"}
         // E = 100011
-        else if (str == "100011"){return "E"}
-        else if (str == "E"){return "100011"}
+        else if (codeStr == "100011"){return "E"}
+        else if (codeStr == "E"){return "100011"}
         // F = 100100
-        else if (str == "100100"){return "F"}
-        else if (str == "F"){return "100100"}
+        else if (codeStr == "100100"){return "F"}
+        else if (codeStr == "F"){return "100100"}
         // G = 100101
-        else if (str == "100101"){return "G"}
-        else if (str == "G"){return "100101"}
+        else if (codeStr == "100101"){return "G"}
+        else if (codeStr == "G"){return "100101"}
         // H = 100110
-        else if (str == "100110"){return "H"}
-        else if (str == "H"){return "100110"}
+        else if (codeStr == "100110"){return "H"}
+        else if (codeStr == "H"){return "100110"}
         // J = 100111
-        else if (str == "100111"){return "J"}
-        else if (str == "J"){return "100111"}
+        else if (codeStr == "100111"){return "J"}
+        else if (codeStr == "J"){return "100111"}
         // K = 101000
-        else if (str == "101000"){return "K"}
-        else if (str == "K"){return "101000"}
+        else if (codeStr == "101000"){return "K"}
+        else if (codeStr == "K"){return "101000"}
         // M = 101001
-        else if (str == "101001"){return "M"}
-        else if (str == "M"){return "101001"}
+        else if (codeStr == "101001"){return "M"}
+        else if (codeStr == "M"){return "101001"}
         // N = 101010
-        else if (str == "101010"){return "N"}
-        else if (str == "N"){return "101010"}
+        else if (codeStr == "101010"){return "N"}
+        else if (codeStr == "N"){return "101010"}
         // P = 101011
-        else if (str == "101011"){return "P"}
-        else if (str == "P"){return "101011"}
+        else if (codeStr == "101011"){return "P"}
+        else if (codeStr == "P"){return "101011"}
         // Q = 101100
-        else if (str == "101100"){return "Q"}
-        else if (str == "Q"){return "101100"}
+        else if (codeStr == "101100"){return "Q"}
+        else if (codeStr == "Q"){return "101100"}
         // R = 101101
-        else if (str == "101101"){return "R"}
-        else if (str == "R"){return "101101"}
+        else if (codeStr == "101101"){return "R"}
+        else if (codeStr == "R"){return "101101"}
         // S = 101110
-        else if (str == "101110"){return "S"}
-        else if (str == "S"){return "101110"}
+        else if (codeStr == "101110"){return "S"}
+        else if (codeStr == "S"){return "101110"}
         // T = 101111
-        else if (str == "101111"){return "T"}
-        else if (str == "T"){return "101111"}
+        else if (codeStr == "101111"){return "T"}
+        else if (codeStr == "T"){return "101111"}
         // U = 110000
-        else if (str == "110000"){return "U"}
-        else if (str == "U"){return "110000"}
+        else if (codeStr == "110000"){return "U"}
+        else if (codeStr == "U"){return "110000"}
         // V = 110001
-        else if (str == "110001"){return "V"}
-        else if (str == "V"){return "110001"}
+        else if (codeStr == "110001"){return "V"}
+        else if (codeStr == "V"){return "110001"}
         // W = 110010
-        else if (str == "110010"){return "W"}
-        else if (str == "W"){return "110010"}
+        else if (codeStr == "110010"){return "W"}
+        else if (codeStr == "W"){return "110010"}
         // X = 110011
-        else if (str == "110011"){return "X"}
-        else if (str == "X"){return "110011"}
+        else if (codeStr == "110011"){return "X"}
+        else if (codeStr == "X"){return "110011"}
         // Y = 110100
-        else if (str == "110100"){return "Y"}
-        else if (str == "Y"){return "110100"}
+        else if (codeStr == "110100"){return "Y"}
+        else if (codeStr == "Y"){return "110100"}
         // Z = 110101
-        else if (str == "110101"){return "Z"}
-        else if (str == "Z"){return "110101"}
+        else if (codeStr == "110101"){return "Z"}
+        else if (codeStr == "Z"){return "110101"}
         // @ = 110110
-        else if (str == "110110"){return "@"}
-        else if (str == "@"){return "110110"}
+        else if (codeStr == "110110"){return "@"}
+        else if (codeStr == "@"){return "110110"}
         // & = 110111
-        else if (str == "110111"){return "&"}
-        else if (str == "&"){return "110111"}
+        else if (codeStr == "110111"){return "&"}
+        else if (codeStr == "&"){return "110111"}
         // ? = 111000
-        else if (str == "111000"){return "?"}
-        else if (str == "?"){return "111000"}
+        else if (codeStr == "111000"){return "?"}
+        else if (codeStr == "?"){return "111000"}
         // ! = 111001
-        else if (str == "111001"){return "!"}
-        else if (str == "!"){return "111001"}
+        else if (codeStr == "111001"){return "!"}
+        else if (codeStr == "!"){return "111001"}
         // - = 111010
-        else if (str == "111010"){return "-"}
-        else if (str == "-"){return "111010"}
+        else if (codeStr == "111010"){return "-"}
+        else if (codeStr == "-"){return "111010"}
         // # = 111011
-        else if (str == "111011"){return "#"}
-        else if (str == "#"){return "111011"}
+        else if (codeStr == "111011"){return "#"}
+        else if (codeStr == "#"){return "111011"}
         // % = 111100
-        else if (str == "111100"){return "%"}
-        else if (str == "%"){return "111100"}
+        else if (codeStr == "111100"){return "%"}
+        else if (codeStr == "%"){return "111100"}
         // + = 111101
-        else if (str == "111101"){return "+"}
-        else if (str == "+"){return "111101"}
+        else if (codeStr == "111101"){return "+"}
+        else if (codeStr == "+"){return "111101"}
         // < = 111110
-        else if (str == "111110"){return "<"}
-        else if (str == "<"){return "111110"}
+        else if (codeStr == "111110"){return "<"}
+        else if (codeStr == "<"){return "111110"}
         // > = 111111
-        else if (str == "111111"){return ">"}
-        else if (str == ">"){return "111111"}
+        else if (codeStr == "111111"){return ">"}
+        else if (codeStr == ">"){return "111111"}
         // 64 total characters that are unambigious
         return ""
     }
@@ -549,6 +564,7 @@ class Teacher: UIViewController {
 
 //------------------------------ String Extension ------------------------------//
 
+// This string extensions allows for indexAt
 extension String {
     
     func index(at position: Int, from start: Index? = nil) -> Index? {

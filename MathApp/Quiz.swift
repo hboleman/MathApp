@@ -11,9 +11,7 @@ import UIKit
 // This class controls the quiz view controler
 class Quiz: UIViewController {
     
-    //************************************************************************
-    //**************************CLASS_SETUP_START*****************************
-    //************************************************************************
+    //-------------------- CLASS SETUP START --------------------//
     
     // Make UserDefautls Accessable
     let defaults = UserDefaults.standard
@@ -127,9 +125,7 @@ class Quiz: UIViewController {
         print("VC:ViewDidDis");
     }
     
-    //************************************************************************
-    //**************************CLASS_SETUP_COMPLETE**************************
-    //************************************************************************
+    //-------------------- CLASS SETUP END --------------------//
     
     // LABLES CONNECTIONS
     @IBOutlet weak var lbl_top: UILabel!
