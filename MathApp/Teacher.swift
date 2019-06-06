@@ -155,19 +155,47 @@ class Teacher: UIViewController {
     var instructorCode: Int = 1234;
     var checkFailed = false;
     var codeInBin: String = ""
+    var codeInHR: String = ""
+    var disCodeInBin: String = ""
+    var disCodeInHR: String = ""
+    let testHR = "2ja22ptXE<hh2"
+    let testBin = "0000000100000010000000000000000101000110001100111000111111100011110011110"
     
     // Test Button
     @IBAction func btn_test(_ sender: Any) {
         checkFailed = false
         // Looks to make sure input is valid, if so assemble binary code
         if (checkFailed == false){
-            assembleCode()
-            assembleHumanReadableCode()
+            //assembleBinaryCode()
+            //assembleHumanReadableCode()
+            disassembleHumanReadableCode(hrCode: testHR)
         }
         
     }
     
-    func assembleCode(){
+    func disassembleHumanReadableCode(hrCode: String){
+        var fullBinString = ""
+        
+        for index in 0..<hrCode.count{
+            let hrChar = String(hrCode.character(at: index)!)
+            let codeStr = codeConversionCharToBin(str: hrChar)
+            fullBinString.append(contentsOf: codeStr)
+        }
+        
+        // Remove extra 5 zeros at end
+        for _ in 0..<5 {
+            fullBinString.removeLast()
+        }
+        
+        print("Reassembled Binary Code:")
+        print(fullBinString)
+        print("Orig Binary Code:")
+        print(testBin)
+        
+        
+    }
+    
+    func assembleBinaryCode(){
         codeInBin = ""
          //Function Info
          //binSortNum: used for finding differnt permetations of the most efficent option when comparing differnt generations.
@@ -225,7 +253,7 @@ class Teacher: UIViewController {
                     strOfSix.append(codeToCrunch.character(at: index)!)
                 }
                 print(codeToCrunch)
-                for index in 0..<6 {
+                for _ in 0..<6 {
                     codeToCrunch.removeFirst()
                 }
                 print(codeToCrunch)
@@ -237,14 +265,14 @@ class Teacher: UIViewController {
                     strOfSix.append(codeToCrunch.character(at: index)!)
                 }
                 print(codeToCrunch)
-                for index in 0..<codeToCrunch.count {
+                for _ in 0..<codeToCrunch.count {
                     codeToCrunch.removeFirst()
                 }
                 print(codeToCrunch)
                 print("ofX: \(strOfSix)")
             }
             
-            let codeCharacter = codeConversion(str: strOfSix)
+            let codeCharacter = codeConversionBinToChar(str: strOfSix)
             formingFullString.append(contentsOf: codeCharacter)
             print("HR: \(codeCharacter)")
         }
@@ -326,7 +354,7 @@ class Teacher: UIViewController {
     }
     
     // Converts binary into Human Readable Characters and vise versa
-    func codeConversion(str: String) -> String {
+    func codeConversionBinToChar(str: String) -> String {
         
         var codeStr = str
         
@@ -338,195 +366,269 @@ class Teacher: UIViewController {
         // Binary String Values
         // 2 = 000000
         if (codeStr == "000000"){return "2"}
-        else if (codeStr == "2"){return "000000"}
         // 3 = 000001
         else if (codeStr == "000001"){return "3"}
-        else if (codeStr == "3"){return "000001"}
         // 4 = 000010
         else if (codeStr == "000010"){return "4"}
-        else if (codeStr == "4"){return "000010"}
         // 5 = 000011
         else if (codeStr == "000011"){return "5"}
-        else if (codeStr == "5"){return "000011"}
         // 6 = 000100
         else if (codeStr == "000100"){return "6"}
-        else if (codeStr == "6"){return "000100"}
         // 7 = 000101
         else if (codeStr == "000101"){return "7"}
-        else if (codeStr == "7"){return "000101"}
         // 8 = 000110
         else if (codeStr == "000110"){return "8"}
-        else if (codeStr == "8"){return "000110"}
         // 9 = 000111
         else if (codeStr == "000111"){return "9"}
-        else if (codeStr == "9"){return "000111"}
         // a = 001000
         else if (codeStr == "001000"){return "a"}
-        else if (codeStr == "a"){return "001000"}
         // b = 001001
         else if (codeStr == "001001"){return "b"}
-        else if (codeStr == "b"){return "001001"}
         // c = 001010
         else if (codeStr == "001010"){return "c"}
-        else if (codeStr == "c"){return "001010"}
         // d = 001011
         else if (codeStr == "001011"){return "d"}
-        else if (codeStr == "d"){return "001011"}
         // e = 001100
         else if (codeStr == "001100"){return "e"}
-        else if (codeStr == "e"){return "001100"}
         // f = 001101
         else if (codeStr == "001101"){return "f"}
-        else if (codeStr == "f"){return "001101"}
         // g = 001110
         else if (codeStr == "001110"){return "g"}
-        else if (codeStr == "g"){return "001110"}
         // h = 001111
         else if (codeStr == "001111"){return "h"}
-        else if (codeStr == "h"){return "001111"}
         // j = 010000
         else if (codeStr == "010000"){return "j"}
-        else if (codeStr == "j"){return "010000"}
         // k = 010001
         else if (codeStr == "010001"){return "k"}
-        else if (codeStr == "k"){return "010001"}
         // m = 010010
         else if (codeStr == "010010"){return "m"}
-        else if (codeStr == "m"){return "010010"}
         // n = 010011
         else if (codeStr == "010011"){return "n"}
-        else if (codeStr == "n"){return "010011"}
         // p = 010100
         else if (codeStr == "010100"){return "p"}
-        else if (codeStr == "p"){return "010100"}
         // q = 010101
         else if (codeStr == "010101"){return "q"}
-        else if (codeStr == "q"){return "010101"}
         // r = 010110
         else if (codeStr == "010110"){return "r"}
-        else if (codeStr == "r"){return "010110"}
         // s = 010111
         else if (codeStr == "010111"){return "s"}
-        else if (codeStr == "s"){return "010111"}
         // t = 011000
         else if (codeStr == "011000"){return "t"}
-        else if (codeStr == "t"){return "011000"}
         // u = 011001
         else if (codeStr == "011001"){return "u"}
-        else if (codeStr == "u"){return "011001"}
         // v = 011010
         else if (codeStr == "011010"){return "v"}
-        else if (codeStr == "v"){return "011010"}
         // w = 011011
         else if (codeStr == "011011"){return "w"}
-        else if (codeStr == "w"){return "011011"}
         // x = 011100
         else if (codeStr == "011100"){return "x"}
-        else if (codeStr == "x"){return "011100"}
         // y = 011101
         else if (codeStr == "011101"){return "y"}
-        else if (codeStr == "y"){return "011101"}
         // z = 011110
         else if (codeStr == "011110"){return "z"}
-        else if (codeStr == "z"){return "011110"}
         // A = 011111
         else if (codeStr == "011111"){return "A"}
-        else if (codeStr == "A"){return "011111"}
         // B = 100000
         else if (codeStr == "100000"){return "B"}
-        else if (codeStr == "B"){return "100000"}
         // C = 100001
         else if (codeStr == "100001"){return "C"}
-        else if (codeStr == "C"){return "100001"}
         // D = 100010
         else if (codeStr == "100010"){return "D"}
-        else if (codeStr == "D"){return "100010"}
         // E = 100011
         else if (codeStr == "100011"){return "E"}
-        else if (codeStr == "E"){return "100011"}
         // F = 100100
         else if (codeStr == "100100"){return "F"}
-        else if (codeStr == "F"){return "100100"}
         // G = 100101
         else if (codeStr == "100101"){return "G"}
-        else if (codeStr == "G"){return "100101"}
         // H = 100110
         else if (codeStr == "100110"){return "H"}
-        else if (codeStr == "H"){return "100110"}
         // J = 100111
         else if (codeStr == "100111"){return "J"}
-        else if (codeStr == "J"){return "100111"}
         // K = 101000
         else if (codeStr == "101000"){return "K"}
-        else if (codeStr == "K"){return "101000"}
         // M = 101001
         else if (codeStr == "101001"){return "M"}
-        else if (codeStr == "M"){return "101001"}
         // N = 101010
         else if (codeStr == "101010"){return "N"}
-        else if (codeStr == "N"){return "101010"}
         // P = 101011
         else if (codeStr == "101011"){return "P"}
-        else if (codeStr == "P"){return "101011"}
         // Q = 101100
         else if (codeStr == "101100"){return "Q"}
-        else if (codeStr == "Q"){return "101100"}
         // R = 101101
         else if (codeStr == "101101"){return "R"}
-        else if (codeStr == "R"){return "101101"}
         // S = 101110
         else if (codeStr == "101110"){return "S"}
-        else if (codeStr == "S"){return "101110"}
         // T = 101111
         else if (codeStr == "101111"){return "T"}
-        else if (codeStr == "T"){return "101111"}
         // U = 110000
         else if (codeStr == "110000"){return "U"}
-        else if (codeStr == "U"){return "110000"}
         // V = 110001
         else if (codeStr == "110001"){return "V"}
-        else if (codeStr == "V"){return "110001"}
         // W = 110010
         else if (codeStr == "110010"){return "W"}
-        else if (codeStr == "W"){return "110010"}
         // X = 110011
         else if (codeStr == "110011"){return "X"}
-        else if (codeStr == "X"){return "110011"}
         // Y = 110100
         else if (codeStr == "110100"){return "Y"}
-        else if (codeStr == "Y"){return "110100"}
         // Z = 110101
         else if (codeStr == "110101"){return "Z"}
-        else if (codeStr == "Z"){return "110101"}
         // @ = 110110
         else if (codeStr == "110110"){return "@"}
-        else if (codeStr == "@"){return "110110"}
         // & = 110111
         else if (codeStr == "110111"){return "&"}
-        else if (codeStr == "&"){return "110111"}
         // ? = 111000
         else if (codeStr == "111000"){return "?"}
-        else if (codeStr == "?"){return "111000"}
         // ! = 111001
         else if (codeStr == "111001"){return "!"}
-        else if (codeStr == "!"){return "111001"}
         // - = 111010
         else if (codeStr == "111010"){return "-"}
-        else if (codeStr == "-"){return "111010"}
         // # = 111011
         else if (codeStr == "111011"){return "#"}
-        else if (codeStr == "#"){return "111011"}
         // % = 111100
         else if (codeStr == "111100"){return "%"}
-        else if (codeStr == "%"){return "111100"}
         // + = 111101
         else if (codeStr == "111101"){return "+"}
-        else if (codeStr == "+"){return "111101"}
         // < = 111110
         else if (codeStr == "111110"){return "<"}
-        else if (codeStr == "<"){return "111110"}
         // > = 111111
         else if (codeStr == "111111"){return ">"}
+        // 64 total characters that are unambigious
+        return ""
+    }
+    
+    // Converts binary into Human Readable Characters and vise versa
+    func codeConversionCharToBin(str: String) -> String {
+        
+        var codeStr = str
+        
+        // Binary String Values
+        // 2 = 000000
+        if (codeStr == "2"){return "000000"}
+            // 3 = 000001
+        else if (codeStr == "3"){return "000001"}
+            // 4 = 000010
+        else if (codeStr == "4"){return "000010"}
+            // 5 = 000011
+        else if (codeStr == "5"){return "000011"}
+            // 6 = 000100
+        else if (codeStr == "6"){return "000100"}
+            // 7 = 000101
+        else if (codeStr == "7"){return "000101"}
+            // 8 = 000110
+        else if (codeStr == "8"){return "000110"}
+            // 9 = 000111
+        else if (codeStr == "9"){return "000111"}
+            // a = 001000
+        else if (codeStr == "a"){return "001000"}
+            // b = 001001
+        else if (codeStr == "b"){return "001001"}
+            // c = 001010
+        else if (codeStr == "c"){return "001010"}
+            // d = 001011
+        else if (codeStr == "d"){return "001011"}
+            // e = 001100
+        else if (codeStr == "e"){return "001100"}
+            // f = 001101
+        else if (codeStr == "f"){return "001101"}
+            // g = 001110
+        else if (codeStr == "g"){return "001110"}
+            // h = 001111
+        else if (codeStr == "h"){return "001111"}
+            // j = 010000
+        else if (codeStr == "j"){return "010000"}
+            // k = 010001
+        else if (codeStr == "k"){return "010001"}
+            // m = 010010
+        else if (codeStr == "m"){return "010010"}
+            // n = 010011
+        else if (codeStr == "n"){return "010011"}
+            // p = 010100
+        else if (codeStr == "p"){return "010100"}
+            // q = 010101
+        else if (codeStr == "q"){return "010101"}
+            // r = 010110
+        else if (codeStr == "r"){return "010110"}
+            // s = 010111
+        else if (codeStr == "s"){return "010111"}
+            // t = 011000
+        else if (codeStr == "t"){return "011000"}
+            // u = 011001
+        else if (codeStr == "u"){return "011001"}
+            // v = 011010
+        else if (codeStr == "v"){return "011010"}
+            // w = 011011
+        else if (codeStr == "w"){return "011011"}
+            // x = 011100
+        else if (codeStr == "x"){return "011100"}
+            // y = 011101
+        else if (codeStr == "y"){return "011101"}
+            // z = 011110
+        else if (codeStr == "z"){return "011110"}
+            // A = 011111
+        else if (codeStr == "A"){return "011111"}
+            // B = 100000
+        else if (codeStr == "B"){return "100000"}
+            // C = 100001
+        else if (codeStr == "C"){return "100001"}
+            // D = 100010
+        else if (codeStr == "D"){return "100010"}
+            // E = 100011
+        else if (codeStr == "E"){return "100011"}
+            // F = 100100
+        else if (codeStr == "F"){return "100100"}
+            // G = 100101
+        else if (codeStr == "G"){return "100101"}
+            // H = 100110
+        else if (codeStr == "H"){return "100110"}
+            // J = 100111
+        else if (codeStr == "J"){return "100111"}
+            // K = 101000
+        else if (codeStr == "K"){return "101000"}
+            // M = 101001
+        else if (codeStr == "M"){return "101001"}
+            // N = 101010
+        else if (codeStr == "N"){return "101010"}
+            // P = 101011
+        else if (codeStr == "P"){return "101011"}
+            // Q = 101100
+        else if (codeStr == "Q"){return "101100"}
+            // R = 101101
+        else if (codeStr == "R"){return "101101"}
+            // S = 101110
+        else if (codeStr == "S"){return "101110"}
+            // T = 101111
+        else if (codeStr == "T"){return "101111"}
+            // U = 110000
+        else if (codeStr == "U"){return "110000"}
+            // V = 110001
+        else if (codeStr == "V"){return "110001"}
+            // W = 110010
+        else if (codeStr == "W"){return "110010"}
+            // X = 110011
+        else if (codeStr == "X"){return "110011"}
+            // Y = 110100
+        else if (codeStr == "Y"){return "110100"}
+            // Z = 110101
+        else if (codeStr == "Z"){return "110101"}
+            // @ = 110110
+        else if (codeStr == "@"){return "110110"}
+            // & = 110111
+        else if (codeStr == "&"){return "110111"}
+            // ? = 111000
+        else if (codeStr == "?"){return "111000"}
+            // ! = 111001
+        else if (codeStr == "!"){return "111001"}
+            // - = 111010
+        else if (codeStr == "-"){return "111010"}
+            // # = 111011
+        else if (codeStr == "#"){return "111011"}
+            // % = 111100
+        else if (codeStr == "%"){return "111100"}
+            // + = 111101
+        else if (codeStr == "+"){return "111101"}
+            // < = 111110
+        else if (codeStr == "<"){return "111110"}
+            // > = 111111
         else if (codeStr == ">"){return "111111"}
         // 64 total characters that are unambigious
         return ""
