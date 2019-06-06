@@ -131,7 +131,22 @@ class Teacher: UIViewController {
     //mode_difficulty     1=easy 2=medium 3=hard
     
     // Outlet Test
-    @IBOutlet weak var out_test: UILabel!
+    @IBOutlet weak var addQuestionNum: UITextField!
+    @IBOutlet weak var subQuestionNum: UITextField!
+    @IBOutlet weak var divQuestionNum: UITextField!
+    @IBOutlet weak var mulQuestionNum: UITextField!
+    
+    @IBOutlet weak var segAdd: UISegmentedControl!
+    @IBOutlet weak var segSub: UISegmentedControl!
+    @IBOutlet weak var segMul: UISegmentedControl!
+    @IBOutlet weak var segDiv: UISegmentedControl!
+    
+    @IBOutlet weak var datePickerOutlet: UIDatePicker!
+    @IBOutlet weak var shuffleToggle: UISwitch!
+    @IBOutlet weak var teacherCode: UITextField!
+    @IBOutlet weak var codeLable: UILabel!
+    
+    
     
     // Variables for generating code
     var numOfQuestions_add: Int = 1;
@@ -151,7 +166,7 @@ class Teacher: UIViewController {
     var min: String = "60"
     
     var shuffle: Bool = false;
-    var dueDate: String = "1903021610";
+    //var dueDate: String = "1903021610";
     var instructorCode: Int = 1234;
     var parityBit: Bool = false
     
@@ -168,12 +183,52 @@ class Teacher: UIViewController {
     // Test Button
     @IBAction func btn_test(_ sender: Any) {
         checkFailed = false
+        
+        // Set Values
+        numOfQuestions_add = Int(addQuestionNum.text!)!
+        numOfQuestions_sub = Int(subQuestionNum.text!)!
+        numOfQuestions_mul = Int(mulQuestionNum.text!)!
+        numOfQuestions_div = Int(divQuestionNum.text!)!
+        
+        let arrInt: [Int] = [1, 2, 3]
+        difficulty_add = arrInt[segAdd.selectedSegmentIndex]
+        difficulty_sub = arrInt[segSub.selectedSegmentIndex]
+        difficulty_mul = arrInt[segMul.selectedSegmentIndex]
+        difficulty_div = arrInt[segDiv.selectedSegmentIndex]
+        
+        // date
+        let date = datePickerOutlet.date
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let formattedDate = format.string(from: date)
+        
+        let calendar = Calendar.current
+        var tempYear = calendar.component(.year, from: date)
+        var tempMonth = calendar.component(.month, from: date)
+        var tempDay = calendar.component(.day, from: date)
+        var tempHour = calendar.component(.hour, from: date)
+        var tempMin = calendar.component(.minute, from: date)
+        
+        year = String(tempYear)
+        month = String(tempYear)
+        day = String(tempYear)
+        hour = String(tempYear)
+        min = String(tempYear)
+        
+        shuffle = shuffleToggle.isOn
+        
+        instructorCode = Int(teacherCode.text!)!
+        
+        parityBit = true
+        
+        
         // Looks to make sure input is valid, if so assemble binary code
         if (checkFailed == false){
             assembleBinaryCode()
             assembleHumanReadableCode(binCode: assembledBinCode)
-            disassembleHumanReadableCode(hrCode: testHR)
-            disassembleBinaryCode(binCode: testBin)
+            codeLable.text = assembledHrCode
+            //disassembleHumanReadableCode(hrCode: testHR)
+            //disassembleBinaryCode(binCode: testBin)
         }
     }
     
