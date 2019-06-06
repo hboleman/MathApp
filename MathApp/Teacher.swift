@@ -211,7 +211,7 @@ class Teacher: UIViewController {
         
         //print("Binary : \(padString(num: Int(numOfQuestions_add), length: 8, padding: "0"))")
         
-        
+        // Should have 73 characters
         
         var addNum: String = padStringInt(num: numOfQuestions_add, length: 8, padding: "0")
         var subNum: String = padStringInt(num: numOfQuestions_sub, length: 8, padding: "0")
@@ -232,19 +232,19 @@ class Teacher: UIViewController {
         var parity: String = "0"
         
         var wholeString: String = ""
-        //wholeString.append(contentsOf: "NUM")
+        //wholeString.append(contentsOf: " NUM ") // should be 32
         wholeString.append(contentsOf: addNum)
         wholeString.append(contentsOf: subNum)
         wholeString.append(contentsOf: mulNum)
         wholeString.append(contentsOf: divNum)
-        //wholeString.append(contentsOf: "DIFF")
+        //wholeString.append(contentsOf: " DIFF ") // should be 8
         wholeString.append(contentsOf: addDiff)
         wholeString.append(contentsOf: subDiff)
         wholeString.append(contentsOf: mulDiff)
         wholeString.append(contentsOf: divDiff)
-        //wholeString.append(contentsOf: "DATE")
+        //wholeString.append(contentsOf: " DATE ")
         wholeString.append(contentsOf: date)
-        //wholeString.append(contentsOf: "ETC")
+        //wholeString.append(contentsOf: " ETC ")
         wholeString.append(contentsOf: sh)
         wholeString.append(contentsOf: sort)
         wholeString.append(contentsOf: parity)
@@ -272,19 +272,24 @@ class Teacher: UIViewController {
         var temp: String = ""
         
         // Year
-        var tempYr = padStringInt(num: Int(yr)!, length: 7, padding: "0")
+        let iYr = Int(yr)!
+        var tempYr = padStringInt(num: iYr, length: 7, padding: "0")
         temp.append(contentsOf: tempYr)
         // Month
-        var tempMo = padStringInt(num: Int(mo)!, length: 4, padding: "0")
+        let iMo = Int(mo)!
+        var tempMo = padStringInt(num: iMo, length: 4, padding: "0")
         temp.append(contentsOf: tempMo)
         // Day
-        var tempD = padStringInt(num: Int(d)!, length: 6, padding: "0")
+        let iD = Int(d)!
+        var tempD = padStringInt(num: iD, length: 6, padding: "0")
         temp.append(contentsOf: tempD)
         // Hour
-        var tempH = padStringInt(num: Int(h)!, length: 5, padding: "0")
+        let iH = Int(h)!
+        var tempH = padStringInt(num: iH, length: 5, padding: "0")
         temp.append(contentsOf: tempH)
         // Minute
-        var tempM = padStringInt(num: Int(m)!, length: 6, padding: "0")
+        let iM = Int(m)!
+        var tempM = padStringInt(num: iM, length: 6, padding: "0")
         temp.append(contentsOf: tempM)
         
         return temp
@@ -300,12 +305,17 @@ class Teacher: UIViewController {
             }
             temp.append(contentsOf: str)
         }
+        else {
+            // If no need to pad, just send variable
+            temp.append(contentsOf: str)
+        }
         return temp
     }
     
     // Used for taking an int and turning it into padded binary string
     func padStringInt(num: Int, length: Int, padding: String) -> String{
-        let str: String = padStringStr(str: intToBin(number: num), length: length, padding: padding)
+        let tempStr = intToBin(number: num)
+        let str: String = padStringStr(str: tempStr, length: length, padding: padding)
         return str
     }
     
