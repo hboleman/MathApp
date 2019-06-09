@@ -150,14 +150,14 @@ class Teacher: UIViewController {
     
     // Variables for generating code
     var numOfQuestions_add: Int = 1;
-    var numOfQuestions_sub: Int = 2;
+    var numOfQuestions_sub: Int = 1;
     var numOfQuestions_mul: Int = 1;
     var numOfQuestions_div: Int = 1;
     
     var difficulty_add: Int = 1;
     var difficulty_sub: Int = 1;
     var difficulty_mul: Int = 1;
-    var difficulty_div: Int = 2;
+    var difficulty_div: Int = 1;
     
     var year: String = "25"
     var month: String = "12"
@@ -177,58 +177,95 @@ class Teacher: UIViewController {
     var disCodeInBin: String = ""
     var disCodeInHR: String = ""
     let leadingBuffer = 4
-    let testHR = "2ja32qtXE<hhc"
+    //let testHR = "2ja32qtXE<hhc"
+    let testHR = "2ja42qpJwnZTc"
     let testBin = "11111111000000001111111100000000110011001111111111111111111111111111011110"
     
     // Test Button
     @IBAction func btn_test(_ sender: Any) {
         checkFailed = false
+        // --- CHECKS FOR INVALID INPUT ---
+        //checks that number of questions has a valud number
+        if((addQuestionNum.text?.isEmpty ?? nil)!){ checkFailed = true }
+        if((subQuestionNum.text?.isEmpty ?? nil)!){ checkFailed = true }
+        if((mulQuestionNum.text?.isEmpty ?? nil)!){ checkFailed = true }
+        if((divQuestionNum.text?.isEmpty ?? nil)!){ checkFailed = true }
         
-        // Set Values
-        numOfQuestions_add = Int(addQuestionNum.text!)!
-        numOfQuestions_sub = Int(subQuestionNum.text!)!
-        numOfQuestions_mul = Int(mulQuestionNum.text!)!
-        numOfQuestions_div = Int(divQuestionNum.text!)!
+        // checks if number of questions are within bounds
+        if(checkFailed == false && Int(addQuestionNum.text!)! >= 0 && Int(addQuestionNum.text!)! > 170){ checkFailed = true }
+        if(checkFailed == false && Int(subQuestionNum.text!)! >= 0 && Int(addQuestionNum.text!)! > 170){ checkFailed = true }
+        if(checkFailed == false && Int(mulQuestionNum.text!)! >= 0 && Int(addQuestionNum.text!)! > 170){ checkFailed = true }
+        if(checkFailed == false && Int(divQuestionNum.text!)! >= 0 && Int(addQuestionNum.text!)! > 170){ checkFailed = true }
         
-        let arrInt: [Int] = [1, 2, 3]
-        difficulty_add = arrInt[segAdd.selectedSegmentIndex]
-        difficulty_sub = arrInt[segSub.selectedSegmentIndex]
-        difficulty_mul = arrInt[segMul.selectedSegmentIndex]
-        difficulty_div = arrInt[segDiv.selectedSegmentIndex]
-        
-        // date
-        let date = datePickerOutlet.date
-        let format = DateFormatter()
-        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let formattedDate = format.string(from: date)
-        
-        let calendar = Calendar.current
-        var tempYear = calendar.component(.year, from: date)
-        var tempMonth = calendar.component(.month, from: date)
-        var tempDay = calendar.component(.day, from: date)
-        var tempHour = calendar.component(.hour, from: date)
-        var tempMin = calendar.component(.minute, from: date)
-        
-        year = String(tempYear)
-        month = String(tempYear)
-        day = String(tempYear)
-        hour = String(tempYear)
-        min = String(tempYear)
-        
-        shuffle = shuffleToggle.isOn
-        
-        instructorCode = Int(teacherCode.text!)!
-        
-        parityBit = true
-        
-        
-        // Looks to make sure input is valid, if so assemble binary code
+        // checks that there is at least one question
         if (checkFailed == false){
-            assembleBinaryCode()
-            assembleHumanReadableCode(binCode: assembledBinCode)
-            codeLable.text = assembledHrCode
-            //disassembleHumanReadableCode(hrCode: testHR)
-            //disassembleBinaryCode(binCode: testBin)
+            var total = 0
+            total = Int(addQuestionNum.text!)!
+            total = total + Int(subQuestionNum.text!)!
+            total = total + Int(mulQuestionNum.text!)!
+            total = total + Int(divQuestionNum.text!)!
+            if (total < 1){checkFailed = true}
+        }
+        
+        if((teacherCode.text?.isEmpty ?? nil)!){ checkFailed = true}
+        if(teacherCode.text!.count > 4 || teacherCode.text!.count < 4){ checkFailed = true }
+        if(Int(teacherCode.text!)! < 1111 || Int(teacherCode.text!)! > 9999){ checkFailed = true }
+        
+        
+        // --- RUNS IF INPUT IS VALID ---
+        if (checkFailed == false){
+            codeLable.textColor = UIColor(red:0.56, green:0.81, blue:0.48, alpha:1.0);
+            
+            // Set Values
+            numOfQuestions_add = Int(addQuestionNum.text!)!
+            numOfQuestions_sub = Int(subQuestionNum.text!)!
+            numOfQuestions_mul = Int(mulQuestionNum.text!)!
+            numOfQuestions_div = Int(divQuestionNum.text!)!
+            
+            let arrInt: [Int] = [1, 2, 3]
+            difficulty_add = arrInt[segAdd.selectedSegmentIndex]
+            difficulty_sub = arrInt[segSub.selectedSegmentIndex]
+            difficulty_mul = arrInt[segMul.selectedSegmentIndex]
+            difficulty_div = arrInt[segDiv.selectedSegmentIndex]
+            
+            // FORMATTING DATE
+            let date = datePickerOutlet.date
+            let format = DateFormatter()
+            format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let formattedDate = format.string(from: date)
+            
+            let calendar = Calendar.current
+            var tempYear = calendar.component(.year, from: date)
+            var tempMonth = calendar.component(.month, from: date)
+            var tempDay = calendar.component(.day, from: date)
+            var tempHour = calendar.component(.hour, from: date)
+            var tempMin = calendar.component(.minute, from: date)
+            
+            year = String(tempYear)
+            month = String(tempMonth)
+            day = String(tempDay)
+            hour = String(tempHour)
+            min = String(tempMin)
+            
+            // Makes the year just 2 digits
+            if (Int(year)! > 2000){ year = String(Int(year)! - 2000)}
+            
+            shuffle = shuffleToggle.isOn
+            instructorCode = Int(teacherCode.text!)!
+            parityBit = true
+            
+            // Looks to make sure input is valid, if so assemble binary code
+            if (checkFailed == false){
+                assembleBinaryCode()
+                assembleHumanReadableCode(binCode: assembledBinCode)
+                codeLable.text = assembledHrCode
+                disassembleHumanReadableCode(hrCode: testHR)
+                disassembleBinaryCode(binCode: testBin)
+            }
+        }
+        else{
+            codeLable.text = "Invalid Option!"
+            codeLable.textColor = UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0)
         }
     }
     
@@ -374,7 +411,7 @@ class Teacher: UIViewController {
         
         // Remove extra zeros at end
         for _ in 0..<leadingBuffer {
-            //fullBinString.removeLast()
+            fullBinString.removeLast()
         }
         
         print("Reassembled Binary Code:")
@@ -387,10 +424,10 @@ class Teacher: UIViewController {
     
     func assembleBinaryCode(){
         assembledBinCode = ""
-         //Function Info
-         //binSortNum: used for finding differnt permetations of the most efficent option when comparing differnt generations.
-         //questionsType: number for + - * %
- 
+        //Function Info
+        //binSortNum: used for finding differnt permetations of the most efficent option when comparing differnt generations.
+        //questionsType: number for + - * %
+        
         // addNum:11111111 subNum:11111111 mulNum:11111111 divNum:11111111 addDiff:11 subDiff: 11 mulDiff:11 divDiff:11
         // date:Year-to-63:1111111 Month:1111 Day-to-31:111111 Hr-to-24:11000 Min-to-60:111100 shuffle:0 teacherCode:0000 parity:0
         
@@ -498,21 +535,21 @@ class Teacher: UIViewController {
         var temp: String = ""
         
         print("set date count: \(dateStr.count)")
-//        // Year
-//        let tempYr = padStringInt(num: Int(yr)!, length: 7, padding: "0")
-//        temp.append(contentsOf: tempYr)
-//        // Month
-//        let tempMo = padStringInt(num: Int(mo)!, length: 4, padding: "0")
-//        temp.append(contentsOf: tempMo)
-//        // Day
-//        let tempD = padStringInt(num: Int(d)!, length: 6, padding: "0")
-//        temp.append(contentsOf: tempD)
-//        // Hour
-//        let tempH = padStringInt(num: Int(h)!, length: 5, padding: "0")
-//        temp.append(contentsOf: tempH)
-//        // Minute
-//        let tempM = padStringInt(num: Int(m)!, length: 6, padding: "0")
-//        temp.append(contentsOf: tempM)
+        //        // Year
+        //        let tempYr = padStringInt(num: Int(yr)!, length: 7, padding: "0")
+        //        temp.append(contentsOf: tempYr)
+        //        // Month
+        //        let tempMo = padStringInt(num: Int(mo)!, length: 4, padding: "0")
+        //        temp.append(contentsOf: tempMo)
+        //        // Day
+        //        let tempD = padStringInt(num: Int(d)!, length: 6, padding: "0")
+        //        temp.append(contentsOf: tempD)
+        //        // Hour
+        //        let tempH = padStringInt(num: Int(h)!, length: 5, padding: "0")
+        //        temp.append(contentsOf: tempH)
+        //        // Minute
+        //        let tempM = padStringInt(num: Int(m)!, length: 6, padding: "0")
+        //        temp.append(contentsOf: tempM)
         
     }
     
@@ -578,131 +615,131 @@ class Teacher: UIViewController {
         // Binary String Values
         // 2 = 000000
         if (codeStr == "000000"){return "2"}
-        // 3 = 000001
+            // 3 = 000001
         else if (codeStr == "000001"){return "3"}
-        // 4 = 000010
+            // 4 = 000010
         else if (codeStr == "000010"){return "4"}
-        // 5 = 000011
+            // 5 = 000011
         else if (codeStr == "000011"){return "5"}
-        // 6 = 000100
+            // 6 = 000100
         else if (codeStr == "000100"){return "6"}
-        // 7 = 000101
+            // 7 = 000101
         else if (codeStr == "000101"){return "7"}
-        // 8 = 000110
+            // 8 = 000110
         else if (codeStr == "000110"){return "8"}
-        // 9 = 000111
+            // 9 = 000111
         else if (codeStr == "000111"){return "9"}
-        // a = 001000
+            // a = 001000
         else if (codeStr == "001000"){return "a"}
-        // b = 001001
+            // b = 001001
         else if (codeStr == "001001"){return "b"}
-        // c = 001010
+            // c = 001010
         else if (codeStr == "001010"){return "c"}
-        // d = 001011
+            // d = 001011
         else if (codeStr == "001011"){return "d"}
-        // e = 001100
+            // e = 001100
         else if (codeStr == "001100"){return "e"}
-        // f = 001101
+            // f = 001101
         else if (codeStr == "001101"){return "f"}
-        // g = 001110
+            // g = 001110
         else if (codeStr == "001110"){return "g"}
-        // h = 001111
+            // h = 001111
         else if (codeStr == "001111"){return "h"}
-        // j = 010000
+            // j = 010000
         else if (codeStr == "010000"){return "j"}
-        // k = 010001
+            // k = 010001
         else if (codeStr == "010001"){return "k"}
-        // m = 010010
+            // m = 010010
         else if (codeStr == "010010"){return "m"}
-        // n = 010011
+            // n = 010011
         else if (codeStr == "010011"){return "n"}
-        // p = 010100
+            // p = 010100
         else if (codeStr == "010100"){return "p"}
-        // q = 010101
+            // q = 010101
         else if (codeStr == "010101"){return "q"}
-        // r = 010110
+            // r = 010110
         else if (codeStr == "010110"){return "r"}
-        // s = 010111
+            // s = 010111
         else if (codeStr == "010111"){return "s"}
-        // t = 011000
+            // t = 011000
         else if (codeStr == "011000"){return "t"}
-        // u = 011001
+            // u = 011001
         else if (codeStr == "011001"){return "u"}
-        // v = 011010
+            // v = 011010
         else if (codeStr == "011010"){return "v"}
-        // w = 011011
+            // w = 011011
         else if (codeStr == "011011"){return "w"}
-        // x = 011100
+            // x = 011100
         else if (codeStr == "011100"){return "x"}
-        // y = 011101
+            // y = 011101
         else if (codeStr == "011101"){return "y"}
-        // z = 011110
+            // z = 011110
         else if (codeStr == "011110"){return "z"}
-        // A = 011111
+            // A = 011111
         else if (codeStr == "011111"){return "A"}
-        // B = 100000
+            // B = 100000
         else if (codeStr == "100000"){return "B"}
-        // C = 100001
+            // C = 100001
         else if (codeStr == "100001"){return "C"}
-        // D = 100010
+            // D = 100010
         else if (codeStr == "100010"){return "D"}
-        // E = 100011
+            // E = 100011
         else if (codeStr == "100011"){return "E"}
-        // F = 100100
+            // F = 100100
         else if (codeStr == "100100"){return "F"}
-        // G = 100101
+            // G = 100101
         else if (codeStr == "100101"){return "G"}
-        // H = 100110
+            // H = 100110
         else if (codeStr == "100110"){return "H"}
-        // J = 100111
+            // J = 100111
         else if (codeStr == "100111"){return "J"}
-        // K = 101000
+            // K = 101000
         else if (codeStr == "101000"){return "K"}
-        // M = 101001
+            // M = 101001
         else if (codeStr == "101001"){return "M"}
-        // N = 101010
+            // N = 101010
         else if (codeStr == "101010"){return "N"}
-        // P = 101011
+            // P = 101011
         else if (codeStr == "101011"){return "P"}
-        // Q = 101100
+            // Q = 101100
         else if (codeStr == "101100"){return "Q"}
-        // R = 101101
+            // R = 101101
         else if (codeStr == "101101"){return "R"}
-        // S = 101110
+            // S = 101110
         else if (codeStr == "101110"){return "S"}
-        // T = 101111
+            // T = 101111
         else if (codeStr == "101111"){return "T"}
-        // U = 110000
+            // U = 110000
         else if (codeStr == "110000"){return "U"}
-        // V = 110001
+            // V = 110001
         else if (codeStr == "110001"){return "V"}
-        // W = 110010
+            // W = 110010
         else if (codeStr == "110010"){return "W"}
-        // X = 110011
+            // X = 110011
         else if (codeStr == "110011"){return "X"}
-        // Y = 110100
+            // Y = 110100
         else if (codeStr == "110100"){return "Y"}
-        // Z = 110101
+            // Z = 110101
         else if (codeStr == "110101"){return "Z"}
-        // @ = 110110
+            // @ = 110110
         else if (codeStr == "110110"){return "@"}
-        // & = 110111
+            // & = 110111
         else if (codeStr == "110111"){return "&"}
-        // ? = 111000
+            // ? = 111000
         else if (codeStr == "111000"){return "?"}
-        // ! = 111001
+            // ! = 111001
         else if (codeStr == "111001"){return "!"}
-        // - = 111010
+            // - = 111010
         else if (codeStr == "111010"){return "-"}
-        // # = 111011
+            // # = 111011
         else if (codeStr == "111011"){return "#"}
-        // % = 111100
+            // % = 111100
         else if (codeStr == "111100"){return "%"}
-        // + = 111101
+            // + = 111101
         else if (codeStr == "111101"){return "+"}
-        // < = 111110
+            // < = 111110
         else if (codeStr == "111110"){return "<"}
-        // > = 111111
+            // > = 111111
         else if (codeStr == "111111"){return ">"}
         // 64 total characters that are unambigious
         return ""
@@ -873,7 +910,7 @@ class Teacher: UIViewController {
         else if (num == 9){return "9"}
         else {return "-1"}
     }
- 
+    
 }
 
 //------------------------------ String Extension ------------------------------//
