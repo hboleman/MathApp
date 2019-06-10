@@ -144,6 +144,7 @@ class Teacher: UIViewController {
     @IBOutlet weak var datePickerOutlet: UIDatePicker!
     @IBOutlet weak var shuffleToggle: UISwitch!
     @IBOutlet weak var teacherCode: UITextField!
+    @IBOutlet weak var homeworkCode: UITextField!
     @IBOutlet weak var codeLable: UILabel!
     
     
@@ -168,6 +169,8 @@ class Teacher: UIViewController {
     var shuffle: Bool = false;
     //var dueDate: String = "1903021610";
     var instructorCode: Int = 1234;
+    var hwCode: Int = 999
+    var studentCode: Int = 256
     var parityBit: Bool = false
     
     var checkFailed = false;
@@ -176,7 +179,7 @@ class Teacher: UIViewController {
     var assembledHrCode: String = ""
     var disCodeInBin: String = ""
     var disCodeInHR: String = ""
-    let leadingBuffer = 4
+    let leadingBuffer = 2
     //let testHR = "2ja32qtXE<hhc"
     let testHR = "2ja42qpJwnZTc"
     let testBin = "11111111000000001111111100000000110011001111111111111111111111111111011110"
@@ -207,10 +210,17 @@ class Teacher: UIViewController {
             if (total < 1){checkFailed = true}
         }
         
+        // Teacher Code
         if((teacherCode.text?.isEmpty ?? nil)!){ checkFailed = true}
-        if(teacherCode.text!.count > 4 || teacherCode.text!.count < 4){ checkFailed = true }
-        if(Int(teacherCode.text!)! < 1111 || Int(teacherCode.text!)! > 9999){ checkFailed = true }
+        if((teacherCode.text!.count > 4 || teacherCode.text!.count < 4) && checkFailed == false){ checkFailed = true }
+        if((Int(teacherCode.text!)! < 1111 || Int(teacherCode.text!)! > 9999) && checkFailed == false){ checkFailed = true }
         
+        // Homework Code
+        if((homeworkCode.text?.isEmpty ?? nil)!){ checkFailed = true}
+        if((homeworkCode.text!.count > 3 || homeworkCode.text!.count < 0) && checkFailed == false){ checkFailed = true }
+        if((Int(homeworkCode.text!)! < 1 || Int(homeworkCode.text!)! > 999) && checkFailed == false){ checkFailed = true }
+        
+        // Student Code Check
         
         // --- RUNS IF INPUT IS VALID ---
         if (checkFailed == false){
@@ -251,16 +261,24 @@ class Teacher: UIViewController {
             if (Int(year)! > 2000){ year = String(Int(year)! - 2000)}
             
             shuffle = shuffleToggle.isOn
+            // Instructor Code
             instructorCode = Int(teacherCode.text!)!
-            parityBit = true
+            
+            // Will pad homework code
+            hwCode = Int(homeworkCode.text!)!
+            
+            // Student Code
+            studentCode = 123
+            
+            //parityBit = true
             
             // Looks to make sure input is valid, if so assemble binary code
             if (checkFailed == false){
                 assembleBinaryCode()
                 assembleHumanReadableCode(binCode: assembledBinCode)
                 codeLable.text = assembledHrCode
-                disassembleHumanReadableCode(hrCode: testHR)
-                disassembleBinaryCode(binCode: testBin)
+                //disassembleHumanReadableCode(hrCode: testHR)
+                //disassembleBinaryCode(binCode: testBin)
             }
         }
         else{
@@ -372,7 +390,7 @@ class Teacher: UIViewController {
         for _ in 0..<28 {
             binaryCode.removeFirst()
         }
-        setDate(dateStr: binarySnipit)  // 28
+        //setDate(dateStr: binarySnipit)  // 28
         
         // Extracting Shuffle Bool
         binarySnipit = ""
@@ -429,9 +447,13 @@ class Teacher: UIViewController {
         //questionsType: number for + - * %
         
         // addNum:11111111 subNum:11111111 mulNum:11111111 divNum:11111111 addDiff:11 subDiff: 11 mulDiff:11 divDiff:11
-        // date:Year-to-63:1111111 Month:1111 Day-to-31:111111 Hr-to-24:11000 Min-to-60:111100 shuffle:0 teacherCode:0000 parity:0
+        // date:Year-to-63:1111111 Month:1111 Day-to-31:111111 Hr-to-24:11000 Min-to-60:111100 shuffle:0 teacherCode:010011100001111 74 dig before this (includes parity at end)
+        //  hwCode: 01111100111 StudentCode:100000000 parity:0
+        // 94 digits now
+        // Need to add 3 Digit HW Code and 3 Digit Student Code
+        // SAVE THE LAST 100 QUIZES IN DEFAULTS SO STUDENT CANNOT TAKE AGAIN
         
-        // Should have 74 characters
+        // Should have 74 characters, now 94 (date is 28)
         let addNum: String = padStringInt(num: numOfQuestions_add, length: 8, padding: "0")
         let subNum: String = padStringInt(num: numOfQuestions_sub, length: 8, padding: "0")
         let mulNum: String = padStringInt(num: numOfQuestions_mul, length: 8, padding: "0")
@@ -441,9 +463,14 @@ class Teacher: UIViewController {
         let mulDiff: String = padStringInt(num: difficulty_mul, length: 2, padding: "0")
         let divDiff: String = padStringInt(num: difficulty_div, length: 2, padding: "0")
         let date = getDate(yr: year, mo: month, d: day, h: hour, m: min)
-        let sh: String = "1" //padString(str: String(shuffle), length: 1, padding: "0")
-        let teacherCode: String = "1111"
-        let parity: String = "0"
+        // For Shuffle
+        var sh: String = ""
+        if (shuffleToggle.isOn){sh = "1"}
+        else{sh = "0"}
+        // End Shuffle
+        let teachCode: String = padStringInt( num: instructorCode, length: 15, padding: "0")
+        let homewkCode: String = padStringInt( num: hwCode, length: 11, padding: "0")
+        let stuCode: String = padStringInt(num: studentCode, length: 9, padding: "0")
         
         var wholeString: String = ""
         //wholeString.append(contentsOf: " NUM ") // should be 32
@@ -460,8 +487,24 @@ class Teacher: UIViewController {
         wholeString.append(contentsOf: date)
         //wholeString.append(contentsOf: " ETC ")
         wholeString.append(contentsOf: sh)
-        wholeString.append(contentsOf: teacherCode)
-        wholeString.append(contentsOf: parity)
+        wholeString.append(contentsOf: teachCode)
+        wholeString.append(contentsOf: homewkCode)
+        wholeString.append(contentsOf: stuCode)
+        
+        // For Parity
+        var posCount = 0
+        for index in 0..<wholeString.count{
+            if (wholeString.character(at: index)! == "1"){posCount = posCount + 1}
+        }
+        let posMod = posCount % 2
+        if (posMod != 0){parityBit = true}
+        else {parityBit = false}
+        var parityValue: String = ""
+        if (parityBit){parityValue = "1"}
+        else{parityValue = "0"}
+        // End Parity
+        
+        wholeString.append(contentsOf: parityValue)
         
         print("Whole String: \(wholeString)")
         print("Count: \(wholeString.count)")
@@ -531,28 +574,6 @@ class Teacher: UIViewController {
         return temp
     }
     
-    func setDate(dateStr: String){
-        var temp: String = ""
-        
-        print("set date count: \(dateStr.count)")
-        //        // Year
-        //        let tempYr = padStringInt(num: Int(yr)!, length: 7, padding: "0")
-        //        temp.append(contentsOf: tempYr)
-        //        // Month
-        //        let tempMo = padStringInt(num: Int(mo)!, length: 4, padding: "0")
-        //        temp.append(contentsOf: tempMo)
-        //        // Day
-        //        let tempD = padStringInt(num: Int(d)!, length: 6, padding: "0")
-        //        temp.append(contentsOf: tempD)
-        //        // Hour
-        //        let tempH = padStringInt(num: Int(h)!, length: 5, padding: "0")
-        //        temp.append(contentsOf: tempH)
-        //        // Minute
-        //        let tempM = padStringInt(num: Int(m)!, length: 6, padding: "0")
-        //        temp.append(contentsOf: tempM)
-        
-    }
-    
     // Returns a padded string to specified length and paddign character
     func padStringStr(str: String, length: Int, padding: String) -> String {
         let diff: Int = length - str.count
@@ -609,7 +630,7 @@ class Teacher: UIViewController {
         
         // If num less than 6, padd it to 6
         if (str.count < 6){
-            codeStr = padStringInt(num: Int(str)!, length: 6, padding: "0")
+            codeStr = padStringStr(str: str, length: 6, padding: "0")
         }
         
         // Binary String Values
