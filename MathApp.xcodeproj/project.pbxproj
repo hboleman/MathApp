@@ -17,6 +17,7 @@
 		5A5826FD21FA6EFE0077D940 /* MathAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5826FC21FA6EFE0077D940 /* MathAppTests.swift */; };
 		5A58270821FA6EFE0077D940 /* MathAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58270721FA6EFE0077D940 /* MathAppUITests.swift */; };
 		5A6F326622ADD05500FE4CD5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A6F326522ADD05500FE4CD5 /* Launch Screen.storyboard */; };
+		5A6F326822ADE4F000FE4CD5 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6F326722ADE4F000FE4CD5 /* Student.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		5A58270721FA6EFE0077D940 /* MathAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathAppUITests.swift; sourceTree = "<group>"; };
 		5A58270921FA6EFE0077D940 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A6F326522ADD05500FE4CD5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		5A6F326722ADE4F000FE4CD5 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				5A5826EE21FA6EFE0077D940 /* Assets.xcassets */,
 				5A5826F321FA6EFE0077D940 /* Info.plist */,
 				5A6F326522ADD05500FE4CD5 /* Launch Screen.storyboard */,
+				5A6F326722ADE4F000FE4CD5 /* Student.swift */,
 			);
 			path = MathApp;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A5826EA21FA6EFC0077D940 /* ViewController.swift in Sources */,
+				5A6F326822ADE4F000FE4CD5 /* Student.swift in Sources */,
 				5A3807A7221E724400F75BFD /* Teacher.swift in Sources */,
 				5A3807A1221E704B00F75BFD /* Options.swift in Sources */,
 				5A3807A3221E70CF00F75BFD /* Quiz.swift in Sources */,

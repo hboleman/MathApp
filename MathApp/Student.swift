@@ -1,16 +1,16 @@
 //
-//  Teaching.swift
+//  Student.swift
 //  MathApp
 //
-//  Created by Hunter Boleman on 2/20/19.
+//  Created by Hunter Boleman on 6/9/19.
 //  Copyright © 2019 Hunter Boleman. All rights reserved.
 //
 
 import UIKit
 import Foundation
 
-// This class controls the Teaching View Controler
-class Teacher: UIViewController {
+class Student: UIViewController {
+    
     //-------------------- CLASS SETUP START --------------------//
     
     // Make UserDefautls Accessable
@@ -131,46 +131,35 @@ class Teacher: UIViewController {
     //mode_difficulty     1=easy 2=medium 3=hard
     
     // Outlet Test
-    @IBOutlet weak var addQuestionNum: UITextField!
-    @IBOutlet weak var subQuestionNum: UITextField!
-    @IBOutlet weak var divQuestionNum: UITextField!
-    @IBOutlet weak var mulQuestionNum: UITextField!
-    
-    @IBOutlet weak var segAdd: UISegmentedControl!
-    @IBOutlet weak var segSub: UISegmentedControl!
-    @IBOutlet weak var segMul: UISegmentedControl!
-    @IBOutlet weak var segDiv: UISegmentedControl!
-    
-    @IBOutlet weak var datePickerOutlet: UIDatePicker!
-    @IBOutlet weak var shuffleToggle: UISwitch!
-    @IBOutlet weak var teacherCode: UITextField!
-    @IBOutlet weak var homeworkCode: UITextField!
-    @IBOutlet weak var codeLable: UILabel!
-    
-    
+    @IBOutlet weak var codeEntryField: UITextField!
+    @IBOutlet weak var stuNumField: UITextField!
+    @IBOutlet weak var lableAboveCode: UILabel!
+    @IBOutlet weak var quizNumLable: UILabel!
+    @IBOutlet weak var takeQuiz: UIButton!
     
     // Variables for generating code
-    var numOfQuestions_add: Int = 1;
-    var numOfQuestions_sub: Int = 1;
-    var numOfQuestions_mul: Int = 1;
-    var numOfQuestions_div: Int = 1;
+    var numOfQuestions_add: Int = -1;
+    var numOfQuestions_sub: Int = -1;
+    var numOfQuestions_mul: Int = -1;
+    var numOfQuestions_div: Int = -1;
     
-    var difficulty_add: Int = 1;
-    var difficulty_sub: Int = 1;
-    var difficulty_mul: Int = 1;
-    var difficulty_div: Int = 1;
+    var difficulty_add: Int = -1;
+    var difficulty_sub: Int = -1;
+    var difficulty_mul: Int = -1;
+    var difficulty_div: Int = -1;
     
-    var year: String = "25"
-    var month: String = "12"
-    var day: String = "31"
-    var hour: String = "24"
-    var min: String = "60"
+    var year: String = ""
+    var month: String = ""
+    var day: String = ""
+    var hour: String = ""
+    var min: String = ""
     
     var shuffle: Bool = false;
-    var instructorCode: Int = 1234;
-    var hwCode: Int = 999
-    var studentCode: Int = 256
+    var instructorCode: Int = -1;
+    var hwCode: Int = -1
+    var studentCode: Int = -1
     var parityBit: Bool = false
+    var stuGrade: Int = 100
     
     var checkFailed = false;
     var assembledBinCode: String = ""
@@ -178,7 +167,8 @@ class Teacher: UIViewController {
     var assembledHrCode: String = ""
     var disCodeInBin: String = ""
     var disCodeInHR: String = ""
-    let leadingBuffer = 2
+    let leadingBuffer = 3
+    let gradeResultBuffer = 5
     let properBinaryCount = 105
     let testHR = "3j222qpHVepKnm5@z8"
     let testBin = "000001010000000000000000000000010101010100100110110001001100010100101000010011010010000011110110011110110"
@@ -196,73 +186,27 @@ class Teacher: UIViewController {
     // SAVE THE LAST 100 QUIZES IN DEFAULTS SO STUDENT CANNOT TAKE AGAIN
     
     // Button that Generates Code
-    @IBAction func generateCode(_ sender: Any) {
+    
+    @IBAction func checkCode(_ sender: Any) {
         checkFailed = false
-        
-        checkForValidInput()
+        //checkForValidInput()
         
         // --- RUNS IF INPUT IS VALID ---
         if (checkFailed == false){
-            codeLable.textColor = UIColor(red:0.56, green:0.81, blue:0.48, alpha:1.0);
-            
-            // Set Values
-            numOfQuestions_add = Int(addQuestionNum.text!)!
-            numOfQuestions_sub = Int(subQuestionNum.text!)!
-            numOfQuestions_mul = Int(mulQuestionNum.text!)!
-            numOfQuestions_div = Int(divQuestionNum.text!)!
-            
-            let arrInt: [Int] = [1, 2, 3]
-            difficulty_add = arrInt[segAdd.selectedSegmentIndex]
-            difficulty_sub = arrInt[segSub.selectedSegmentIndex]
-            difficulty_mul = arrInt[segMul.selectedSegmentIndex]
-            difficulty_div = arrInt[segDiv.selectedSegmentIndex]
-            
-            // FORMATTING DATE
-            let date = datePickerOutlet.date
-            let format = DateFormatter()
-            format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            let formattedDate = format.string(from: date)
-            
-            let calendar = Calendar.current
-            var tempYear = calendar.component(.year, from: date)
-            var tempMonth = calendar.component(.month, from: date)
-            var tempDay = calendar.component(.day, from: date)
-            var tempHour = calendar.component(.hour, from: date)
-            var tempMin = calendar.component(.minute, from: date)
-            
-            year = String(tempYear)
-            month = String(tempMonth)
-            day = String(tempDay)
-            hour = String(tempHour)
-            min = String(tempMin)
-            
-            // Makes the year just 2 digits
-            if (Int(year)! > 2000){ year = String(Int(year)! - 2000)}
-            
-            shuffle = shuffleToggle.isOn
-            // Instructor Code
-            instructorCode = Int(teacherCode.text!)!
-            
-            // Will pad homework code
-            hwCode = Int(homeworkCode.text!)!
-            
-            // Student Code
-            studentCode = 123
-            
-            //parityBit = true
-            
-            // Looks to make sure input is valid, if so assemble binary code
-            if (checkFailed == false){
-                //assembleBinaryCode()
-                //assembleHumanReadableCode(binCode: assembledBinCode)
-                //codeLable.text = assembledHrCode
-                disassembleHumanReadableCode(hrCode: testHR)
-                disassembleBinaryCode(binCode: disCodeInBin)
-            }
+            quizNumLable.text = String("Quiz Number: \(hwCode)")
+            lableAboveCode.text = "Enter Code"
+            quizNumLable.isHidden = false
+            takeQuiz.isHidden = false
+            lableAboveCode.textColor = UIColor(red:0.56, green:0.81, blue:0.48, alpha:1.0);
+            disassembleHumanReadableCode(hrCode: codeEntryField.text!)
+            disassembleBinaryCode(binCode: disCodeInBin)
         }
         else{
-            codeLable.text = "Invalid Option!"
-            codeLable.textColor = UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0)
+            lableAboveCode.text = "Invalid Option!"
+            lableAboveCode.textColor = UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0)
+            quizNumLable.text = String("Quiz Number: ")
+            quizNumLable.isHidden = true
+            takeQuiz.isHidden = true
         }
     }
     
@@ -270,54 +214,44 @@ class Teacher: UIViewController {
     func checkForValidInput(){
         // --- CHECKS FOR INVALID INPUT ---
         //checks that number of questions has a valud number
-        if((addQuestionNum.text?.isEmpty ?? nil)!){ checkFailed = true }
-        if((subQuestionNum.text?.isEmpty ?? nil)!){ checkFailed = true }
-        if((mulQuestionNum.text?.isEmpty ?? nil)!){ checkFailed = true }
-        if((divQuestionNum.text?.isEmpty ?? nil)!){ checkFailed = true }
-        
-        // checks if number of questions are within bounds
-        if(checkFailed == false && Int(addQuestionNum.text!)! >= 0 && Int(addQuestionNum.text!)! > 255){ checkFailed = true }
-        if(checkFailed == false && Int(subQuestionNum.text!)! >= 0 && Int(addQuestionNum.text!)! > 255){ checkFailed = true }
-        if(checkFailed == false && Int(mulQuestionNum.text!)! >= 0 && Int(addQuestionNum.text!)! > 255){ checkFailed = true }
-        if(checkFailed == false && Int(divQuestionNum.text!)! >= 0 && Int(addQuestionNum.text!)! > 255){ checkFailed = true }
+        if(numOfQuestions_add < 0 && numOfQuestions_add < 255){ checkFailed = true }
+        if(numOfQuestions_sub < 0 && numOfQuestions_sub < 255){ checkFailed = true }
+        if(numOfQuestions_mul < 0 && numOfQuestions_mul < 255){ checkFailed = true }
+        if(numOfQuestions_div < 0 && numOfQuestions_div < 255){ checkFailed = true }
         
         // checks that there is at least one question
         if (checkFailed == false){
             var total = 0
-            total = Int(addQuestionNum.text!)!
-            total = total + Int(subQuestionNum.text!)!
-            total = total + Int(mulQuestionNum.text!)!
-            total = total + Int(divQuestionNum.text!)!
+            total = numOfQuestions_add
+            total = total + numOfQuestions_sub
+            total = total + numOfQuestions_mul
+            total = total + numOfQuestions_div
             if (total < 1){checkFailed = true}
         }
         
         // Teacher Code
-        if((teacherCode.text?.isEmpty ?? nil)!){ checkFailed = true}
-        if((teacherCode.text!.count > 4 || teacherCode.text!.count < 4) && checkFailed == false){ checkFailed = true }
-        if((Int(teacherCode.text!)! < 1111 || Int(teacherCode.text!)! > 9999) && checkFailed == false){ checkFailed = true }
+        if((instructorCode < 1111 || instructorCode > 9999) && checkFailed == false){ checkFailed = true }
         
         // Homework Code
-        if((homeworkCode.text?.isEmpty ?? nil)!){ checkFailed = true}
-        if((homeworkCode.text!.count > 3 || homeworkCode.text!.count < 0) && checkFailed == false){ checkFailed = true }
-        if((Int(homeworkCode.text!)! < 1 || Int(homeworkCode.text!)! > 999) && checkFailed == false){ checkFailed = true }
+        if((hwCode < 1 || hwCode > 999) && checkFailed == false){ checkFailed = true }
         
         // Student Code Check (NEEDS AN INPUT)
-//        if((homeworkCode.text?.isEmpty ?? nil)!){ checkFailed = true}
-//        if((homeworkCode.text!.count > 3 || homeworkCode.text!.count < 0) && checkFailed == false){ checkFailed = true }
-//        if((Int(homeworkCode.text!)! < 1 || Int(homeworkCode.text!)! > 999) && checkFailed == false){ checkFailed = true }
+        if((stuNumField.text?.isEmpty ?? nil)!){ checkFailed = true}
+        if((stuNumField.text!.count > 3 || stuNumField.text!.count < 0) && checkFailed == false){ checkFailed = true }
+        if((Int(stuNumField.text!)! < 1 || Int(stuNumField.text!)! > 999) && checkFailed == false){ checkFailed = true }
         
         // Parity
-        if (checkFailed == false){
-        var posCount = 0
-        for index in 0..<disCodeInBin.count{
-            if (disCodeInBin.character(at: index)! == "1"){posCount = posCount + 1}
-        }
-//        let posMod = posCount % 2
-//        var tempPar: Bool = false
-//        if (posMod != 0){tempPar = true}
-//        else {tempPar = false}
-//        if (parityBit != tempPar){checkFailed = true}
-        }
+//        if (checkFailed == false){
+//            var posCount = 0
+//            for index in 0..<disCodeInBin.count{
+//                if (disCodeInBin.character(at: index)! == "1"){posCount = posCount + 1}
+//            }
+//            let posMod = posCount % 2
+//            var tempPar: Bool = false
+//            if (posMod != 0){tempPar = true}
+//            else {tempPar = false}
+//            if (parityBit != tempPar){checkFailed = true}
+//        }
     }
     
     func disassembleBinaryCode(binCode: String) {
@@ -325,146 +259,178 @@ class Teacher: UIViewController {
         var binaryCode = binCode
         var binarySnipit = ""
         
-        // for validity check later
-        disCodeInBin = binCode
-        
         // Pre-Check
-        if (binCode.count != properBinaryCount){checkFailed = true}
+        //if (binCode.count != properBinaryCount){checkFailed = true}
         // End Pre-Check
         
         print("disCount: \(binaryCode.count)")
         
         if (checkFailed == false){
-        // Extracting Add Question Number
-        binarySnipit = ""
-        for index in 0..<8 {
-            binarySnipit.append(binaryCode.character(at: index)!)
-        }
-        print(binarySnipit)
-        for _ in 0..<8 {
+            // Extracting Add Question Number
+            binarySnipit = ""
+            for index in 0..<8 {
+                binarySnipit.append(binaryCode.character(at: index)!)
+            }
+            print(binarySnipit)
+            for _ in 0..<8 {
+                binaryCode.removeFirst()
+            }
+            numOfQuestions_add = binToInt(bin: binarySnipit); // 8
+            
+            // Extracting Sub Question Number
+            binarySnipit = ""
+            for index in 0..<8 {
+                binarySnipit.append(binaryCode.character(at: index)!)
+            }
+            print(binarySnipit)
+            for _ in 0..<8 {
+                binaryCode.removeFirst()
+            }
+            numOfQuestions_sub = binToInt(bin: binarySnipit); // 8
+            
+            // Extracting Mul Question Number
+            binarySnipit = ""
+            for index in 0..<8 {
+                binarySnipit.append(binaryCode.character(at: index)!)
+            }
+            print(binarySnipit)
+            for _ in 0..<8 {
+                binaryCode.removeFirst()
+            }
+            numOfQuestions_mul = binToInt(bin: binarySnipit); // 8
+            
+            // Extracting Div Question Number
+            binarySnipit = ""
+            for index in 0..<8 {
+                binarySnipit.append(binaryCode.character(at: index)!)
+            }
+            print(binarySnipit)
+            for _ in 0..<8 {
+                binaryCode.removeFirst()
+            }
+            numOfQuestions_div = binToInt(bin: binarySnipit); // 8
+            
+            // Extracting Add Diff Number
+            binarySnipit = ""
+            for index in 0..<2 {
+                binarySnipit.append(binaryCode.character(at: index)!)
+            }
+            print(binarySnipit)
+            for _ in 0..<2 {
+                binaryCode.removeFirst()
+            }
+            difficulty_add = binToInt(bin: binarySnipit); // 2
+            
+            // Extracting Sub Diff Number
+            binarySnipit = ""
+            for index in 0..<2 {
+                binarySnipit.append(binaryCode.character(at: index)!)
+            }
+            print(binarySnipit)
+            for _ in 0..<2 {
+                binaryCode.removeFirst()
+            }
+            difficulty_sub = binToInt(bin: binarySnipit); // 2
+            
+            // Extracting Mul Diff Number
+            binarySnipit = ""
+            for index in 0..<2 {
+                binarySnipit.append(binaryCode.character(at: index)!)
+            }
+            print(binarySnipit)
+            for _ in 0..<2 {
+                binaryCode.removeFirst()
+            }
+            difficulty_mul = binToInt(bin: binarySnipit); // 2
+            
+            // Extracting Div Diff Number
+            binarySnipit = ""
+            for index in 0..<2 {
+                binarySnipit.append(binaryCode.character(at: index)!)
+            }
+            print(binarySnipit)
+            for _ in 0..<2 {
+                binaryCode.removeFirst()
+            }
+            difficulty_div = binToInt(bin: binarySnipit); // 2
+            
+            // Extracting Date
+            binarySnipit = ""
+            for index in 0..<28 {
+                binarySnipit.append(binaryCode.character(at: index)!)
+            }
+            print(binarySnipit)
+            for _ in 0..<28 {
+                binaryCode.removeFirst()
+            }
+            setDate(dateStr: binarySnipit)  // 28
+            
+            // Extracting Shuffle Bool
+            binarySnipit = ""
+            binarySnipit.append(binaryCode.character(at: 0)!)
             binaryCode.removeFirst()
-        }
-        numOfQuestions_add = Int(binarySnipit)!; // 8
-        
-        // Extracting Sub Question Number
-        binarySnipit = ""
-        for index in 0..<8 {
-            binarySnipit.append(binaryCode.character(at: index)!)
-        }
-        print(binarySnipit)
-        for _ in 0..<8 {
+            if (binarySnipit == "1"){shuffle = true}
+            else {shuffle = false} // 1
+            
+            // Extracting Instructor Code
+            binarySnipit = ""
+            for index in 0..<4 {
+                binarySnipit.append(binaryCode.character(at: index)!)
+            }
+            print(binarySnipit)
+            for _ in 0..<4 {
+                binaryCode.removeFirst()
+            }
+            instructorCode = binToInt(bin: binarySnipit); // 4
+            
+            // Extracting Parity
+            binarySnipit = ""
+            binarySnipit.append(binaryCode.character(at: 0)!)
             binaryCode.removeFirst()
-        }
-        numOfQuestions_sub = Int(binarySnipit)!; // 8
-        
-        // Extracting Mul Question Number
-        binarySnipit = ""
-        for index in 0..<8 {
-            binarySnipit.append(binaryCode.character(at: index)!)
-        }
-        print(binarySnipit)
-        for _ in 0..<8 {
-            binaryCode.removeFirst()
-        }
-        numOfQuestions_mul = Int(binarySnipit)!; // 8
-        
-        // Extracting Div Question Number
-        binarySnipit = ""
-        for index in 0..<8 {
-            binarySnipit.append(binaryCode.character(at: index)!)
-        }
-        print(binarySnipit)
-        for _ in 0..<8 {
-            binaryCode.removeFirst()
-        }
-        numOfQuestions_div = Int(binarySnipit)!; // 8
-        
-        // Extracting Add Diff Number
-        binarySnipit = ""
-        for index in 0..<2 {
-            binarySnipit.append(binaryCode.character(at: index)!)
-        }
-        print(binarySnipit)
-        for _ in 0..<2 {
-            binaryCode.removeFirst()
-        }
-        difficulty_add = Int(binarySnipit)!; // 2
-        
-        // Extracting Sub Diff Number
-        binarySnipit = ""
-        for index in 0..<2 {
-            binarySnipit.append(binaryCode.character(at: index)!)
-        }
-        print(binarySnipit)
-        for _ in 0..<2 {
-            binaryCode.removeFirst()
-        }
-        difficulty_sub = Int(binarySnipit)!; // 2
-        
-        // Extracting Mul Diff Number
-        binarySnipit = ""
-        for index in 0..<2 {
-            binarySnipit.append(binaryCode.character(at: index)!)
-        }
-        print(binarySnipit)
-        for _ in 0..<2 {
-            binaryCode.removeFirst()
-        }
-        difficulty_mul = Int(binarySnipit)!; // 2
-        
-        // Extracting Div Diff Number
-        binarySnipit = ""
-        for index in 0..<2 {
-            binarySnipit.append(binaryCode.character(at: index)!)
-        }
-        print(binarySnipit)
-        for _ in 0..<2 {
-            binaryCode.removeFirst()
-        }
-        difficulty_div = Int(binarySnipit)!; // 2
-        
-        // Extracting Date
-        binarySnipit = ""
-        for index in 0..<28 {
-            binarySnipit.append(binaryCode.character(at: index)!)
-        }
-        print(binarySnipit)
-        for _ in 0..<28 {
-            binaryCode.removeFirst()
-        }
-        //setDate(dateStr: binarySnipit)  // 28
-        
-        // Extracting Shuffle Bool
-        binarySnipit = ""
-        binarySnipit.append(binaryCode.character(at: 0)!)
-        binaryCode.removeFirst()
-        if (binarySnipit == "1"){shuffle = true}
-        else {shuffle = false} // 1
-        
-        // Extracting Instructor Code
-        binarySnipit = ""
-        for index in 0..<4 {
-            binarySnipit.append(binaryCode.character(at: index)!)
-        }
-        print(binarySnipit)
-        for _ in 0..<4 {
-            binaryCode.removeFirst()
-        }
-        instructorCode = Int(binarySnipit)!; // 4
-        
-        // Extracting Parity
-        binarySnipit = ""
-        binarySnipit.append(binaryCode.character(at: 0)!)
-        binaryCode.removeFirst()
-        if (binarySnipit == "1"){parityBit = true}
-        else {parityBit = false} // 1
+            if (binarySnipit == "1"){parityBit = true}
+            else {parityBit = false} // 1
             
             checkForValidInput()
             
         }
         else if (checkFailed == true) {
             // if check failed
+            lableAboveCode.textColor = UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0)
+            lableAboveCode.text = "Invalid"
+            quizNumLable.text = String("Quiz Number: ")
+            quizNumLable.isHidden = true
+            takeQuiz.isHidden = true
         }
+    }
+    
+    func setDate(dateStr: String){
+        
+    }
+    
+    func binToInt(bin: String) -> Int {
+        let test = bin
+        var swapStr = ""
+        var cnt = 0
+        //swap string
+        for index in 0..<test.count {
+            swapStr.append(contentsOf: String(test.character(at: ((test.count - index) - 1))!))
+        }
+        
+        
+        for index in 0..<swapStr.count {
+            if(swapStr.character(at: index) == "1"){
+                if (index == 0 && swapStr.character(at: index) == "1"){
+                    cnt = cnt + 1
+                }
+                else {
+                    cnt = cnt + (2 ^^ (index))
+                }
+            }
+        }
+        
+        print("BinToInt: \(test)")
+        
+        return 1
     }
     
     func disassembleHumanReadableCode(hrCode: String){
@@ -496,43 +462,20 @@ class Teacher: UIViewController {
     func assembleBinaryCode(){
         assembledBinCode = ""
         
-        // Should have 105 characters, (date is 28)
-        let addNum: String = padStringInt(num: numOfQuestions_add, length: 8, padding: "0")
-        let subNum: String = padStringInt(num: numOfQuestions_sub, length: 8, padding: "0")
-        let mulNum: String = padStringInt(num: numOfQuestions_mul, length: 8, padding: "0")
-        let divNum: String = padStringInt(num: numOfQuestions_div, length: 8, padding: "0")
-        let addDiff: String = padStringInt(num: difficulty_add, length: 2, padding: "0")
-        let subDiff: String = padStringInt(num: difficulty_sub, length: 2, padding: "0")
-        let mulDiff: String = padStringInt(num: difficulty_mul, length: 2, padding: "0")
-        let divDiff: String = padStringInt(num: difficulty_div, length: 2, padding: "0")
-        let date = getDate(yr: year, mo: month, d: day, h: hour, m: min)
-        // For Shuffle
-        var sh: String = ""
-        if (shuffleToggle.isOn){sh = "1"}
-        else{sh = "0"}
-        // End Shuffle
         let teachCode: String = padStringInt( num: instructorCode, length: 15, padding: "0")
         let homewkCode: String = padStringInt( num: hwCode, length: 11, padding: "0")
         let stuCode: String = padStringInt(num: studentCode, length: 9, padding: "0")
+        let grade: String = padStringInt(num: stuGrade, length: 8, padding: "0")
+        // makes 43
         
         var wholeString: String = ""
         //wholeString.append(contentsOf: " NUM ") // should be 32
-        wholeString.append(contentsOf: addNum)
-        wholeString.append(contentsOf: subNum)
-        wholeString.append(contentsOf: mulNum)
-        wholeString.append(contentsOf: divNum)
-        //wholeString.append(contentsOf: " DIFF ") // should be 8
-        wholeString.append(contentsOf: addDiff)
-        wholeString.append(contentsOf: subDiff)
-        wholeString.append(contentsOf: mulDiff)
-        wholeString.append(contentsOf: divDiff)
-        //wholeString.append(contentsOf: " DATE ")
-        wholeString.append(contentsOf: date)
-        //wholeString.append(contentsOf: " ETC ")
-        wholeString.append(contentsOf: sh)
+        
         wholeString.append(contentsOf: teachCode)
         wholeString.append(contentsOf: homewkCode)
+        wholeString.append(contentsOf: grade)
         wholeString.append(contentsOf: stuCode)
+        // grade: 01100100
         
         // For Parity
         var posCount = 0
@@ -665,7 +608,7 @@ class Teacher: UIViewController {
         return strSwap
     }
     
-    // Converts binary into Human Readable Characters and vise versa
+    // Converts binary into Human Readable Characters
     func codeConversionBinToChar(str: String) -> String {
         
         var codeStr = str
@@ -808,7 +751,7 @@ class Teacher: UIViewController {
         return ""
     }
     
-    // Converts binary into Human Readable Characters and vise versa
+    // Converts Human Readable Characters into Binary
     func codeConversionCharToBin(str: String) -> String {
         
         var codeStr = str
@@ -976,20 +919,8 @@ class Teacher: UIViewController {
     
 }
 
-//------------------------------ String Extension ------------------------------//
-
-// This string extensions allows for indexAt
-extension String {
-    
-    func index(at position: Int, from start: Index? = nil) -> Index? {
-        let startingIndex = start ?? startIndex
-        return index(startingIndex, offsetBy: position, limitedBy: endIndex)
-    }
-    
-    func character(at position: Int) -> Character? {
-        guard position >= 0, let indexPosition = index(at: position) else {
-            return nil
-        }
-        return self[indexPosition]
-    }
+precedencegroup PowerPrecedence { higherThan: MultiplicationPrecedence }
+infix operator ^^ : PowerPrecedence
+func ^^ (radix: Int, power: Int) -> Int {
+    return Int(pow(Double(radix), Double(power)))
 }
