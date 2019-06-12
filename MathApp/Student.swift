@@ -173,9 +173,10 @@ class Student: UIViewController {
     
     // Input Debug
     let debugIn: Bool = true
+    let debugBinSeperation: Bool = false
     
-    let testHR = "3j222qpHVepKnm5@z8"
-    let testBin = "000001010000000000000000000000010101010100100110110001001100010100101000010011010010000011110110011110110"
+    let testHR = ">U5>2eX>>>>&>>23>8"
+    let testBin = "111111110000000011111111000000001100110011111111111111111111111111110111111111111111000000000001111111110"
     
     //-------------------- Notes --------------------//
     //Function Info
@@ -264,7 +265,7 @@ class Student: UIViewController {
         var binarySnipit = ""
         
         // Pre-Check
-        //if (binCode.count != properBinaryCount){checkFailed = true}
+        if (binCode.count != properBinaryCount && debugIn == false){checkFailed = true}
         // End Pre-Check
         
         print("disCount: \(binaryCode.count)")
@@ -378,14 +379,36 @@ class Student: UIViewController {
             
             // Extracting Instructor Code
             binarySnipit = ""
-            for index in 0..<4 {
+            for index in 0..<15 {
                 binarySnipit.append(binaryCode.character(at: index)!)
             }
             print(binarySnipit)
-            for _ in 0..<4 {
+            for _ in 0..<15 {
                 binaryCode.removeFirst()
             }
-            instructorCode = binToInt(bin: binarySnipit); // 4
+            instructorCode = binToInt(bin: binarySnipit); // 15
+            
+            // Extracting Homework Code
+            binarySnipit = ""
+            for index in 0..<15 {
+                binarySnipit.append(binaryCode.character(at: index)!)
+            }
+            print(binarySnipit)
+            for _ in 0..<15 {
+                binaryCode.removeFirst()
+            }
+            hwCode = binToInt(bin: binarySnipit); // 15
+            
+            // Extracting Student Code
+            binarySnipit = ""
+            for index in 0..<9 {
+                binarySnipit.append(binaryCode.character(at: index)!)
+            }
+            print(binarySnipit)
+            for _ in 0..<9 {
+                binaryCode.removeFirst()
+            }
+            studentCode = binToInt(bin: binarySnipit); // 9
             
             // Extracting Parity
             binarySnipit = ""
@@ -409,32 +432,6 @@ class Student: UIViewController {
     
     func setDate(dateStr: String){
         
-    }
-    
-    func binToInt(bin: String) -> Int {
-        let test = bin
-        var swapStr = ""
-        var cnt = 0
-        //swap string
-        for index in 0..<test.count {
-            swapStr.append(contentsOf: String(test.character(at: ((test.count - index) - 1))!))
-        }
-        
-        
-        for index in 0..<swapStr.count {
-            if(swapStr.character(at: index) == "1"){
-                if (index == 0 && swapStr.character(at: index) == "1"){
-                    cnt = cnt + 1
-                }
-                else {
-                    cnt = cnt + (2 ^^ (index))
-                }
-            }
-        }
-        
-        print("BinToInt: \(test)")
-        
-        return 1
     }
     
     func disassembleHumanReadableCode(hrCode: String){
@@ -500,7 +497,7 @@ class Student: UIViewController {
         assembledBinCode = wholeString
     }
     
-    func assembleHumanReadablezResultsCode(binCode: String){
+    func assembleHumanReadableResultsCode(binCode: String){
         var formingFullString = ""
         var codeToCrunch = binCode
         var strOfSix = ""
@@ -612,6 +609,33 @@ class Student: UIViewController {
         return strSwap
     }
     
+    // Converts binary to an integer
+    func binToInt(bin: String) -> Int {
+        let test = bin
+        var swapStr = ""
+        var cnt = 0
+        //swap string
+        for index in 0..<test.count {
+            swapStr.append(contentsOf: String(test.character(at: ((test.count - index) - 1))!))
+        }
+        
+        
+        for index in 0..<swapStr.count {
+            if(swapStr.character(at: index) == "1"){
+                if (index == 0 && swapStr.character(at: index) == "1"){
+                    cnt = cnt + 1
+                }
+                else {
+                    cnt = cnt + (2 ^^ (index))
+                }
+            }
+        }
+        
+        print("BinToInt: \(test)")
+        
+        return 1
+    }
+    
     // Converts binary into Human Readable Characters
     func codeConversionBinToChar(str: String) -> String {
         
@@ -619,7 +643,12 @@ class Student: UIViewController {
         
         // If num less than 6, padd it to 6
         if (str.count < 6){
-            codeStr = padStringStr(str: str, length: 6, padding: "0")
+            let tempDiff = 6 - str.count;
+            var tempStr = str
+            for index in 0..<tempDiff {
+                tempStr.append(contentsOf: "0")
+            }
+            codeStr = tempStr
         }
         
         // Binary String Values

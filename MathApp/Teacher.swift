@@ -186,8 +186,8 @@ class Teacher: UIViewController {
     let debugBinSeperation: Bool = false
     
     // Test Strings
-    let testHR = "3j222qpHVepKnm5@z8"
-    let testBin = "000001010000000000000000000000010101010100100110110001001100010100101000010011010010000011110110011110110"
+    let testHR = ">U5>2eX>>>>&>>23>8"
+    let testBin = "111111110000000011111111000000001100110011111111111111111111111111110111111111111111000000000001111111110"
     
     //-------------------- Notes --------------------//
     //Function Info
@@ -546,7 +546,12 @@ class Teacher: UIViewController {
         
         // If num less than 6, padd it to 6
         if (str.count < 6){
-            codeStr = padStringStr(str: str, length: 6, padding: "0")
+            let tempDiff = 6 - str.count;
+            var tempStr = str
+            for index in 0..<tempDiff {
+                tempStr.append(contentsOf: "0")
+            }
+            codeStr = tempStr
         }
         
         // Binary String Values
