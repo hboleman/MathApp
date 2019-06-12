@@ -341,18 +341,7 @@ class Teacher: UIViewController {
         
         // Student Code Check (Placeholder - no input here)
         
-        // Parity
-        if (checkFailed == false){
-        var posCount = 0
-        for index in 0..<disCodeInBin.count{
-            if (disCodeInBin.character(at: index)! == "1"){posCount = posCount + 1}
-        }
-        let posMod = posCount % 2
-        var tempPar: Bool = false
-        if (posMod != 0){tempPar = true}
-        else {tempPar = false}
-        if (parityBit != tempPar){checkFailed = true}
-        }
+//        // Parity (no check needed for generation)
     }
     
     

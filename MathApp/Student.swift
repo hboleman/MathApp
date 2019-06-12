@@ -261,7 +261,7 @@ class Student: UIViewController {
             var tempPar: Bool = false
             if (posMod != 0){tempPar = true}
             else {tempPar = false}
-            if (parityBit != tempPar){checkFailed = true}
+            if (tempPar != false){checkFailed = true}
         }
     }
     
