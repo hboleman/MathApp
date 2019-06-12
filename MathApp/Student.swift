@@ -138,7 +138,6 @@ class Student: UIViewController {
     @IBOutlet weak var stuNumField: UITextField!
     @IBOutlet weak var lableAboveCode: UILabel!
     @IBOutlet weak var quizNumLable: UILabel!
-    @IBOutlet weak var quizValid: UILabel!
     @IBOutlet weak var takeQuiz: UIButton!
     
     // Variables for generating code
@@ -206,7 +205,6 @@ class Student: UIViewController {
             lableAboveCode.text = "Enter Code"
             quizNumLable.isHidden = false
             takeQuiz.isHidden = false
-            quizValid.isHidden = false
             lableAboveCode.textColor = UIColor(red:0.56, green:0.81, blue:0.48, alpha:1.0);
             disassembleHumanReadableCode(hrCode: codeEntryField.text!)
             disassembleBinaryCode(binCode: disCodeInBin)
@@ -217,7 +215,6 @@ class Student: UIViewController {
             quizNumLable.text = String("Quiz Number: ")
             quizNumLable.isHidden = true
             takeQuiz.isHidden = true
-            quizValid.isHidden = true
         }
     }
     
@@ -460,7 +457,6 @@ class Student: UIViewController {
             quizNumLable.text = String("Quiz Number: ")
             quizNumLable.isHidden = true
             takeQuiz.isHidden = true
-            quizValid.isHidden = false
         }
     }
     
