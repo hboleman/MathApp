@@ -170,6 +170,10 @@ class Student: UIViewController {
     let leadingBuffer = 3
     let gradeResultBuffer = 5
     let properBinaryCount = 105
+    
+    // Input Debug
+    let debugIn: Bool = true
+    
     let testHR = "3j222qpHVepKnm5@z8"
     let testBin = "000001010000000000000000000000010101010100100110110001001100010100101000010011010010000011110110011110110"
     
@@ -189,7 +193,7 @@ class Student: UIViewController {
     
     @IBAction func checkCode(_ sender: Any) {
         checkFailed = false
-        //checkForValidInput()
+        if (debugIn == false){checkForValidInput()}
         
         // --- RUNS IF INPUT IS VALID ---
         if (checkFailed == false){
@@ -390,7 +394,7 @@ class Student: UIViewController {
             if (binarySnipit == "1"){parityBit = true}
             else {parityBit = false} // 1
             
-            checkForValidInput()
+            if (debugIn == false){checkForValidInput()}
             
         }
         else if (checkFailed == true) {
@@ -459,7 +463,7 @@ class Student: UIViewController {
         print("DisassembleHR Count: \(fullBinString.count)")
     }
     
-    func assembleBinaryCode(){
+    func assembleBinaryResultsCode(){
         assembledBinCode = ""
         
         let teachCode: String = padStringInt( num: instructorCode, length: 15, padding: "0")
@@ -496,7 +500,7 @@ class Student: UIViewController {
         assembledBinCode = wholeString
     }
     
-    func assembleHumanReadableCode(binCode: String){
+    func assembleHumanReadablezResultsCode(binCode: String){
         var formingFullString = ""
         var codeToCrunch = binCode
         var strOfSix = ""
