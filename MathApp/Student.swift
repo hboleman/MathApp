@@ -175,7 +175,7 @@ class Student: UIViewController {
     let debugIn: Bool = true
     let debugBinSeperation: Bool = false
     
-    let testHR = ">U5>2eX>>>>&>>23>8"
+    let testHR = ">U5>2eX>>>>&>>23>U"
     let testBin = "111111110000000011111111000000001100110011111111111111111111111111110111111111111111000000000001111111110"
     
     //-------------------- Notes --------------------//
@@ -276,10 +276,11 @@ class Student: UIViewController {
             for index in 0..<8 {
                 binarySnipit.append(binaryCode.character(at: index)!)
             }
-            print(binarySnipit)
+            print("(BinSnip: \(binarySnipit)")
             for _ in 0..<8 {
                 binaryCode.removeFirst()
             }
+            print("LeftBin: \(binaryCode)")
             numOfQuestions_add = binToInt(bin: binarySnipit); // 8
             
             // Extracting Sub Question Number
@@ -287,10 +288,11 @@ class Student: UIViewController {
             for index in 0..<8 {
                 binarySnipit.append(binaryCode.character(at: index)!)
             }
-            print(binarySnipit)
+            print("(BinSnip: \(binarySnipit)")
             for _ in 0..<8 {
                 binaryCode.removeFirst()
             }
+            print("LeftBin: \(binaryCode)")
             numOfQuestions_sub = binToInt(bin: binarySnipit); // 8
             
             // Extracting Mul Question Number
@@ -298,10 +300,11 @@ class Student: UIViewController {
             for index in 0..<8 {
                 binarySnipit.append(binaryCode.character(at: index)!)
             }
-            print(binarySnipit)
+            print("(BinSnip: \(binarySnipit)")
             for _ in 0..<8 {
                 binaryCode.removeFirst()
             }
+            print("LeftBin: \(binaryCode)")
             numOfQuestions_mul = binToInt(bin: binarySnipit); // 8
             
             // Extracting Div Question Number
@@ -309,10 +312,11 @@ class Student: UIViewController {
             for index in 0..<8 {
                 binarySnipit.append(binaryCode.character(at: index)!)
             }
-            print(binarySnipit)
+            print("(BinSnip: \(binarySnipit)")
             for _ in 0..<8 {
                 binaryCode.removeFirst()
             }
+            print("LeftBin: \(binaryCode)")
             numOfQuestions_div = binToInt(bin: binarySnipit); // 8
             
             // Extracting Add Diff Number
@@ -320,10 +324,11 @@ class Student: UIViewController {
             for index in 0..<2 {
                 binarySnipit.append(binaryCode.character(at: index)!)
             }
-            print(binarySnipit)
+            print("(BinSnip: \(binarySnipit)")
             for _ in 0..<2 {
                 binaryCode.removeFirst()
             }
+            print("LeftBin: \(binaryCode)")
             difficulty_add = binToInt(bin: binarySnipit); // 2
             
             // Extracting Sub Diff Number
@@ -331,10 +336,11 @@ class Student: UIViewController {
             for index in 0..<2 {
                 binarySnipit.append(binaryCode.character(at: index)!)
             }
-            print(binarySnipit)
+            print("(BinSnip: \(binarySnipit)")
             for _ in 0..<2 {
                 binaryCode.removeFirst()
             }
+            print("LeftBin: \(binaryCode)")
             difficulty_sub = binToInt(bin: binarySnipit); // 2
             
             // Extracting Mul Diff Number
@@ -342,10 +348,11 @@ class Student: UIViewController {
             for index in 0..<2 {
                 binarySnipit.append(binaryCode.character(at: index)!)
             }
-            print(binarySnipit)
+            print("(BinSnip: \(binarySnipit)")
             for _ in 0..<2 {
                 binaryCode.removeFirst()
             }
+            print("LeftBin: \(binaryCode)")
             difficulty_mul = binToInt(bin: binarySnipit); // 2
             
             // Extracting Div Diff Number
@@ -353,10 +360,11 @@ class Student: UIViewController {
             for index in 0..<2 {
                 binarySnipit.append(binaryCode.character(at: index)!)
             }
-            print(binarySnipit)
+            print("(BinSnip: \(binarySnipit)")
             for _ in 0..<2 {
                 binaryCode.removeFirst()
             }
+            print("LeftBin: \(binaryCode)")
             difficulty_div = binToInt(bin: binarySnipit); // 2
             
             // Extracting Date
@@ -364,39 +372,44 @@ class Student: UIViewController {
             for index in 0..<28 {
                 binarySnipit.append(binaryCode.character(at: index)!)
             }
-            print(binarySnipit)
+            print("(BinSnip: \(binarySnipit)")
             for _ in 0..<28 {
                 binaryCode.removeFirst()
             }
+            print("LeftBin: \(binaryCode)")
             setDate(dateStr: binarySnipit)  // 28
             
             // Extracting Shuffle Bool
             binarySnipit = ""
             binarySnipit.append(binaryCode.character(at: 0)!)
+            print("(BinSnip: \(binarySnipit)")
             binaryCode.removeFirst()
             if (binarySnipit == "1"){shuffle = true}
             else {shuffle = false} // 1
+            print("LeftBin: \(binaryCode)")
             
             // Extracting Instructor Code
             binarySnipit = ""
             for index in 0..<15 {
                 binarySnipit.append(binaryCode.character(at: index)!)
             }
-            print(binarySnipit)
+            print("(BinSnip: \(binarySnipit)")
             for _ in 0..<15 {
                 binaryCode.removeFirst()
             }
+            print("LeftBin: \(binaryCode)")
             instructorCode = binToInt(bin: binarySnipit); // 15
             
             // Extracting Homework Code
             binarySnipit = ""
-            for index in 0..<15 {
+            for index in 0..<11 {
                 binarySnipit.append(binaryCode.character(at: index)!)
             }
-            print(binarySnipit)
-            for _ in 0..<15 {
+            print("(BinSnip: \(binarySnipit)")
+            for _ in 0..<11 {
                 binaryCode.removeFirst()
             }
+            print("LeftBin: \(binaryCode)")
             hwCode = binToInt(bin: binarySnipit); // 15
             
             // Extracting Student Code
@@ -404,18 +417,21 @@ class Student: UIViewController {
             for index in 0..<9 {
                 binarySnipit.append(binaryCode.character(at: index)!)
             }
-            print(binarySnipit)
+            print("(BinSnip: \(binarySnipit)")
             for _ in 0..<9 {
                 binaryCode.removeFirst()
             }
+            print("LeftBin: \(binaryCode)")
             studentCode = binToInt(bin: binarySnipit); // 9
             
             // Extracting Parity
             binarySnipit = ""
             binarySnipit.append(binaryCode.character(at: 0)!)
+            print("(BinSnip: \(binarySnipit)")
             binaryCode.removeFirst()
             if (binarySnipit == "1"){parityBit = true}
             else {parityBit = false} // 1
+            print("LeftBin: \(binaryCode)")
             
             if (debugIn == false){checkForValidInput()}
             
@@ -631,7 +647,7 @@ class Student: UIViewController {
             }
         }
         
-        print("BinToInt: \(test)")
+        //print("BinToInt: \(test)")
         
         return 1
     }

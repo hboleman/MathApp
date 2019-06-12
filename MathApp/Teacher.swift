@@ -186,7 +186,7 @@ class Teacher: UIViewController {
     let debugBinSeperation: Bool = false
     
     // Test Strings
-    let testHR = ">U5>2eX>>>>&>>23>8"
+    let testHR = ">U5>2eX>>>>&>>23>U"
     let testBin = "111111110000000011111111000000001100110011111111111111111111111111110111111111111111000000000001111111110"
     
     //-------------------- Notes --------------------//
