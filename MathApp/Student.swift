@@ -176,7 +176,7 @@ class Student: UIViewController {
     let properBinaryCount = 105
     
     // Input Debug
-    let debugIn: Bool = true
+    let debugIn: Bool = false
     let debugBinSeperation: Bool = false
     
     let testHR = ">U5>2eX>>>>&>>23>U"
@@ -198,7 +198,7 @@ class Student: UIViewController {
     
     @IBAction func checkCode(_ sender: Any) {
         checkFailed = false
-        if (debugIn == false){checkForValidInput()}
+        //if (debugIn == false){checkForValidInput()}
         
         // --- RUNS IF INPUT IS VALID ---
         if (checkFailed == false){
@@ -225,10 +225,10 @@ class Student: UIViewController {
     func checkForValidInput(){
         // --- CHECKS FOR INVALID INPUT ---
         //checks that number of questions has a valud number
-        if(numOfQuestions_add < 0 && numOfQuestions_add < 255){ checkFailed = true }
-        if(numOfQuestions_sub < 0 && numOfQuestions_sub < 255){ checkFailed = true }
-        if(numOfQuestions_mul < 0 && numOfQuestions_mul < 255){ checkFailed = true }
-        if(numOfQuestions_div < 0 && numOfQuestions_div < 255){ checkFailed = true }
+        if(numOfQuestions_add < 0 && numOfQuestions_add > 255){ checkFailed = true }
+        if(numOfQuestions_sub < 0 && numOfQuestions_sub > 255){ checkFailed = true }
+        if(numOfQuestions_mul < 0 && numOfQuestions_mul > 255){ checkFailed = true }
+        if(numOfQuestions_div < 0 && numOfQuestions_div > 255){ checkFailed = true }
         
         // checks that there is at least one question
         if (checkFailed == false){
@@ -439,6 +439,17 @@ class Student: UIViewController {
             else {parityBit = false} // 1
             print("LeftBin: \(binaryCode)")
             
+            
+            // Print the read values
+            print("---------- ENCODED DATA ----------")
+            print("QADD: \(numOfQuestions_add) QSUB: \(numOfQuestions_sub)   QMUL: \(numOfQuestions_mul)   QDIV: \(numOfQuestions_div)")
+            print("DADD: \(difficulty_add) DSUB: \(difficulty_sub)   DMUL: \(difficulty_mul)   DDIV: \(difficulty_div)")
+            print("DATE: Y:\(year) M:\(month) D:\(day) H:\(hour) M:\(min)")
+            print("SHUF: \(shuffle)   Teach: \(instructorCode)")
+            print("HW#: \(hwCode)   STU: \(studentCode)   PAR: \(parityBit)")
+            print("----------------------------------")
+            
+            
             if (debugIn == false){checkForValidInput()}
             
         }
@@ -450,16 +461,6 @@ class Student: UIViewController {
             quizNumLable.isHidden = true
             takeQuiz.isHidden = true
             quizValid.isHidden = false
-        }
-        else if (checkFailed == false){
-            // Print the read values
-            print("---------- ENCODED DATA ----------")
-            print("QADD: \(numOfQuestions_add) QSUB: \(numOfQuestions_sub)   QMUL: \(numOfQuestions_mul)   QDIV: \(numOfQuestions_div)")
-            print("DADD: \(difficulty_add) DSUB: \(difficulty_sub)   DMUL: \(difficulty_mul)   DDIV: \(difficulty_div)")
-            print("DATE: Y:\(year) M:\(month) D:\(day) H:\(hour) M:\(min)")
-            print("SHUF: \(shuffle)   Teach: \(instructorCode)")
-            print("HW#: \(hwCode)   STU: \(studentCode)   PAR: \(parityBit)")
-            print("----------------------------------")
         }
     }
     
@@ -725,9 +726,9 @@ class Student: UIViewController {
             }
         }
         
-        //print("BinToInt: \(test)")
+        print("BinToInt: \(cnt)")
         
-        return 1
+        return cnt
     }
     
     // Converts binary into Human Readable Characters

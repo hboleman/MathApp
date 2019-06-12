@@ -182,7 +182,7 @@ class Teacher: UIViewController {
     let properBinaryCount = 105
     
     // Debug
-    let debugIn: Bool = true
+    let debugIn: Bool = false
     let debugBinSeperation: Bool = false
     
     // Test Strings
