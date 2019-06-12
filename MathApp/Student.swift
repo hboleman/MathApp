@@ -57,6 +57,7 @@ class Student: UIViewController {
             defaults.set(1, forKey: "mode_symbol");
             defaults.set(1, forKey: "mode_difficulty");
             defaults.set("TEST", forKey: "nil_test");
+            
             defaults.synchronize();
         }
         // Populate local variables with UserData information
@@ -105,6 +106,7 @@ class Student: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("VC:ViewWillApp");
+        save_defaults();
         
     }
     
@@ -122,6 +124,7 @@ class Student: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("VC:ViewDidDis");
+        save_defaults();
     }
     
     //-------------------- CLASS SETUP END --------------------//
@@ -135,6 +138,7 @@ class Student: UIViewController {
     @IBOutlet weak var stuNumField: UITextField!
     @IBOutlet weak var lableAboveCode: UILabel!
     @IBOutlet weak var quizNumLable: UILabel!
+    @IBOutlet weak var quizValid: UILabel!
     @IBOutlet weak var takeQuiz: UIButton!
     
     // Variables for generating code
@@ -202,6 +206,7 @@ class Student: UIViewController {
             lableAboveCode.text = "Enter Code"
             quizNumLable.isHidden = false
             takeQuiz.isHidden = false
+            quizValid.isHidden = false
             lableAboveCode.textColor = UIColor(red:0.56, green:0.81, blue:0.48, alpha:1.0);
             disassembleHumanReadableCode(hrCode: codeEntryField.text!)
             disassembleBinaryCode(binCode: disCodeInBin)
@@ -212,6 +217,7 @@ class Student: UIViewController {
             quizNumLable.text = String("Quiz Number: ")
             quizNumLable.isHidden = true
             takeQuiz.isHidden = true
+            quizValid.isHidden = true
         }
     }
     
@@ -240,23 +246,23 @@ class Student: UIViewController {
         // Homework Code
         if((hwCode < 1 || hwCode > 999) && checkFailed == false){ checkFailed = true }
         
-        // Student Code Check (NEEDS AN INPUT)
+        // Student Code Check
         if((stuNumField.text?.isEmpty ?? nil)!){ checkFailed = true}
         if((stuNumField.text!.count > 3 || stuNumField.text!.count < 0) && checkFailed == false){ checkFailed = true }
         if((Int(stuNumField.text!)! < 1 || Int(stuNumField.text!)! > 999) && checkFailed == false){ checkFailed = true }
         
         // Parity
-//        if (checkFailed == false){
-//            var posCount = 0
-//            for index in 0..<disCodeInBin.count{
-//                if (disCodeInBin.character(at: index)! == "1"){posCount = posCount + 1}
-//            }
-//            let posMod = posCount % 2
-//            var tempPar: Bool = false
-//            if (posMod != 0){tempPar = true}
-//            else {tempPar = false}
-//            if (parityBit != tempPar){checkFailed = true}
-//        }
+        if (checkFailed == false){
+            var posCount = 0
+            for index in 0..<disCodeInBin.count{
+                if (disCodeInBin.character(at: index)! == "1"){posCount = posCount + 1}
+            }
+            let posMod = posCount % 2
+            var tempPar: Bool = false
+            if (posMod != 0){tempPar = true}
+            else {tempPar = false}
+            if (parityBit != tempPar){checkFailed = true}
+        }
     }
     
     func disassembleBinaryCode(binCode: String) {
@@ -436,18 +442,90 @@ class Student: UIViewController {
             if (debugIn == false){checkForValidInput()}
             
         }
-        else if (checkFailed == true) {
+        if (checkFailed == true) {
             // if check failed
             lableAboveCode.textColor = UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0)
             lableAboveCode.text = "Invalid"
             quizNumLable.text = String("Quiz Number: ")
             quizNumLable.isHidden = true
             takeQuiz.isHidden = true
+            quizValid.isHidden = false
+        }
+        else if (checkFailed == false){
+            // Print the read values
+            print("---------- ENCODED DATA ----------")
+            print("QADD: \(numOfQuestions_add) QSUB: \(numOfQuestions_sub)   QMUL: \(numOfQuestions_mul)   QDIV: \(numOfQuestions_div)")
+            print("DADD: \(difficulty_add) DSUB: \(difficulty_sub)   DMUL: \(difficulty_mul)   DDIV: \(difficulty_div)")
+            print("DATE: Y:\(year) M:\(month) D:\(day) H:\(hour) M:\(min)")
+            print("SHUF: \(shuffle)   Teach: \(instructorCode)")
+            print("HW#: \(hwCode)   STU: \(studentCode)   PAR: \(parityBit)")
+            print("----------------------------------")
         }
     }
     
     func setDate(dateStr: String){
+        var binarySnipit: String = ""
+        var binaryCode: String = dateStr
         
+        // Extracting Year Code
+        binarySnipit = ""
+        for index in 0..<7 {
+            binarySnipit.append(binaryCode.character(at: index)!)
+        }
+        print("(BinSnip: \(binarySnipit)")
+        for _ in 0..<7 {
+            binaryCode.removeFirst()
+        }
+        print("LeftBin: \(binaryCode)")
+        year = String(binToInt(bin: binarySnipit)) // 7
+        
+        // Extracting Month Code
+        binarySnipit = ""
+        for index in 0..<4 {
+            binarySnipit.append(binaryCode.character(at: index)!)
+        }
+        print("(BinSnip: \(binarySnipit)")
+        for _ in 0..<4 {
+            binaryCode.removeFirst()
+        }
+        print("LeftBin: \(binaryCode)")
+        month = String(binToInt(bin: binarySnipit)) // 4
+        
+        // Extracting Day Code
+        binarySnipit = ""
+        for index in 0..<6 {
+            binarySnipit.append(binaryCode.character(at: index)!)
+        }
+        print("(BinSnip: \(binarySnipit)")
+        for _ in 0..<6 {
+            binaryCode.removeFirst()
+        }
+        print("LeftBin: \(binaryCode)")
+        day = String(binToInt(bin: binarySnipit)) // 6
+        
+        // Extracting Hour Code
+        binarySnipit = ""
+        for index in 0..<5 {
+            binarySnipit.append(binaryCode.character(at: index)!)
+        }
+        print("(BinSnip: \(binarySnipit)")
+        for _ in 0..<5 {
+            binaryCode.removeFirst()
+        }
+        print("LeftBin: \(binaryCode)")
+        hour = String(binToInt(bin: binarySnipit)) // 5
+        
+        // Extracting Min Code
+        binarySnipit = ""
+        for index in 0..<6 {
+            binarySnipit.append(binaryCode.character(at: index)!)
+        }
+        print("(BinSnip: \(binarySnipit)")
+        for _ in 0..<6 {
+            binaryCode.removeFirst()
+        }
+        print("LeftBin: \(binaryCode)")
+        min = String(binToInt(bin: binarySnipit)) // 6
     }
     
     func disassembleHumanReadableCode(hrCode: String){

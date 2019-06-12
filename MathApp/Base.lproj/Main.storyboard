@@ -1414,11 +1414,18 @@ All rights reserved</string>
                                 <color key="textColor" red="0.56911879779999996" green="0.82907623050000001" blue="0.46586191649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Valid: Yes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IEm-E8-YhN">
+                                <rect key="frame" x="13" y="519" width="364" height="37"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                <color key="textColor" red="0.56911879779999996" green="0.82907623050000001" blue="0.46586191649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.1487618983" green="0.61697542670000005" blue="0.79630565639999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="I5F-Vr-h0y" secondAttribute="bottom" id="2CB-yE-8NV"/>
                             <constraint firstAttribute="bottom" secondItem="PfH-yh-rnO" secondAttribute="bottom" constant="121" id="4i8-eG-FWz"/>
+                            <constraint firstItem="IEm-E8-YhN" firstAttribute="leading" secondItem="eeJ-7S-Fk4" secondAttribute="leading" id="4tW-5B-NgF"/>
                             <constraint firstItem="oOC-gu-gsC" firstAttribute="trailing" secondItem="hb6-ZG-l5j" secondAttribute="trailing" id="4yN-Ph-YUi"/>
                             <constraint firstItem="eeJ-7S-Fk4" firstAttribute="leading" secondItem="hb6-ZG-l5j" secondAttribute="leading" id="7fp-qe-HN7"/>
                             <constraint firstItem="PfH-yh-rnO" firstAttribute="leading" secondItem="dgJ-96-w1G" secondAttribute="leading" id="8BI-TE-4Qt"/>
@@ -1431,9 +1438,11 @@ All rights reserved</string>
                             <constraint firstItem="UUo-lh-0KD" firstAttribute="centerX" secondItem="dgJ-96-w1G" secondAttribute="centerX" id="LCU-5e-vxB"/>
                             <constraint firstItem="PfH-yh-rnO" firstAttribute="leading" secondItem="aik-G9-rAQ" secondAttribute="leading" id="OWu-Rn-Qhg"/>
                             <constraint firstItem="I5F-Vr-h0y" firstAttribute="top" secondItem="PfH-yh-rnO" secondAttribute="bottom" constant="8" symbolic="YES" id="OdU-8h-aFI"/>
+                            <constraint firstItem="IEm-E8-YhN" firstAttribute="trailing" secondItem="eeJ-7S-Fk4" secondAttribute="trailing" id="PXm-bf-TVx"/>
                             <constraint firstItem="PfH-yh-rnO" firstAttribute="top" secondItem="oOC-gu-gsC" secondAttribute="bottom" constant="8" symbolic="YES" id="U3t-Dc-awP"/>
                             <constraint firstItem="UUo-lh-0KD" firstAttribute="centerX" secondItem="WJB-DG-2Uj" secondAttribute="centerX" id="YBu-uK-mqd"/>
                             <constraint firstItem="Jkj-QA-El0" firstAttribute="leading" secondItem="748-oq-WCr" secondAttribute="trailing" constant="8" symbolic="YES" id="YaD-sJ-bli"/>
+                            <constraint firstItem="IEm-E8-YhN" firstAttribute="top" secondItem="eeJ-7S-Fk4" secondAttribute="bottom" constant="8" symbolic="YES" id="aQ5-3M-fBU"/>
                             <constraint firstItem="hb6-ZG-l5j" firstAttribute="centerX" secondItem="I5F-Vr-h0y" secondAttribute="centerX" id="cwr-3Q-qL7"/>
                             <constraint firstItem="hb6-ZG-l5j" firstAttribute="top" secondItem="dZk-Oc-4AP" secondAttribute="bottom" constant="16" id="dJt-ug-r51"/>
                             <constraint firstItem="UUo-lh-0KD" firstAttribute="centerX" secondItem="I5F-Vr-h0y" secondAttribute="centerX" id="dyO-9O-k8h"/>
@@ -1461,6 +1470,7 @@ All rights reserved</string>
                         <outlet property="codeEntryField" destination="dZk-Oc-4AP" id="VGO-sB-Una"/>
                         <outlet property="lableAboveCode" destination="UUo-lh-0KD" id="cWa-Em-fRm"/>
                         <outlet property="quizNumLable" destination="eeJ-7S-Fk4" id="kbB-rf-qWT"/>
+                        <outlet property="quizValid" destination="IEm-E8-YhN" id="1Bi-j3-UOP"/>
                         <outlet property="stuNumField" destination="Jkj-QA-El0" id="ox3-Nj-i4v"/>
                         <outlet property="takeQuiz" destination="oOC-gu-gsC" id="grr-6U-HI0"/>
                     </connections>
