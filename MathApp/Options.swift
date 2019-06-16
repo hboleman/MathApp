@@ -61,7 +61,7 @@ class Options: UIViewController {
             
             modesActive[0] = true
             defaults.set(modesActive, forKey: "modesActive")
-            defaults.set(10, forKey: "questionCount")
+            defaults.set(1, forKey: "questionCount")
             
             defaults.synchronize();
         }
@@ -109,7 +109,8 @@ class Options: UIViewController {
         defaults.set(mode_difficulty, forKey: "mode_difficulty");
         
         defaults.set(modesActive, forKey: "modesActive")
-        defaults.set(10, forKey: "questionCount")
+        
+        defaults.set(questionCount, forKey: "questionCount")
         
         defaults.synchronize();
     }
@@ -154,7 +155,11 @@ class Options: UIViewController {
     @IBOutlet weak var out_medium: UIButton!
     @IBOutlet weak var out_hard: UIButton!
     
+    @IBOutlet weak var numberLable: UILabel!
     
+    // Local Vars
+    let min = 1
+    let max = 20
     
     // OPTIONS PLUS
     @IBAction func btn_mode_plus(_ sender: Any) {
@@ -250,6 +255,21 @@ class Options: UIViewController {
         for index in 0..<modesActive.count{if (modesActive[index] == true){count = count + 1}}
         if (count > 1 && modesActive[index] == true){return true}
         else {return false}
+    }
+
+    
+    @IBAction func decrimentButton(_ sender: Any) {
+        if ((questionCount - 1) <= max && (questionCount - 1) >= min){
+            questionCount = questionCount - 1
+            numberLable.text = String(questionCount)
+        }
+    }
+    
+    @IBAction func incrementButton(_ sender: Any) {
+        if ((questionCount + 1) <= max && (questionCount + 1) >= min){
+            questionCount = questionCount + 1
+            numberLable.text = String(questionCount)
+        }
     }
     
 }

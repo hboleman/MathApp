@@ -12,12 +12,12 @@
 		5A3807A7221E724400F75BFD /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3807A6221E724400F75BFD /* Teacher.swift */; };
 		5A5826E821FA6EFC0077D940 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5826E721FA6EFC0077D940 /* AppDelegate.swift */; };
 		5A5826EA21FA6EFC0077D940 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5826E921FA6EFC0077D940 /* ViewController.swift */; };
-		5A5826ED21FA6EFC0077D940 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A5826EB21FA6EFC0077D940 /* Main.storyboard */; };
 		5A5826EF21FA6EFE0077D940 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A5826EE21FA6EFE0077D940 /* Assets.xcassets */; };
 		5A5826FD21FA6EFE0077D940 /* MathAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5826FC21FA6EFE0077D940 /* MathAppTests.swift */; };
 		5A58270821FA6EFE0077D940 /* MathAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58270721FA6EFE0077D940 /* MathAppUITests.swift */; };
 		5A6F326622ADD05500FE4CD5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A6F326522ADD05500FE4CD5 /* Launch Screen.storyboard */; };
 		5A6F326822ADE4F000FE4CD5 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6F326722ADE4F000FE4CD5 /* Student.swift */; };
+		5AC68EC522B6F46E001F19F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AC68EC422B6F46E001F19F9 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +44,6 @@
 		5A5826E421FA6EFC0077D940 /* MathApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MathApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A5826E721FA6EFC0077D940 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5A5826E921FA6EFC0077D940 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		5A5826EC21FA6EFC0077D940 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5A5826EE21FA6EFE0077D940 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A5826F321FA6EFE0077D940 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A5826F821FA6EFE0077D940 /* MathAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MathAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,6 +54,7 @@
 		5A58270921FA6EFE0077D940 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A6F326522ADD05500FE4CD5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		5A6F326722ADE4F000FE4CD5 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+		5AC68EC422B6F46E001F19F9 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../../../../../Desktop/Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,12 +105,12 @@
 		5A5826E621FA6EFC0077D940 /* MathApp */ = {
 			isa = PBXGroup;
 			children = (
+				5AC68EC422B6F46E001F19F9 /* Main.storyboard */,
 				5A3807A6221E724400F75BFD /* Teacher.swift */,
 				5A5826E721FA6EFC0077D940 /* AppDelegate.swift */,
 				5A5826E921FA6EFC0077D940 /* ViewController.swift */,
 				5A3807A2221E70CF00F75BFD /* Quiz.swift */,
 				5A3807A0221E704B00F75BFD /* Options.swift */,
-				5A5826EB21FA6EFC0077D940 /* Main.storyboard */,
 				5A5826EE21FA6EFE0077D940 /* Assets.xcassets */,
 				5A5826F321FA6EFE0077D940 /* Info.plist */,
 				5A6F326522ADD05500FE4CD5 /* Launch Screen.storyboard */,
@@ -241,9 +241,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AC68EC522B6F46E001F19F9 /* Main.storyboard in Resources */,
 				5A6F326622ADD05500FE4CD5 /* Launch Screen.storyboard in Resources */,
 				5A5826EF21FA6EFE0077D940 /* Assets.xcassets in Resources */,
-				5A5826ED21FA6EFC0077D940 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,17 +307,6 @@
 			targetProxy = 5A58270421FA6EFE0077D940 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		5A5826EB21FA6EFC0077D940 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5A5826EC21FA6EFC0077D940 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		5A58270A21FA6EFE0077D940 /* Debug */ = {
