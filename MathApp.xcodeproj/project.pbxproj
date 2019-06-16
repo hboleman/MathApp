@@ -111,10 +111,10 @@
 				5A5826E921FA6EFC0077D940 /* ViewController.swift */,
 				5A3807A2221E70CF00F75BFD /* Quiz.swift */,
 				5A3807A0221E704B00F75BFD /* Options.swift */,
+				5A6F326722ADE4F000FE4CD5 /* Student.swift */,
 				5A5826EE21FA6EFE0077D940 /* Assets.xcassets */,
 				5A5826F321FA6EFE0077D940 /* Info.plist */,
 				5A6F326522ADD05500FE4CD5 /* Launch Screen.storyboard */,
-				5A6F326722ADE4F000FE4CD5 /* Student.swift */,
 			);
 			path = MathApp;
 			sourceTree = "<group>";

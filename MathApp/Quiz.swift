@@ -44,8 +44,6 @@ class Quiz: UIViewController {
         
         // Allow for code to run going into or out of background foreground
         let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.didEnterBackgroundNotification, object: nil);
-        notificationCenter.addObserver(self, selector: #selector(appCameToForeground), name: UIApplication.willEnterForegroundNotification, object: nil);
         
         // If defaults have not been setup, set them up
         if (defaults.string(forKey: "nil_test") == nil){
@@ -116,34 +114,10 @@ class Quiz: UIViewController {
         defaults.synchronize();
     }
     
-    @objc func appMovedToBackground() {
-        print("ENT_BKRND")
-    }
-    
-    @objc func appCameToForeground() {
-        print("ENT_FORRND")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("VC:ViewWillApp");
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("VC:ViewDidApp");
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         print("VC:ViewWillDis");
         save_defaults();
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("VC:ViewDidDis");
     }
     
     //-------------------- CLASS SETUP END --------------------//
