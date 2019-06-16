@@ -17,20 +17,22 @@ class Teacher: UIViewController {
     let defaults = UserDefaults.standard
     
     // Populate local variables with UserData information
-    var num1: Int = 0;
-    var num2: Int = 0;
-    var numAns: Int = 0;
-    var temp1: Int = 0;
-    var temp2: Int = 0;
-    var place: Int = 0;
-    var user_num: Int = 0;
-    var score_right: Int = 0;
-    var score_wrong: Int = 0;
-    var score_Qcurrent: Int = 0;
-    var score_Qmax: Int = 0;
-    var canTouch: Bool = true;
-    var mode_symbol: Int = 0;
-    var mode_difficulty: Int = 0;
+//    var num1: Int = 0;
+//    var num2: Int = 0;
+//    var numAns: Int = 0;
+//    var temp1: Int = 0;
+//    var temp2: Int = 0;
+//    var place: Int = 0;
+//    var user_num: Int = 0;
+//    var score_right: Int = 0;
+//    var score_wrong: Int = 0;
+//    var score_Qcurrent: Int = 0;
+//    var score_Qmax: Int = 0;
+//    var canTouch: Bool = true;
+//    var mode_symbol: Int = 0;
+//    var mode_difficulty: Int = 0;
+    
+    var modesActive: [Bool] = Array(repeating: false, count: 4)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,43 +56,47 @@ class Teacher: UIViewController {
             defaults.set(0, forKey: "score_Qcurrent");
             defaults.set(0, forKey: "score_Qmax");
             defaults.set(true, forKey: "canTouch");
-            defaults.set(1, forKey: "mode_symbol");
             defaults.set(1, forKey: "mode_difficulty");
             defaults.set("TEST", forKey: "nil_test");
+            
+            modesActive[0] = true
+            defaults.set(modesActive, forKey: "modesActive")
+            defaults.set(1, forKey: "questionCount")
+            defaults.set(true, forKey: "shuffle")
+            defaults.set(true, forKey: "stuNum")
+            
             defaults.synchronize();
         }
         // Populate local variables with UserData information
-        num1 = defaults.integer(forKey: "num1");
-        num2 = defaults.integer(forKey: "num2");
-        numAns = defaults.integer(forKey: "numAns");
-        temp1 = defaults.integer(forKey: "temp1");
-        temp2 = defaults.integer(forKey: "temp2");
-        place = defaults.integer(forKey: "place");
-        user_num = defaults.integer(forKey: "user_num");
-        score_right = defaults.integer(forKey: "score_right");
-        score_wrong = defaults.integer(forKey: "score_wrong");
-        score_Qcurrent = defaults.integer(forKey: "score_Qcurrent");
-        score_Qmax = defaults.integer(forKey: "score_Qmax");
-        canTouch = defaults.bool(forKey: "canTouch");
-        mode_symbol = defaults.integer(forKey: "mode_symbol");
-        mode_difficulty = defaults.integer(forKey: "mode_difficulty");
+//        num1 = defaults.integer(forKey: "num1");
+//        num2 = defaults.integer(forKey: "num2");
+//        numAns = defaults.integer(forKey: "numAns");
+//        temp1 = defaults.integer(forKey: "temp1");
+//        temp2 = defaults.integer(forKey: "temp2");
+//        place = defaults.integer(forKey: "place");
+//        user_num = defaults.integer(forKey: "user_num");
+//        score_right = defaults.integer(forKey: "score_right");
+//        score_wrong = defaults.integer(forKey: "score_wrong");
+//        score_Qcurrent = defaults.integer(forKey: "score_Qcurrent");
+//        score_Qmax = defaults.integer(forKey: "score_Qmax");
+//        canTouch = defaults.bool(forKey: "canTouch");
+//        mode_difficulty = defaults.integer(forKey: "mode_difficulty");
     }
     
     func save_defaults(){
-        defaults.set(num1, forKey: "num1");
-        defaults.set(num2, forKey: "num2");
-        defaults.set(numAns, forKey: "numAns");
-        defaults.set(temp1, forKey: "temp1");
-        defaults.set(temp2, forKey: "temp2");
-        defaults.set(place, forKey: "place");
-        defaults.set(user_num, forKey: "user_num");
-        defaults.set(score_right, forKey: "score_right");
-        defaults.set(score_wrong, forKey: "score_wrong");
-        defaults.set(score_Qcurrent, forKey: "score_Qcurrent");
-        defaults.set(score_Qmax, forKey: "score_Qmax");
-        defaults.set(canTouch, forKey: "canTouch");
-        defaults.set(mode_symbol, forKey: "mode_symbol");
-        defaults.set(mode_difficulty, forKey: "mode_difficulty");
+//        defaults.set(num1, forKey: "num1");
+//        defaults.set(num2, forKey: "num2");
+//        defaults.set(numAns, forKey: "numAns");
+//        defaults.set(temp1, forKey: "temp1");
+//        defaults.set(temp2, forKey: "temp2");
+//        defaults.set(place, forKey: "place");
+//        defaults.set(user_num, forKey: "user_num");
+//        defaults.set(score_right, forKey: "score_right");
+//        defaults.set(score_wrong, forKey: "score_wrong");
+//        defaults.set(score_Qcurrent, forKey: "score_Qcurrent");
+//        defaults.set(score_Qmax, forKey: "score_Qmax");
+//        defaults.set(canTouch, forKey: "canTouch");
+//        defaults.set(mode_difficulty, forKey: "mode_difficulty");
         defaults.synchronize();
     }
     

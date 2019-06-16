@@ -68,6 +68,7 @@ class Quiz: UIViewController {
             defaults.set(modesActive, forKey: "modesActive")
             defaults.set(1, forKey: "questionCount")
             defaults.set(true, forKey: "shuffle")
+            defaults.set(true, forKey: "stuNum")
             
             defaults.synchronize();
         }

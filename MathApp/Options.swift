@@ -62,22 +62,24 @@ class Options: UIViewController {
             modesActive[0] = true
             defaults.set(modesActive, forKey: "modesActive")
             defaults.set(1, forKey: "questionCount")
+            defaults.set(true, forKey: "shuffle")
             
             defaults.synchronize();
         }
         // Populate local variables with UserData information
-        num1 = defaults.integer(forKey: "num1");
-        num2 = defaults.integer(forKey: "num2");
-        numAns = defaults.integer(forKey: "numAns");
-        temp1 = defaults.integer(forKey: "temp1");
-        temp2 = defaults.integer(forKey: "temp2");
-        place = defaults.integer(forKey: "place");
-        user_num = defaults.integer(forKey: "user_num");
-        score_right = defaults.integer(forKey: "score_right");
-        score_wrong = defaults.integer(forKey: "score_wrong");
-        score_Qcurrent = defaults.integer(forKey: "score_Qcurrent");
-        score_Qmax = defaults.integer(forKey: "score_Qmax");
-        canTouch = defaults.bool(forKey: "canTouch");
+//        num1 = defaults.integer(forKey: "num1");
+//        num2 = defaults.integer(forKey: "num2");
+//        numAns = defaults.integer(forKey: "numAns");
+//        temp1 = defaults.integer(forKey: "temp1");
+//        temp2 = defaults.integer(forKey: "temp2");
+//        place = defaults.integer(forKey: "place");
+//        user_num = defaults.integer(forKey: "user_num");
+//        score_right = defaults.integer(forKey: "score_right");
+//        score_wrong = defaults.integer(forKey: "score_wrong");
+//        score_Qcurrent = defaults.integer(forKey: "score_Qcurrent");
+//        score_Qmax = defaults.integer(forKey: "score_Qmax");
+//        canTouch = defaults.bool(forKey: "canTouch");
+        
         mode_difficulty = defaults.integer(forKey: "mode_difficulty");
         
         modesActive = defaults.array(forKey: "modesActive") as! [Bool]
