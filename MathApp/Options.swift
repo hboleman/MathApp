@@ -29,8 +29,10 @@ class Options: UIViewController {
     var score_Qcurrent: Int = 0;
     var score_Qmax: Int = 0;
     var canTouch: Bool = true;
-    var mode_symbol: Int = 0;
     var mode_difficulty: Int = 0;
+    
+    var modesActive: [Bool] = Array(repeating: false, count: 4)
+    var questionCount: Int = 10;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,9 +56,13 @@ class Options: UIViewController {
             defaults.set(0, forKey: "score_Qcurrent");
             defaults.set(0, forKey: "score_Qmax");
             defaults.set(true, forKey: "canTouch");
-            defaults.set(1, forKey: "mode_symbol");
             defaults.set(1, forKey: "mode_difficulty");
             defaults.set("TEST", forKey: "nil_test");
+            
+            modesActive[0] = true
+            defaults.set(modesActive, forKey: "modesActive")
+            defaults.set(10, forKey: "questionCount")
+            
             defaults.synchronize();
         }
         // Populate local variables with UserData information
@@ -72,31 +78,19 @@ class Options: UIViewController {
         score_Qcurrent = defaults.integer(forKey: "score_Qcurrent");
         score_Qmax = defaults.integer(forKey: "score_Qmax");
         canTouch = defaults.bool(forKey: "canTouch");
-        mode_symbol = defaults.integer(forKey: "mode_symbol");
         mode_difficulty = defaults.integer(forKey: "mode_difficulty");
         
+        modesActive = defaults.array(forKey: "modesActive") as! [Bool]
+        questionCount = defaults.integer(forKey: "questionCount")
+        
         // Makes the options reflect the current set value
-        if (mode_symbol == 1){
-            color_plus();
-        }
-        else if (mode_symbol == 2){
-            color_minus();
-        }
-        else if (mode_symbol == 3){
-            color_multiply();
-        }
-        else if (mode_symbol == 4){
-            color_divide();
-        }
-        if (mode_difficulty == 1){
-            color_easy();
-        }
-        else if (mode_difficulty == 2){
-            color_medium();
-        }
-        else if (mode_difficulty == 3){
-            color_hard();
-        }
+        color_plus()
+        color_minus()
+        color_multiply()
+        color_divide()
+        if (mode_difficulty == 1){color_easy()}
+        else if (mode_difficulty == 2){color_medium()}
+        else if (mode_difficulty == 3){color_hard()}
     }
     
     func save_defaults(){
@@ -112,8 +106,11 @@ class Options: UIViewController {
         defaults.set(score_Qcurrent, forKey: "score_Qcurrent");
         defaults.set(score_Qmax, forKey: "score_Qmax");
         defaults.set(canTouch, forKey: "canTouch");
-        defaults.set(mode_symbol, forKey: "mode_symbol");
         defaults.set(mode_difficulty, forKey: "mode_difficulty");
+        
+        defaults.set(modesActive, forKey: "modesActive")
+        defaults.set(10, forKey: "questionCount")
+        
         defaults.synchronize();
     }
     
@@ -128,7 +125,6 @@ class Options: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("VC:ViewWillApp");
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -162,54 +158,58 @@ class Options: UIViewController {
     
     // OPTIONS PLUS
     @IBAction func btn_mode_plus(_ sender: Any) {
-        mode_symbol = 1;
+        if (notLast(index: 0)) {
+        if (modesActive[0] == true) {modesActive[0] = false}
+        else {modesActive[0] = true}
         color_plus();
+        }
     }
     // Function used to color plus
     func color_plus(){
-        out_plus.setTitleColor(UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0), for: .normal)
-        out_minus.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)
-        out_multiply.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)
-        out_divide.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)
+        if (modesActive[0] == true){ out_plus.setTitleColor(UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0), for: .normal)}
+        else {out_plus.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)}
     }
     
     // OPTIONS MINUS
     @IBAction func btn_mode_minus(_ sender: Any) {
-        mode_symbol = 2;
+        if (notLast(index: 1)) {
+        if (modesActive[1] == true) {modesActive[1] = false}
+        else {modesActive[1] = true}
         color_minus();
+        }
     }
     // Function used to color minus
     func color_minus(){
-        out_minus.setTitleColor(UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0), for: .normal)
-        out_plus.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)
-        out_multiply.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)
-        out_divide.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)
+        if (modesActive[1] == true){ out_minus.setTitleColor(UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0), for: .normal)}
+        else {out_minus.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)}
     }
     
     // OPTIONS MULTIPLY
     @IBAction func btn_mode_multiply(_ sender: Any) {
-        mode_symbol = 3;
+        if (notLast(index: 2)) {
+        if (modesActive[2] == true) {modesActive[2] = false}
+        else {modesActive[2] = true}
         color_multiply();
+        }
     }
     // Function used to color multiply
     func color_multiply(){
-        out_multiply.setTitleColor(UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0), for: .normal)
-        out_plus.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)
-        out_minus.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)
-        out_divide.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)
+        if (modesActive[2] == true){ out_multiply.setTitleColor(UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0), for: .normal)}
+        else {out_multiply.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)}
     }
     
     // OPTIONS DIVIDE
     @IBAction func btn_mode_divide(_ sender: Any) {
-        mode_symbol = 4;
+        if (notLast(index: 3)) {
+        if (modesActive[3] == true) {modesActive[3] = false}
+        else {modesActive[3] = true}
         color_divide();
+        }
     }
     // Function used to color divide
     func color_divide(){
-        out_divide.setTitleColor(UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0), for: .normal)
-        out_plus.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)
-        out_minus.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)
-        out_multiply.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)
+        if (modesActive[3] == true){ out_divide.setTitleColor(UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0), for: .normal)}
+        else {out_divide.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)}
     }
     
     @IBAction func btn_easy(_ sender: Any) {
@@ -241,4 +241,15 @@ class Options: UIViewController {
         out_medium.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)
         out_hard.setTitleColor(UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0), for: .normal)
     }
+    
+    func notLast(index: Int) -> Bool {
+        // For enabling
+        if (modesActive[index] == false){return true}
+        // For disabling
+        var count = 0
+        for index in 0..<modesActive.count{if (modesActive[index] == true){count = count + 1}}
+        if (count > 1 && modesActive[index] == true){return true}
+        else {return false}
+    }
+    
 }
