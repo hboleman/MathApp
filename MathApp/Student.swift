@@ -58,6 +58,8 @@ class Student: UIViewController {
             defaults.set(1, forKey: "mode_difficulty");
             defaults.set("TEST", forKey: "nil_test");
             
+            defaults.set(true, forKey: "shuffle");
+            
             defaults.synchronize();
         }
         // Populate local variables with UserData information
@@ -75,6 +77,7 @@ class Student: UIViewController {
         canTouch = defaults.bool(forKey: "canTouch");
         mode_symbol = defaults.integer(forKey: "mode_symbol");
         mode_difficulty = defaults.integer(forKey: "mode_difficulty");
+        shuffle = defaults.bool(forKey: "shuffle")
     }
     
     func save_defaults(){
@@ -92,6 +95,9 @@ class Student: UIViewController {
         defaults.set(canTouch, forKey: "canTouch");
         defaults.set(mode_symbol, forKey: "mode_symbol");
         defaults.set(mode_difficulty, forKey: "mode_difficulty");
+        
+        defaults.set(shuffle, forKey: "shuffle");
+        
         defaults.synchronize();
     }
     

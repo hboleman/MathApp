@@ -32,6 +32,13 @@ class Quiz: UIViewController {
     var mode_symbol: Int = 0;
     var mode_difficulty: Int = 0;
     
+    var modesActive: [Bool] = Array(repeating: false, count: 4)
+    var questionCount: Int = 0;
+    var questionsArray: [Int] = Array.init()
+    var shuffle: Bool = false
+    
+    var homeworkQuiz: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,9 +61,14 @@ class Quiz: UIViewController {
             defaults.set(0, forKey: "score_Qcurrent");
             defaults.set(0, forKey: "score_Qmax");
             defaults.set(true, forKey: "canTouch");
-            defaults.set(1, forKey: "mode_symbol");
             defaults.set(1, forKey: "mode_difficulty");
             defaults.set("TEST", forKey: "nil_test");
+            
+            modesActive[0] = true
+            defaults.set(modesActive, forKey: "modesActive")
+            defaults.set(1, forKey: "questionCount")
+            defaults.set(true, forKey: "shuffle")
+            
             defaults.synchronize();
         }
         // Populate local variables with UserData information
@@ -72,8 +84,12 @@ class Quiz: UIViewController {
         score_Qcurrent = defaults.integer(forKey: "score_Qcurrent");
         score_Qmax = defaults.integer(forKey: "score_Qmax");
         canTouch = defaults.bool(forKey: "canTouch");
-        mode_symbol = defaults.integer(forKey: "mode_symbol");
         mode_difficulty = defaults.integer(forKey: "mode_difficulty");
+        
+        modesActive = defaults.array(forKey: "modesActive") as! [Bool]
+        questionCount = defaults.integer(forKey: "questionCount")
+        shuffle = defaults.bool(forKey: "shuffle")
+        
         start();
     }
     
@@ -90,8 +106,12 @@ class Quiz: UIViewController {
         defaults.set(score_Qcurrent, forKey: "score_Qcurrent");
         defaults.set(score_Qmax, forKey: "score_Qmax");
         defaults.set(canTouch, forKey: "canTouch");
-        defaults.set(mode_symbol, forKey: "mode_symbol");
         defaults.set(mode_difficulty, forKey: "mode_difficulty");
+        
+        defaults.set(modesActive, forKey: "modesActive")
+        //defaults.set(questionCount, forKey: "questionCount")
+        defaults.set(shuffle, forKey: "shuffle")
+        
         defaults.synchronize();
     }
     
@@ -304,10 +324,16 @@ class Quiz: UIViewController {
     }
     
     
-    
-    
     // Function used to rotate the question and re-enable touch on the keypad
     func NextQuestion(){
+        if (homeworkQuiz == false){
+        // Decide Which Question to do
+        if (score_Qcurrent < score_Qmax){
+        let tempNum = questionsArray.removeFirst()
+        mode_symbol = tempNum
+            }
+        
+        // Regualr Question Setup
         if (mode_symbol == 1){ // +
             lbl_symbol.text = "+";
             //Easy
@@ -389,10 +415,18 @@ class Quiz: UIViewController {
             lbl_symbol.text = "%";
             //Easy
             if (mode_difficulty == 1){
+                var tempRnd = 0
+                var retryFlag = false
                 repeat {
+                    retryFlag = false
                     temp1 = Int.random(in: 4 ... 20)
                     temp2 = Int.random(in: 1 ... (temp1 / 2))
-                } while ((temp1 % temp2) != 0)
+                    // To have less divide by 1s
+                    if (temp1 == 1 || temp2 == 1){
+                        tempRnd = Int.random(in: 1 ... 10)
+                        if (tempRnd != 5){retryFlag = true}
+                    }
+                } while (((temp1 % temp2) != 0) || retryFlag == true)
             }
             
             //Medium
@@ -432,10 +466,11 @@ class Quiz: UIViewController {
         
         // Allows the keypad to be enabled again.
         canTouch = true;
-        
+    }
         // End condition triggers when question has reached the max allowed.
         if (score_Qcurrent >= score_Qmax) {
             canTouch = false;
+            lbl_top.text = ""
             lbl_bottom.text = "";
             lbl_answer.text = "DONE!";
             lbl_symbol.text = "";
@@ -445,6 +480,27 @@ class Quiz: UIViewController {
     
     // Function sets all variables for a new quiz.
     func start(){
+        if (homeworkQuiz == false){
+        // Section for making array for which questions to run
+        if (modesActive[0] == true){for _ in 0..<questionCount {questionsArray.append(1)}}
+        if (modesActive[1] == true){for _ in 0..<questionCount {questionsArray.append(2)}}
+        if (modesActive[2] == true){for _ in 0..<questionCount {questionsArray.append(3)}}
+        if (modesActive[3] == true){for _ in 0..<questionCount {questionsArray.append(4)}}
+        
+        // Get proper question count
+        var count = 0
+        for index in 0..<modesActive.count{if (modesActive[index] == true){count = count + 1}}
+        questionCount = questionCount * count
+        
+        score_Qmax = questionCount
+        
+        // Shuffles the array of questions if needed
+        if (shuffle){questionsArray.shuffle()}
+        }
+        
+        
+        //REGULAR START
+        
         // Set Variables
         num1 = 0;
         num2 = 0;
@@ -456,7 +512,7 @@ class Quiz: UIViewController {
         score_right = 0;
         score_wrong = 0;
         score_Qcurrent = 0;
-        score_Qmax = 10;
+        //score_Qmax = 10;
         
         canTouch = true;
         out_nextquestion.isHidden = true;

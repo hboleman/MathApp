@@ -32,7 +32,7 @@ class Options: UIViewController {
     var mode_difficulty: Int = 0;
     
     var modesActive: [Bool] = Array(repeating: false, count: 4)
-    var questionCount: Int = 10;
+    var questionCount: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +83,8 @@ class Options: UIViewController {
         modesActive = defaults.array(forKey: "modesActive") as! [Bool]
         questionCount = defaults.integer(forKey: "questionCount")
         
+        numberLable.text = String(questionCount)
+        
         // Makes the options reflect the current set value
         color_plus()
         color_minus()
@@ -109,7 +111,6 @@ class Options: UIViewController {
         defaults.set(mode_difficulty, forKey: "mode_difficulty");
         
         defaults.set(modesActive, forKey: "modesActive")
-        
         defaults.set(questionCount, forKey: "questionCount")
         
         defaults.synchronize();
