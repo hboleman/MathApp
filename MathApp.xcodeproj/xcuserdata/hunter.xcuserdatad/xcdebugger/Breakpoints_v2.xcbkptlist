@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MathApp/Teacher.swift"
-            timestampString = "582484629.791749"
+            timestampString = "582504811.22079"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "239"
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MathApp/Quiz.swift"
-            timestampString = "582485432.099818"
+            timestampString = "582505246.413623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
             <Locations>
@@ -122,12 +122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MathApp/Quiz.swift"
-            timestampString = "582485432.099918"
+            timestampString = "582505246.414132"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "475"
-            endingLineNumber = "475"
-            landmarkName = "NextQuestion()"
+            startingLineNumber = "307"
+            endingLineNumber = "307"
+            landmarkName = "segueCheck()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

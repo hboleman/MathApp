@@ -41,6 +41,7 @@ class Quiz: UIViewController {
     
     var seed: UInt64 = 0
     var generator = SeededGenerator()
+    var doSegue: Bool = false
     
     var debugSendToResults: Bool = false
     
@@ -98,9 +99,7 @@ class Quiz: UIViewController {
         }
         if (debugSendToResults == false){start()}
         else {
-            DispatchQueue.main.async(){
-                self.performSegue(withIdentifier: "endQuiz", sender: self)
-            }
+            doSegue = true
         }
     }
     
@@ -300,6 +299,16 @@ class Quiz: UIViewController {
     // NEXT QUESTION
     @IBAction func btn_nextQuestion(_ sender: Any) {
         NextQuestion();
+        segueCheck()
+    }
+    
+    //Function to do segue
+    func segueCheck(){
+        if (doSegue){
+            //DispatchQueue.main.async(){
+                self.performSegue(withIdentifier: "resultsScreenSegue", sender: self)
+            //}
+        }
     }
     
     // NEGATIVE NUMBER
@@ -471,9 +480,7 @@ class Quiz: UIViewController {
             lbl_answer.text = "DONE!";
             lbl_symbol.text = "";
             if(homeworkQuiz){
-                //DispatchQueue.main.async(){
-                    self.performSegue(withIdentifier: "quizEnd", sender: self)
-                //}
+                doSegue = true
             }
         }
     }

@@ -13,7 +13,6 @@
         <!--Quiz-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController id="BYZ-38-t0r" customClass="Quiz" customModule="MathApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -309,9 +308,10 @@
                         <outlet property="lbl_wrong" destination="p2A-fm-1Ma" id="bjV-Jq-yij"/>
                         <outlet property="out_nextquestion" destination="82y-55-Kpn" id="xTi-VT-4Q0"/>
                         <outlet property="progviewquiz" destination="CjC-aI-ZNm" id="nKH-AW-XOg"/>
-                        <segue destination="9dk-Ri-Tgx" kind="showDetail" identifier="endQuiz" id="W3U-DE-1Xw"/>
+                        <segue destination="9dk-Ri-Tgx" kind="showDetail" identifier="resultsScreenSegue" id="ngz-oZ-kfK"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="938" y="-633"/>
         </scene>
@@ -869,8 +869,8 @@ All rights reserved</string>
                                     <action selector="hwMessageFieldPrimaryAction:" destination="vZ8-qf-4UA" eventType="primaryActionTriggered" id="rYm-9h-aZv"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Due Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dxi-4l-hMX">
-                                <rect key="frame" x="144" y="383" width="127" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dxi-4l-hMX">
+                                <rect key="frame" x="144" y="384.5" width="100.5" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <color key="textColor" red="0.56911879779999996" green="0.82907623050000001" blue="0.46586191649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
