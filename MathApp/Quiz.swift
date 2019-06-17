@@ -42,6 +42,8 @@ class Quiz: UIViewController {
     var seed: UInt64 = 0
     var generator = SeededGenerator()
     
+    var debugSendToResults: Bool = false
+    
     var homeworkQuiz: Bool = false
     
     override func viewDidLoad() {
@@ -50,74 +52,79 @@ class Quiz: UIViewController {
         // Allow for code to run going into or out of background foreground
         let notificationCenter = NotificationCenter.default
         if (homeworkQuiz == false){
-        // If defaults have not been setup, set them up
-        if (defaults.string(forKey: "nil_test") == nil){
-            defaults.set(0, forKey: "num1");
-            defaults.set(0, forKey: "num2");
-            defaults.set(0, forKey: "numAns");
-            defaults.set(0, forKey: "temp1");
-            defaults.set(0, forKey: "temp2");
-            defaults.set(1, forKey: "place");
-            defaults.set(0, forKey: "user_num");
-            defaults.set(0, forKey: "score_right");
-            defaults.set(0, forKey: "score_wrong");
-            defaults.set(0, forKey: "score_Qcurrent");
-            defaults.set(0, forKey: "score_Qmax");
-            defaults.set(true, forKey: "canTouch");
-            defaults.set(1, forKey: "mode_difficulty");
-            defaults.set("TEST", forKey: "nil_test");
+            // If defaults have not been setup, set them up
+            if (defaults.string(forKey: "nil_test") == nil){
+                defaults.set(0, forKey: "num1");
+                defaults.set(0, forKey: "num2");
+                defaults.set(0, forKey: "numAns");
+                defaults.set(0, forKey: "temp1");
+                defaults.set(0, forKey: "temp2");
+                defaults.set(1, forKey: "place");
+                defaults.set(0, forKey: "user_num");
+                defaults.set(0, forKey: "score_right");
+                defaults.set(0, forKey: "score_wrong");
+                defaults.set(0, forKey: "score_Qcurrent");
+                defaults.set(0, forKey: "score_Qmax");
+                defaults.set(true, forKey: "canTouch");
+                defaults.set(1, forKey: "mode_difficulty");
+                defaults.set("TEST", forKey: "nil_test");
+                
+                modesActive[0] = true
+                defaults.set(modesActive, forKey: "modesActive")
+                defaults.set(1, forKey: "questionCount")
+                defaults.set(true, forKey: "shuffle")
+                defaults.set(true, forKey: "stuNum")
+                
+                defaults.synchronize();
+            }
+            // Populate local variables with UserData information
+            num1 = defaults.integer(forKey: "num1");
+            num2 = defaults.integer(forKey: "num2");
+            numAns = defaults.integer(forKey: "numAns");
+            temp1 = defaults.integer(forKey: "temp1");
+            temp2 = defaults.integer(forKey: "temp2");
+            place = defaults.integer(forKey: "place");
+            user_num = defaults.integer(forKey: "user_num");
+            score_right = defaults.integer(forKey: "score_right");
+            score_wrong = defaults.integer(forKey: "score_wrong");
+            score_Qcurrent = defaults.integer(forKey: "score_Qcurrent");
+            score_Qmax = defaults.integer(forKey: "score_Qmax");
+            canTouch = defaults.bool(forKey: "canTouch");
+            mode_difficulty = defaults.integer(forKey: "mode_difficulty");
             
-            modesActive[0] = true
-            defaults.set(modesActive, forKey: "modesActive")
-            defaults.set(1, forKey: "questionCount")
-            defaults.set(true, forKey: "shuffle")
-            defaults.set(true, forKey: "stuNum")
-            
-            defaults.synchronize();
+            modesActive = defaults.array(forKey: "modesActive") as! [Bool]
+            questionCount = defaults.integer(forKey: "questionCount")
+            shuffle = defaults.bool(forKey: "shuffle")
         }
-        // Populate local variables with UserData information
-        num1 = defaults.integer(forKey: "num1");
-        num2 = defaults.integer(forKey: "num2");
-        numAns = defaults.integer(forKey: "numAns");
-        temp1 = defaults.integer(forKey: "temp1");
-        temp2 = defaults.integer(forKey: "temp2");
-        place = defaults.integer(forKey: "place");
-        user_num = defaults.integer(forKey: "user_num");
-        score_right = defaults.integer(forKey: "score_right");
-        score_wrong = defaults.integer(forKey: "score_wrong");
-        score_Qcurrent = defaults.integer(forKey: "score_Qcurrent");
-        score_Qmax = defaults.integer(forKey: "score_Qmax");
-        canTouch = defaults.bool(forKey: "canTouch");
-        mode_difficulty = defaults.integer(forKey: "mode_difficulty");
-        
-        modesActive = defaults.array(forKey: "modesActive") as! [Bool]
-        questionCount = defaults.integer(forKey: "questionCount")
-        shuffle = defaults.bool(forKey: "shuffle")
-    }
-        start();
+        if (debugSendToResults == false){start()}
+        else {
+            DispatchQueue.main.async(){
+                self.performSegue(withIdentifier: "endQuiz", sender: self)
+            }
+        }
     }
     
     func save_defaults(){
         if (homeworkQuiz == false){
-        defaults.set(num1, forKey: "num1");
-        defaults.set(num2, forKey: "num2");
-        defaults.set(numAns, forKey: "numAns");
-        defaults.set(temp1, forKey: "temp1");
-        defaults.set(temp2, forKey: "temp2");
-        defaults.set(place, forKey: "place");
-        defaults.set(user_num, forKey: "user_num");
-        defaults.set(score_right, forKey: "score_right");
-        defaults.set(score_wrong, forKey: "score_wrong");
-        defaults.set(score_Qcurrent, forKey: "score_Qcurrent");
-        defaults.set(score_Qmax, forKey: "score_Qmax");
-        defaults.set(canTouch, forKey: "canTouch");
-        defaults.set(mode_difficulty, forKey: "mode_difficulty");
-        
-        defaults.set(modesActive, forKey: "modesActive")
-        //defaults.set(questionCount, forKey: "questionCount")
-        defaults.set(shuffle, forKey: "shuffle")
-        
-        defaults.synchronize();
+            defaults.set(num1, forKey: "num1");
+            defaults.set(num2, forKey: "num2");
+            defaults.set(numAns, forKey: "numAns");
+            defaults.set(temp1, forKey: "temp1");
+            defaults.set(temp2, forKey: "temp2");
+            defaults.set(place, forKey: "place");
+            defaults.set(user_num, forKey: "user_num");
+            defaults.set(score_right, forKey: "score_right");
+            defaults.set(score_wrong, forKey: "score_wrong");
+            defaults.set(score_Qcurrent, forKey: "score_Qcurrent");
+            defaults.set(score_Qmax, forKey: "score_Qmax");
+            defaults.set(canTouch, forKey: "canTouch");
+            defaults.set(mode_difficulty, forKey: "mode_difficulty");
+            
+            defaults.set(modesActive, forKey: "modesActive")
+            //defaults.set(questionCount, forKey: "questionCount")
+            defaults.set(shuffle, forKey: "shuffle")
+            
+            defaults.synchronize();
         }
     }
     
@@ -311,8 +318,8 @@ class Quiz: UIViewController {
         // Decide Which Question to do
         if (score_Qcurrent < score_Qmax){
             if (homeworkQuiz == false){
-        let tempNum = questionsArray.removeFirst()
-        mode_symbol = tempNum
+                let tempNum = questionsArray.removeFirst()
+                mode_symbol = tempNum
             }
             else {
                 // hw question
@@ -322,140 +329,140 @@ class Quiz: UIViewController {
                 mode_difficulty = tempDiff
                 mode_symbol = tempQuestion
             }
-        // Regualr Question Setup
-        if (mode_symbol == 1){ // +
-            lbl_symbol.text = "+";
-            //Easy
-            if (mode_difficulty == 1){
-                temp1 = randFunc(min: 1, max: 15)
-                temp2 = randFunc(min: 1, max: 15)
-            }
-            
-            //Medium
-            if (mode_difficulty == 2){
-                temp1 = randFunc(min: 20, max: 99)
-                temp2 = randFunc(min: 1, max: 99)
-            }
-            
-            //Hard
-            if (mode_difficulty == 3){
-                temp1 = randFunc(min: 50, max: 9999)
-                temp2 = randFunc(min: 50, max: 9999)
-            }
-            
-            num1 = temp1;
-            num2 = temp2;
-            numAns = num1 + num2;
-        }
-            
-        else if (mode_symbol == 2){ // -
-            lbl_symbol.text = "-";
-            //Easy
-            if (mode_difficulty == 1){
-                temp1 = randFunc(min: 1, max: 15)
-                temp2 = randFunc(min: 1, max: 20)
-            }
-            
-            //Medium
-            if (mode_difficulty == 2){
-                temp1 = randFunc(min: 20, max: 99)
-                temp2 = randFunc(min: 1, max: 130)
-            }
-            
-            //Hard
-            if (mode_difficulty == 3){
-                temp1 = randFunc(min: 50, max: 9999)
-                temp2 = randFunc(min: 50, max: 9999)
-            }
-            
-            num1 = temp1;
-            num2 = temp2;
-            numAns = num1 - num2;
-        }
-            
-        else if (mode_symbol == 3){ // X
-            lbl_symbol.text = "x";
-            //Easy
-            if (mode_difficulty == 1){
-                repeat {
-                    temp1 = randFunc(min: 1, max: 20)
-                    temp2 = randFunc(min: 1, max: 4)
-                } while ((temp1 % temp2) != 0)
-            }
-            
-            //Medium
-            if (mode_difficulty == 2){
-                temp1 = randFunc(min: 10, max: 50)
-                temp2 = randFunc(min: 1, max: 10)
-            }
-            
-            //Hard
-            if (mode_difficulty == 3){
-                temp1 = randFunc(min: 50, max: 9990)
-                temp2 = randFunc(min: 15, max: 9990)
-            }
-            
-            num1 = temp1;
-            num2 = temp2;
-            numAns = num1 * num2;
-        }
-            
-        else if (mode_symbol == 4){ // %
-            lbl_symbol.text = "%";
-            //Easy
-            if (mode_difficulty == 1){
-                var tempRnd = 0
-                var retryFlag = false
-                repeat {
-                    retryFlag = false
-                    temp1 = randFunc(min: 4, max: 20)
-                    temp2 = randFunc(min: 1, max: (temp1 / 2))
-                    // To have less divide by 1s
-                    if (temp1 == 1 || temp2 == 1){
-                        tempRnd = randFunc(min: 1, max: 10)
-                        if (tempRnd != 5){retryFlag = true}
-                    }
-                } while (((temp1 % temp2) != 0) || retryFlag == true)
-            }
-            
-            //Medium
-            if (mode_difficulty == 2){
-                repeat {
-                    temp1 = randFunc(min: 10, max: 100)
-                    temp2 = randFunc(min: 1, max: (temp1 / 2))
-                } while ((temp1 % temp2) != 0)
-            }
-            
-            //Hard
-            if (mode_difficulty == 3){
-                repeat {
+            // Regualr Question Setup
+            if (mode_symbol == 1){ // +
+                lbl_symbol.text = "+";
+                //Easy
+                if (mode_difficulty == 1){
+                    temp1 = randFunc(min: 1, max: 15)
+                    temp2 = randFunc(min: 1, max: 15)
+                }
+                
+                //Medium
+                if (mode_difficulty == 2){
+                    temp1 = randFunc(min: 20, max: 99)
+                    temp2 = randFunc(min: 1, max: 99)
+                }
+                
+                //Hard
+                if (mode_difficulty == 3){
                     temp1 = randFunc(min: 50, max: 9999)
-                    temp2 = randFunc(min: 1, max: (temp1 / 2))
-                } while ((temp1 % temp2) != 0)
+                    temp2 = randFunc(min: 50, max: 9999)
+                }
+                
+                num1 = temp1;
+                num2 = temp2;
+                numAns = num1 + num2;
+            }
+                
+            else if (mode_symbol == 2){ // -
+                lbl_symbol.text = "-";
+                //Easy
+                if (mode_difficulty == 1){
+                    temp1 = randFunc(min: 1, max: 15)
+                    temp2 = randFunc(min: 1, max: 20)
+                }
+                
+                //Medium
+                if (mode_difficulty == 2){
+                    temp1 = randFunc(min: 20, max: 99)
+                    temp2 = randFunc(min: 1, max: 130)
+                }
+                
+                //Hard
+                if (mode_difficulty == 3){
+                    temp1 = randFunc(min: 50, max: 9999)
+                    temp2 = randFunc(min: 50, max: 9999)
+                }
+                
+                num1 = temp1;
+                num2 = temp2;
+                numAns = num1 - num2;
+            }
+                
+            else if (mode_symbol == 3){ // X
+                lbl_symbol.text = "x";
+                //Easy
+                if (mode_difficulty == 1){
+                    repeat {
+                        temp1 = randFunc(min: 1, max: 20)
+                        temp2 = randFunc(min: 1, max: 4)
+                    } while ((temp1 % temp2) != 0)
+                }
+                
+                //Medium
+                if (mode_difficulty == 2){
+                    temp1 = randFunc(min: 10, max: 50)
+                    temp2 = randFunc(min: 1, max: 10)
+                }
+                
+                //Hard
+                if (mode_difficulty == 3){
+                    temp1 = randFunc(min: 50, max: 9990)
+                    temp2 = randFunc(min: 15, max: 9990)
+                }
+                
+                num1 = temp1;
+                num2 = temp2;
+                numAns = num1 * num2;
+            }
+                
+            else if (mode_symbol == 4){ // %
+                lbl_symbol.text = "%";
+                //Easy
+                if (mode_difficulty == 1){
+                    var tempRnd = 0
+                    var retryFlag = false
+                    repeat {
+                        retryFlag = false
+                        temp1 = randFunc(min: 4, max: 20)
+                        temp2 = randFunc(min: 1, max: (temp1 / 2))
+                        // To have less divide by 1s
+                        if (temp1 == 1 || temp2 == 1){
+                            tempRnd = randFunc(min: 1, max: 10)
+                            if (tempRnd != 5){retryFlag = true}
+                        }
+                    } while (((temp1 % temp2) != 0) || retryFlag == true)
+                }
+                
+                //Medium
+                if (mode_difficulty == 2){
+                    repeat {
+                        temp1 = randFunc(min: 10, max: 100)
+                        temp2 = randFunc(min: 1, max: (temp1 / 2))
+                    } while ((temp1 % temp2) != 0)
+                }
+                
+                //Hard
+                if (mode_difficulty == 3){
+                    repeat {
+                        temp1 = randFunc(min: 50, max: 9999)
+                        temp2 = randFunc(min: 1, max: (temp1 / 2))
+                    } while ((temp1 % temp2) != 0)
+                }
+                
+                num1 = temp1;
+                num2 = temp2;
+                numAns = num1 / num2;
             }
             
-            num1 = temp1;
-            num2 = temp2;
-            numAns = num1 / num2;
+            // Transfer new numbers to lables
+            lbl_top.text = String(num1);
+            lbl_bottom.text = String(num2);
+            lbl_answer.text = "";
+            
+            // Set place value to 1 which allows an entered number to be in the correct number column.
+            place = 1;
+            
+            // Holds the value for the number the user sees.
+            user_num = 0;
+            
+            // Hide the "Next Question" button until question is answered.
+            out_nextquestion.isHidden = true;
+            
+            // Allows the keypad to be enabled again.
+            canTouch = true;
         }
-        
-        // Transfer new numbers to lables
-        lbl_top.text = String(num1);
-        lbl_bottom.text = String(num2);
-        lbl_answer.text = "";
-        
-        // Set place value to 1 which allows an entered number to be in the correct number column.
-        place = 1;
-        
-        // Holds the value for the number the user sees.
-        user_num = 0;
-        
-        // Hide the "Next Question" button until question is answered.
-        out_nextquestion.isHidden = true;
-        
-        // Allows the keypad to be enabled again.
-        canTouch = true;
-    }
         // End condition triggers when question has reached the max allowed.
         if (score_Qcurrent >= score_Qmax) {
             canTouch = false;
@@ -463,6 +470,11 @@ class Quiz: UIViewController {
             lbl_bottom.text = "";
             lbl_answer.text = "DONE!";
             lbl_symbol.text = "";
+            if(homeworkQuiz){
+                //DispatchQueue.main.async(){
+                    self.performSegue(withIdentifier: "quizEnd", sender: self)
+                //}
+            }
         }
     }
     
@@ -470,26 +482,30 @@ class Quiz: UIViewController {
     // Function sets all variables for a new quiz.
     func start(){
         if (homeworkQuiz == false){
-        // Section for making array for which questions to run
-        if (modesActive[0] == true){for _ in 0..<questionCount {questionsArray.append(1)}}
-        if (modesActive[1] == true){for _ in 0..<questionCount {questionsArray.append(2)}}
-        if (modesActive[2] == true){for _ in 0..<questionCount {questionsArray.append(3)}}
-        if (modesActive[3] == true){for _ in 0..<questionCount {questionsArray.append(4)}}
-        
-        // Get proper question count
-        var count = 0
-        for index in 0..<modesActive.count{if (modesActive[index] == true){count = count + 1}}
-        questionCount = questionCount * count
-        
-        score_Qmax = questionCount
-        
-        // Shuffles the array of questions if needed
-        if (shuffle){questionsArray.shuffle()}
+            // Section for making array for which questions to run
+            if (modesActive[0] == true){for _ in 0..<questionCount {questionsArray.append(1)}}
+            if (modesActive[1] == true){for _ in 0..<questionCount {questionsArray.append(2)}}
+            if (modesActive[2] == true){for _ in 0..<questionCount {questionsArray.append(3)}}
+            if (modesActive[3] == true){for _ in 0..<questionCount {questionsArray.append(4)}}
+            
+            // Get proper question count
+            var count = 0
+            for index in 0..<modesActive.count{if (modesActive[index] == true){count = count + 1}}
+            questionCount = questionCount * count
+            
+            score_Qmax = questionCount
+            
+            // Shuffles the array of questions if needed
+            if (shuffle){questionsArray.shuffle()}
         }
         else{
             // HOMEWORK QUIZ SETUP
             // Sets generator
             generator = SeededGenerator(seed: seed)
+            // Need to get questions placd properly
+            for index in 0..<hwArray.count {
+                
+            }
         }
         
         
