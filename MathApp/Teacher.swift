@@ -430,6 +430,31 @@ class Teacher: UIViewController {
     
     //------------------ Utilities ------------------//
     
+    // Allows the enter key to dismiss the keyboard
+    @IBAction func addMessageFieldPrimaryAction(_ sender: Any) {
+        addQuestionNum.resignFirstResponder()
+    }
+    
+    @IBAction func subMessageFieldPrimaryAction(_ sender: Any) {
+        subQuestionNum.resignFirstResponder()
+    }
+    
+    @IBAction func mulMessageFieldPrimaryAction(_ sender: Any) {
+        mulQuestionNum.resignFirstResponder()
+    }
+    
+    @IBAction func divMessageFieldPrimaryAction(_ sender: Any) {
+        divQuestionNum.resignFirstResponder()
+    }
+    
+    @IBAction func teachMessageFieldPrimaryAction(_ sender: Any) {
+        teacherCode.resignFirstResponder()
+    }
+    
+    @IBAction func hwMessageFieldPrimaryAction(_ sender: Any) {
+        homeworkCode.resignFirstResponder()
+    }
+    
     // Converts an Int to binary as a String
     func intToBin(number: Int) -> String{
         var num = number

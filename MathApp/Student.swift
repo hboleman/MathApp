@@ -52,12 +52,14 @@ class Student: UIViewController {
             defaults.synchronize();
         }
         // Populate local variables with UserData information
-        
+        studentCode = defaults.integer(forKey: "stuNum")
+        stuNumField.text = String(studentCode)
         shuffle = defaults.bool(forKey: "shuffle")
     }
     
     func save_defaults(){
         defaults.set(shuffle, forKey: "shuffle");
+        defaults.set(studentCode, forKey: "stuNum")
         defaults.synchronize();
     }
     
@@ -367,6 +369,7 @@ class Student: UIViewController {
             }
             print("LeftBin: \(binaryCode)")
             hwCode = binToInt(bin: binarySnipit); // 15
+            quizNumLable.text = ("Quiz Number: \(String(hwCode))")
             
             // Extracting Student Code
             binarySnipit = ""
@@ -378,7 +381,9 @@ class Student: UIViewController {
                 binaryCode.removeFirst()
             }
             print("LeftBin: \(binaryCode)")
-            studentCode = binToInt(bin: binarySnipit); // 9
+            // Had to modify code to input what the student given code is
+            studentCode = Int(stuNumField.text!)!
+            //studentCode = binToInt(bin: binarySnipit); // 9
             
             // Extracting Parity
             binarySnipit = ""
@@ -629,6 +634,14 @@ class Student: UIViewController {
     }
     
     //------------------ Utilities ------------------//
+    
+    @IBAction func codeMessageFieldPrimaryAction(_ sender: Any) {
+        codeEntryField.resignFirstResponder()
+    }
+    
+    @IBAction func stuMessageFieldPrimaryAction(_ sender: Any) {
+        stuNumField.resignFirstResponder()
+    }
     
     // Converts an Int to binary as a String
     func intToBin(number: Int) -> String{
