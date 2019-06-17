@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GameplayKit
 
 // This class controls the quiz view controler
 class Quiz: UIViewController {
@@ -35,7 +36,11 @@ class Quiz: UIViewController {
     var modesActive: [Bool] = Array(repeating: false, count: 4)
     var questionCount: Int = 0;
     var questionsArray: [Int] = Array.init()
+    var hwArray: [(question: Int, difficulty: Int)] = []
     var shuffle: Bool = false
+    
+    var seed: UInt64 = 0
+    var generator = SeededGenerator()
     
     var homeworkQuiz: Bool = false
     
@@ -44,7 +49,7 @@ class Quiz: UIViewController {
         
         // Allow for code to run going into or out of background foreground
         let notificationCenter = NotificationCenter.default
-        
+        if (homeworkQuiz == false){
         // If defaults have not been setup, set them up
         if (defaults.string(forKey: "nil_test") == nil){
             defaults.set(0, forKey: "num1");
@@ -88,11 +93,12 @@ class Quiz: UIViewController {
         modesActive = defaults.array(forKey: "modesActive") as! [Bool]
         questionCount = defaults.integer(forKey: "questionCount")
         shuffle = defaults.bool(forKey: "shuffle")
-        
+    }
         start();
     }
     
     func save_defaults(){
+        if (homeworkQuiz == false){
         defaults.set(num1, forKey: "num1");
         defaults.set(num2, forKey: "num2");
         defaults.set(numAns, forKey: "numAns");
@@ -112,6 +118,7 @@ class Quiz: UIViewController {
         defaults.set(shuffle, forKey: "shuffle")
         
         defaults.synchronize();
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -301,32 +308,39 @@ class Quiz: UIViewController {
     
     // Function used to rotate the question and re-enable touch on the keypad
     func NextQuestion(){
-        if (homeworkQuiz == false){
         // Decide Which Question to do
         if (score_Qcurrent < score_Qmax){
+            if (homeworkQuiz == false){
         let tempNum = questionsArray.removeFirst()
         mode_symbol = tempNum
             }
-        
+            else {
+                // hw question
+                let tempNum = hwArray.removeFirst()
+                let tempDiff = tempNum.difficulty
+                let tempQuestion = tempNum.question
+                mode_difficulty = tempDiff
+                mode_symbol = tempQuestion
+            }
         // Regualr Question Setup
         if (mode_symbol == 1){ // +
             lbl_symbol.text = "+";
             //Easy
             if (mode_difficulty == 1){
-                temp1 = Int.random(in: 1 ... 15)
-                temp2 = Int.random(in: 1 ... 15)
+                temp1 = randFunc(min: 1, max: 15)
+                temp2 = randFunc(min: 1, max: 15)
             }
             
             //Medium
             if (mode_difficulty == 2){
-                temp1 = Int.random(in: 20 ... 99)
-                temp2 = Int.random(in: 1 ... 99)
+                temp1 = randFunc(min: 20, max: 99)
+                temp2 = randFunc(min: 1, max: 99)
             }
             
             //Hard
             if (mode_difficulty == 3){
-                temp1 = Int.random(in: 50 ... 9999)
-                temp2 = Int.random(in: 50 ... 9999)
+                temp1 = randFunc(min: 50, max: 9999)
+                temp2 = randFunc(min: 50, max: 9999)
             }
             
             num1 = temp1;
@@ -338,20 +352,20 @@ class Quiz: UIViewController {
             lbl_symbol.text = "-";
             //Easy
             if (mode_difficulty == 1){
-                temp1 = Int.random(in: 1 ... 15)
-                temp2 = Int.random(in: 1 ... 20)
+                temp1 = randFunc(min: 1, max: 15)
+                temp2 = randFunc(min: 1, max: 20)
             }
             
             //Medium
             if (mode_difficulty == 2){
-                temp1 = Int.random(in: 20 ... 99)
-                temp2 = Int.random(in: 1 ... 130)
+                temp1 = randFunc(min: 20, max: 99)
+                temp2 = randFunc(min: 1, max: 130)
             }
             
             //Hard
             if (mode_difficulty == 3){
-                temp1 = Int.random(in: 50 ... 9999)
-                temp2 = Int.random(in: 50 ... 9999)
+                temp1 = randFunc(min: 50, max: 9999)
+                temp2 = randFunc(min: 50, max: 9999)
             }
             
             num1 = temp1;
@@ -364,21 +378,21 @@ class Quiz: UIViewController {
             //Easy
             if (mode_difficulty == 1){
                 repeat {
-                    temp1 = Int.random(in: 1 ... 20)
-                    temp2 = Int.random(in: 1 ... 4)
+                    temp1 = randFunc(min: 1, max: 20)
+                    temp2 = randFunc(min: 1, max: 4)
                 } while ((temp1 % temp2) != 0)
             }
             
             //Medium
             if (mode_difficulty == 2){
-                temp1 = Int.random(in: 10 ... 50)
-                temp2 = Int.random(in: 1 ... 10)
+                temp1 = randFunc(min: 10, max: 50)
+                temp2 = randFunc(min: 1, max: 10)
             }
             
             //Hard
             if (mode_difficulty == 3){
-                temp1 = Int.random(in: 50 ... 9990)
-                temp2 = Int.random(in: 15 ... 9990)
+                temp1 = randFunc(min: 50, max: 9990)
+                temp2 = randFunc(min: 15, max: 9990)
             }
             
             num1 = temp1;
@@ -394,11 +408,11 @@ class Quiz: UIViewController {
                 var retryFlag = false
                 repeat {
                     retryFlag = false
-                    temp1 = Int.random(in: 4 ... 20)
-                    temp2 = Int.random(in: 1 ... (temp1 / 2))
+                    temp1 = randFunc(min: 4, max: 20)
+                    temp2 = randFunc(min: 1, max: (temp1 / 2))
                     // To have less divide by 1s
                     if (temp1 == 1 || temp2 == 1){
-                        tempRnd = Int.random(in: 1 ... 10)
+                        tempRnd = randFunc(min: 1, max: 10)
                         if (tempRnd != 5){retryFlag = true}
                     }
                 } while (((temp1 % temp2) != 0) || retryFlag == true)
@@ -407,16 +421,16 @@ class Quiz: UIViewController {
             //Medium
             if (mode_difficulty == 2){
                 repeat {
-                    temp1 = Int.random(in: 10 ... 100)
-                    temp2 = Int.random(in: 1 ... (temp1 / 2))
+                    temp1 = randFunc(min: 10, max: 100)
+                    temp2 = randFunc(min: 1, max: (temp1 / 2))
                 } while ((temp1 % temp2) != 0)
             }
             
             //Hard
             if (mode_difficulty == 3){
                 repeat {
-                    temp1 = Int.random(in: 50 ... 9999)
-                    temp2 = Int.random(in: 15 ... (temp1 / 2))
+                    temp1 = randFunc(min: 50, max: 9999)
+                    temp2 = randFunc(min: 1, max: (temp1 / 2))
                 } while ((temp1 % temp2) != 0)
             }
             
@@ -472,6 +486,11 @@ class Quiz: UIViewController {
         // Shuffles the array of questions if needed
         if (shuffle){questionsArray.shuffle()}
         }
+        else{
+            // HOMEWORK QUIZ SETUP
+            // Sets generator
+            generator = SeededGenerator(seed: seed)
+        }
         
         
         //REGULAR START
@@ -487,13 +506,23 @@ class Quiz: UIViewController {
         score_right = 0;
         score_wrong = 0;
         score_Qcurrent = 0;
-        //score_Qmax = 10;
         
         canTouch = true;
         out_nextquestion.isHidden = true;
         
         NextQuestion();
         progviewquiz.progress = Float(0);
+    }
+    
+    func randFunc(min: Int, max: Int) -> Int {
+        if (homeworkQuiz){
+            let randomInt = Int.random(in: min ..< max, using: &generator)
+            return randomInt
+        }
+        else {
+            let randomInt = Int.random(in: min ... max)
+            return randomInt
+        }
     }
     
     
@@ -509,3 +538,36 @@ class Quiz: UIViewController {
         progviewquiz.setProgress(score_percentage, animated: true);
     }
 }
+
+class SeededGenerator: RandomNumberGenerator {
+    let seed: UInt64
+    private let generator: GKMersenneTwisterRandomSource
+    convenience init() {
+        self.init(seed: 0)
+    }
+    init(seed: UInt64) {
+        self.seed = seed
+        generator = GKMersenneTwisterRandomSource(seed: seed)
+    }
+    func next<T>(upperBound: T) -> T where T : FixedWidthInteger, T : UnsignedInteger {
+        return T(abs(generator.nextInt(upperBound: Int(upperBound))))
+    }
+    func next<T>() -> T where T : FixedWidthInteger, T : UnsignedInteger {
+        return T(abs(generator.nextInt()))
+    }
+}
+
+// Usage of above
+/*
+ // Make a random seed and store in a database
+ let seed = UInt64.random(in: UInt64.min ... UInt64.max)
+ var generator = Generator(seed: seed)
+ // Or if you just need the seeding ability for testing,
+ // var generator = Generator()
+ // uses a default seed of 0
+ 
+ let chars = ['a','b','c','d','e','f']
+ let randomChar = chars.randomElement(using: &generator)
+ let randomInt = Int.random(in: 0 ..< 1000, using: &generator)
+ // etc.
+ */

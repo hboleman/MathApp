@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import GameplayKit
 
 class Student: UIViewController {
     
@@ -128,6 +129,8 @@ class Student: UIViewController {
     let leadingBuffer = 3
     let gradeResultBuffer = 5
     let properBinaryCount = 105
+    
+    var hwArray: [(question: Int, difficulty: Int)] = []
     
     // Input Debug
     let debugIn: Bool = false
@@ -1007,6 +1010,73 @@ class Student: UIViewController {
         else {return "-1"}
     }
     
+    // Prep for segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Create a new variable to store the instance of Quiz
+        let destinationVC = segue.destination as! Quiz
+        destinationVC.homeworkQuiz = true
+        // Gets the mode set (maybe not needed)
+        var count = 0
+        if (self.numOfQuestions_add > 0){modesActive[0] = true}
+        if (self.numOfQuestions_sub > 0){modesActive[1] = true}
+        if (self.numOfQuestions_mul > 0){modesActive[2] = true}
+        if (self.numOfQuestions_div > 0){modesActive[3] = true}
+        destinationVC.modesActive = self.modesActive
+        
+        // Sets true question count
+        count = 0
+        count = numOfQuestions_add + count
+        count = numOfQuestions_sub + count
+        count = numOfQuestions_mul + count
+        count = numOfQuestions_div + count
+        destinationVC.questionCount = count
+        destinationVC.score_Qmax = count
+        
+        // Generation question array
+        for _ in 0..<numOfQuestions_add {
+            if difficulty_add == 1 {hwArray.append((1, 1))}
+            if difficulty_add == 2 {hwArray.append((1, 2))}
+            if difficulty_add == 3 {hwArray.append((1, 3))}
+        }
+        for _ in 0..<numOfQuestions_sub {
+            if numOfQuestions_sub == 1 {hwArray.append((2, 1))}
+            if numOfQuestions_sub == 2 {hwArray.append((2, 2))}
+            if numOfQuestions_sub == 3 {hwArray.append((2, 3))}
+        }
+        for _ in 0..<numOfQuestions_mul {
+            if numOfQuestions_mul == 1 {hwArray.append((3, 1))}
+            if numOfQuestions_mul == 2 {hwArray.append((3, 2))}
+            if numOfQuestions_mul == 3 {hwArray.append((3, 3))}
+        }
+        for _ in 0..<numOfQuestions_div {
+            if numOfQuestions_div == 1 {hwArray.append((4, 1))}
+            if numOfQuestions_div == 2 {hwArray.append((4, 2))}
+            if numOfQuestions_div == 3 {hwArray.append((4, 3))}
+        }
+        
+        // Sets and sends the seed
+        let tempStr = (String(instructorCode) + String(hwCode))
+        let tempInt = UInt64(tempStr)
+        let seed = tempInt
+        destinationVC.seed = seed!
+        // Sets generator
+        var generator = SeededGenerator(seed: seed!)
+        
+        // Shuffles the array using the predetermined seed
+        destinationVC.shuffle = true
+        var hwArrayCopy: [(question: Int, difficulty: Int)] = []
+        if (shuffle){
+            for _ in 0..<hwArray.count {
+            let randomInt = Int.random(in: 0 ..< (hwArray.count), using: &generator)
+            let tempVar = hwArray[randomInt]
+                hwArray.remove(at: randomInt)
+            hwArrayCopy.append((question: tempVar.question, difficulty: tempVar.difficulty))
+            }
+            destinationVC.hwArray = hwArrayCopy
+        }
+            // If not shuffling array
+        else {destinationVC.hwArray = hwArray}
+    }
 }
 
 precedencegroup PowerPrecedence { higherThan: MultiplicationPrecedence }
@@ -1014,3 +1084,17 @@ infix operator ^^ : PowerPrecedence
 func ^^ (radix: Int, power: Int) -> Int {
     return Int(pow(Double(radix), Double(power)))
 }
+
+/*
+ // Make a random seed and store in a database
+ let seed = UInt64.random(in: UInt64.min ... UInt64.max)
+ var generator = Generator(seed: seed)
+ // Or if you just need the seeding ability for testing,
+ // var generator = Generator()
+ // uses a default seed of 0
+ 
+ let chars = ['a','b','c','d','e','f']
+ let randomChar = chars.randomElement(using: &generator)
+ let randomInt = Int.random(in: 0 ..< 1000, using: &generator)
+ // etc.
+ */
