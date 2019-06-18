@@ -10,55 +10,20 @@ import UIKit
 
 // This class controls the options view controler
 class Options: UIViewController {
-    
-    //-------------------- CLASS SETUP END --------------------//
-    
-    // Make UserDefautls Accessable
-    let defaults = UserDefaults.standard
+    //-------------------- Class Setup --------------------//
     
     // Populate local variables with UserData information
     var mode_difficulty: Int = 0;
-
     var modesActive: [Bool] = Array(repeating: false, count: 4)
     var questionCount: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Allow for code to run going into or out of background foreground
-        let notificationCenter = NotificationCenter.default
-        
-        // If defaults have not been setup, set them up
-        if (defaults.string(forKey: "nil_test") == nil){
-            defaults.set(0, forKey: "num1");
-            defaults.set(0, forKey: "num2");
-            defaults.set(0, forKey: "numAns");
-            defaults.set(0, forKey: "temp1");
-            defaults.set(0, forKey: "temp2");
-            defaults.set(1, forKey: "place");
-            defaults.set(0, forKey: "user_num");
-            defaults.set(0, forKey: "score_right");
-            defaults.set(0, forKey: "score_wrong");
-            defaults.set(0, forKey: "score_Qcurrent");
-            defaults.set(0, forKey: "score_Qmax");
-            defaults.set(true, forKey: "canTouch");
-            defaults.set(1, forKey: "mode_difficulty");
-            defaults.set("TEST", forKey: "nil_test");
-            
-            modesActive[0] = true
-            defaults.set(modesActive, forKey: "modesActive")
-            defaults.set(1, forKey: "questionCount")
-            defaults.set(true, forKey: "shuffle")
-            
-            defaults.synchronize();
-        }
+        checkIfDefaultsNeedSetup()
         // Populate local variables with UserData information
-        
         mode_difficulty = defaults.integer(forKey: "mode_difficulty");
-        
         modesActive = defaults.array(forKey: "modesActive") as! [Bool]
         questionCount = defaults.integer(forKey: "questionCount")
-        
         numberLable.text = String(questionCount)
         
         // Makes the options reflect the current set value
@@ -86,9 +51,8 @@ class Options: UIViewController {
         save_defaults();
     }
     
-    //-------------------- CLASS SETUP END --------------------//
+    //-------------------- Outlets --------------------//
     
-    // Outlets
     @IBOutlet weak var out_plus: UIButton!
     @IBOutlet weak var out_minus: UIButton!
     @IBOutlet weak var out_multiply: UIButton!
@@ -96,14 +60,15 @@ class Options: UIViewController {
     @IBOutlet weak var out_easy: UIButton!
     @IBOutlet weak var out_medium: UIButton!
     @IBOutlet weak var out_hard: UIButton!
-    
     @IBOutlet weak var numberLable: UILabel!
     
     // Local Vars
     let min = 1
     let max = 20
     
-    // OPTIONS PLUS
+    //-------------------- Actions --------------------//
+    
+    // Button for Mode
     @IBAction func btn_mode_plus(_ sender: Any) {
         if (notLast(index: 0)) {
         if (modesActive[0] == true) {modesActive[0] = false}
@@ -111,13 +76,6 @@ class Options: UIViewController {
         color_plus();
         }
     }
-    // Function used to color plus
-    func color_plus(){
-        if (modesActive[0] == true){ out_plus.setTitleColor(UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0), for: .normal)}
-        else {out_plus.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)}
-    }
-    
-    // OPTIONS MINUS
     @IBAction func btn_mode_minus(_ sender: Any) {
         if (notLast(index: 1)) {
         if (modesActive[1] == true) {modesActive[1] = false}
@@ -125,13 +83,6 @@ class Options: UIViewController {
         color_minus();
         }
     }
-    // Function used to color minus
-    func color_minus(){
-        if (modesActive[1] == true){ out_minus.setTitleColor(UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0), for: .normal)}
-        else {out_minus.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)}
-    }
-    
-    // OPTIONS MULTIPLY
     @IBAction func btn_mode_multiply(_ sender: Any) {
         if (notLast(index: 2)) {
         if (modesActive[2] == true) {modesActive[2] = false}
@@ -139,13 +90,6 @@ class Options: UIViewController {
         color_multiply();
         }
     }
-    // Function used to color multiply
-    func color_multiply(){
-        if (modesActive[2] == true){ out_multiply.setTitleColor(UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0), for: .normal)}
-        else {out_multiply.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)}
-    }
-    
-    // OPTIONS DIVIDE
     @IBAction func btn_mode_divide(_ sender: Any) {
         if (notLast(index: 3)) {
         if (modesActive[3] == true) {modesActive[3] = false}
@@ -153,35 +97,52 @@ class Options: UIViewController {
         color_divide();
         }
     }
-    // Function used to color divide
+    
+    // Buttons Difficulty
+    @IBAction func btn_easy(_ sender: Any) {
+        mode_difficulty = 1;
+        color_easy();
+    }
+    @IBAction func btn_medium(_ sender: Any) {
+        mode_difficulty = 2;
+        color_medium();
+    }
+    @IBAction func btn_hard(_ sender: Any) {
+        mode_difficulty = 3;
+        color_hard();
+    }
+    
+     //-------------------- Actions - Color --------------------//
+    
+    // Color Change for Mode
+    func color_plus(){
+        if (modesActive[0] == true){ out_plus.setTitleColor(UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0), for: .normal)}
+        else {out_plus.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)}
+    }
+    func color_minus(){
+        if (modesActive[1] == true){ out_minus.setTitleColor(UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0), for: .normal)}
+        else {out_minus.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)}
+    }
+    func color_multiply(){
+        if (modesActive[2] == true){ out_multiply.setTitleColor(UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0), for: .normal)}
+        else {out_multiply.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)}
+    }
     func color_divide(){
         if (modesActive[3] == true){ out_divide.setTitleColor(UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0), for: .normal)}
         else {out_divide.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)}
     }
     
-    @IBAction func btn_easy(_ sender: Any) {
-        mode_difficulty = 1;
-        color_easy();
-    }
+    
+    // Color Change for Difficulty
     func color_easy(){
         out_easy.setTitleColor(UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0), for: .normal)
         out_medium.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)
         out_hard.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)
     }
-    
-    @IBAction func btn_medium(_ sender: Any) {
-        mode_difficulty = 2;
-        color_medium();
-    }
     func color_medium(){
         out_easy.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)
         out_medium.setTitleColor(UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0), for: .normal)
         out_hard.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)
-    }
-    
-    @IBAction func btn_hard(_ sender: Any) {
-        mode_difficulty = 3;
-        color_hard();
     }
     func color_hard(){
         out_easy.setTitleColor(UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0), for: .normal)
@@ -189,6 +150,9 @@ class Options: UIViewController {
         out_hard.setTitleColor(UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0), for: .normal)
     }
     
+    //-------------------- Other Functions --------------------//
+    
+    // Used to prevent all the options from being unchecked
     func notLast(index: Int) -> Bool {
         // For enabling
         if (modesActive[index] == false){return true}
@@ -199,6 +163,7 @@ class Options: UIViewController {
         else {return false}
     }
 
+    //-------------------- Action - Incremental --------------------//
     
     @IBAction func decrimentButton(_ sender: Any) {
         if ((questionCount - 1) <= max && (questionCount - 1) >= min){
@@ -213,5 +178,4 @@ class Options: UIViewController {
             numberLable.text = String(questionCount)
         }
     }
-    
 }

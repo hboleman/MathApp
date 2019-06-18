@@ -13,7 +13,7 @@
 		5A3807A3221E70CF00F75BFD /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3807A2221E70CF00F75BFD /* Quiz.swift */; };
 		5A3807A7221E724400F75BFD /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3807A6221E724400F75BFD /* Teacher.swift */; };
 		5A5826E821FA6EFC0077D940 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5826E721FA6EFC0077D940 /* AppDelegate.swift */; };
-		5A5826EA21FA6EFC0077D940 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5826E921FA6EFC0077D940 /* ViewController.swift */; };
+		5A5826EA21FA6EFC0077D940 /* SharedFunctionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5826E921FA6EFC0077D940 /* SharedFunctionsVC.swift */; };
 		5A5826EF21FA6EFE0077D940 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A5826EE21FA6EFE0077D940 /* Assets.xcassets */; };
 		5A5826FD21FA6EFE0077D940 /* MathAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5826FC21FA6EFE0077D940 /* MathAppTests.swift */; };
 		5A58270821FA6EFE0077D940 /* MathAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58270721FA6EFE0077D940 /* MathAppUITests.swift */; };
@@ -46,7 +46,7 @@
 		5A3807A6221E724400F75BFD /* Teacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teacher.swift; sourceTree = "<group>"; };
 		5A5826E421FA6EFC0077D940 /* MathApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MathApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A5826E721FA6EFC0077D940 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5A5826E921FA6EFC0077D940 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5A5826E921FA6EFC0077D940 /* SharedFunctionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFunctionsVC.swift; sourceTree = "<group>"; };
 		5A5826EE21FA6EFE0077D940 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A5826F321FA6EFE0077D940 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A5826F821FA6EFE0077D940 /* MathAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MathAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,13 +108,13 @@
 			isa = PBXGroup;
 			children = (
 				5A27CB2822B84FB000F3F4CF /* Main.storyboard */,
+				5A5826E921FA6EFC0077D940 /* SharedFunctionsVC.swift */,
 				5A3807A6221E724400F75BFD /* Teacher.swift */,
-				5A5826E721FA6EFC0077D940 /* AppDelegate.swift */,
-				5A5826E921FA6EFC0077D940 /* ViewController.swift */,
 				5A3807A2221E70CF00F75BFD /* Quiz.swift */,
 				5A3807A0221E704B00F75BFD /* Options.swift */,
 				5A6F326722ADE4F000FE4CD5 /* Student.swift */,
 				5A276D0422B7FF64009F93E4 /* ResultsScreen.swift */,
+				5A5826E721FA6EFC0077D940 /* AppDelegate.swift */,
 				5A5826EE21FA6EFE0077D940 /* Assets.xcassets */,
 				5A5826F321FA6EFE0077D940 /* Info.plist */,
 				5A6F326522ADD05500FE4CD5 /* Launch Screen.storyboard */,
@@ -272,7 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A276D0522B7FF64009F93E4 /* ResultsScreen.swift in Sources */,
-				5A5826EA21FA6EFC0077D940 /* ViewController.swift in Sources */,
+				5A5826EA21FA6EFC0077D940 /* SharedFunctionsVC.swift in Sources */,
 				5A6F326822ADE4F000FE4CD5 /* Student.swift in Sources */,
 				5A3807A7221E724400F75BFD /* Teacher.swift in Sources */,
 				5A3807A1221E704B00F75BFD /* Options.swift in Sources */,
