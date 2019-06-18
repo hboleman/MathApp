@@ -103,7 +103,7 @@ class Teacher: UIViewController {
             let date = datePickerOutlet.date
             let format = DateFormatter()
             format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            let formattedDate = format.string(from: date)
+                _ = format.string(from: date)
             // Get needed components from date
             let calendar = Calendar.current
             let tempYear = calendar.component(.year, from: date)

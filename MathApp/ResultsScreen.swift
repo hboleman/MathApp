@@ -68,7 +68,7 @@ class ResultsScreen: UIViewController {
             parityBit = false
         }
         
-        var test = Double(stuGrade / 10000)
+        let test = Double(stuGrade / 10000)
         // Setup lables
         scoreLable.text = String("\(test)")
         assembleBinaryResultsCode()
@@ -103,12 +103,12 @@ class ResultsScreen: UIViewController {
         let date = Date.init()
         let format = DateFormatter()
         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let formattedDate = format.string(from: date)
+        let _ = format.string(from: date)
         
         let calendar = Calendar.current
-        var tempMonth = calendar.component(.month, from: date)
-        var tempDay = calendar.component(.day, from: date)
-        var tempHour = calendar.component(.hour, from: date)
+        let tempMonth = calendar.component(.month, from: date)
+        let tempDay = calendar.component(.day, from: date)
+        let tempHour = calendar.component(.hour, from: date)
         
         let month = String(tempMonth)
         let day = String(tempDay)

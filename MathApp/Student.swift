@@ -549,7 +549,7 @@ class Student: UIViewController {
         let diff: Int = length - str.count
         var temp: String = ""
         if (diff > 0){
-            for index in 0..<diff {
+            for _ in 0..<diff {
                 temp.append(contentsOf: padding)
             }
             temp.append(contentsOf: str)

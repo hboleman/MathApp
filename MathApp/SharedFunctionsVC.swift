@@ -283,7 +283,7 @@ func codeConversionBinToChar(str: String) -> String {
     if (str.count < 6){
         let tempDiff = 6 - str.count;
         var tempStr = str
-        for index in 0..<tempDiff {
+        for _ in 0..<tempDiff {
             tempStr.append(contentsOf: "0")
         }
         codeStr = tempStr
@@ -425,7 +425,7 @@ func codeConversionBinToChar(str: String) -> String {
 // Converts Human Readable Characters into binary
 func codeConversionCharToBin(str: String) -> String {
     
-    var codeStr = str
+    let codeStr = str
     
     // Binary String Values
     // 2 = 000000
