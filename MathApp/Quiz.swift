@@ -398,7 +398,7 @@ class Quiz: UIViewController {
     // Prepare for segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Regular segue
-        if (debugSendToResults == false){
+        if (debugSendToResults == false && homeworkQuiz == true){
             // Create a new variable to store the instance of Quiz
             let destinationVC = segue.destination as! ResultsScreen
             // Set other data needed for results
@@ -412,7 +412,7 @@ class Quiz: UIViewController {
             //destinationVC.scoreLable.text = String(self.stuGrade)
         }
         // Debug segue
-        else {
+        else if (debugSendToResults == true && homeworkQuiz == true){
             // Create a new variable to store the instance of Quiz
             let destinationVC = segue.destination as! ResultsScreen
             // Set other data needed for results
