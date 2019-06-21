@@ -20,6 +20,7 @@ class Teacher: UIViewController {
     }
     
     //-------------------- Outlets --------------------//
+    
     @IBOutlet weak var addQuestionNum: UITextField!
     @IBOutlet weak var subQuestionNum: UITextField!
     @IBOutlet weak var divQuestionNum: UITextField!
@@ -37,6 +38,7 @@ class Teacher: UIViewController {
     @IBOutlet weak var codeLable: UILabel!
     
     //-------------------- Variables --------------------//
+    
     // Variables for generating code
     var numOfQuestions_add: Int = 1;
     var numOfQuestions_sub: Int = 1;
@@ -75,6 +77,7 @@ class Teacher: UIViewController {
     let debugBinSeperation: Bool = false
     
     //-------------------- Actions --------------------//
+    
     // Will validate input, and if valid will gather the raw data needed to create code, and call on the functions that assemble the code
     @IBAction func generateCode(_ sender: Any) {
         // Resets the invalid data flag
@@ -178,13 +181,11 @@ class Teacher: UIViewController {
         if((subQuestionNum.text?.isEmpty ?? nil)!){ checkFailed = true }
         if((mulQuestionNum.text?.isEmpty ?? nil)!){ checkFailed = true }
         if((divQuestionNum.text?.isEmpty ?? nil)!){ checkFailed = true }
-        
         // checks if number of questions are within bounds
         if(checkFailed == false && Int(addQuestionNum.text!)! >= 0 && Int(addQuestionNum.text!)! > 255){ checkFailed = true }
         if(checkFailed == false && Int(subQuestionNum.text!)! >= 0 && Int(addQuestionNum.text!)! > 255){ checkFailed = true }
         if(checkFailed == false && Int(mulQuestionNum.text!)! >= 0 && Int(addQuestionNum.text!)! > 255){ checkFailed = true }
         if(checkFailed == false && Int(divQuestionNum.text!)! >= 0 && Int(addQuestionNum.text!)! > 255){ checkFailed = true }
-        
         // checks that there is at least one question
         if (checkFailed == false){
             var total = 0
@@ -194,12 +195,10 @@ class Teacher: UIViewController {
             total = total + Int(divQuestionNum.text!)!
             if (total < 1){checkFailed = true}
         }
-        
         // Teacher code bounds check
         if((teacherCode.text?.isEmpty ?? nil)!){ checkFailed = true}
         if((teacherCode.text!.count > 4 || teacherCode.text!.count < 4) && checkFailed == false){ checkFailed = true }
         if((Int(teacherCode.text!)! < 1111 || Int(teacherCode.text!)! > 9999) && checkFailed == false){ checkFailed = true }
-        
         // Homework code bounds check
         if((homeworkCode.text?.isEmpty ?? nil)!){ checkFailed = true}
         if((homeworkCode.text!.count > 3 || homeworkCode.text!.count < 0) && checkFailed == false){ checkFailed = true }
@@ -227,7 +226,6 @@ class Teacher: UIViewController {
         let teachCode: String = padStringInt( num: instructorCode, length: 15, padding: "0")
         let homewkCode: String = padStringInt( num: hwCode, length: 11, padding: "0")
         let stuCode: String = padStringInt(num: studentCode, length: 9, padding: "0")
-        
         // Take padded and converted data and append them in order with our string.
         // Debug mode interts breaks inbetween the binary to make it easier to read the sections.
         var wholeString: String = ""
@@ -251,7 +249,6 @@ class Teacher: UIViewController {
         wholeString.append(contentsOf: homewkCode)
         if (debugBinSeperation){wholeString.append(contentsOf: " STU ")}
         wholeString.append(contentsOf: stuCode)
-        
         // Logic for parity bit - even parity
         var posCount = 0
         for index in 0..<wholeString.count{
@@ -327,7 +324,6 @@ class Teacher: UIViewController {
     // Prepares a binary blob constructed to our code specification for the date portion.
     func getDate(yr: String, mo: String, d: String, h: String, m: String) -> String{
         var temp: String = ""
-        
         // Year
         let tempYr = padStringInt(num: Int(yr)!, length: 7, padding: "0")
         temp.append(contentsOf: tempYr)
@@ -343,7 +339,6 @@ class Teacher: UIViewController {
         // Minute
         let tempM = padStringInt(num: Int(m)!, length: 6, padding: "0")
         temp.append(contentsOf: tempM)
-        
         return temp
     }
     

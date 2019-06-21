@@ -10,6 +10,7 @@ import UIKit
 
 // This class controls the options view controler
 class Options: UIViewController {
+    
     //-------------------- Class Setup --------------------//
     
     // Populate local variables with UserData information
@@ -38,10 +39,8 @@ class Options: UIViewController {
     
     func save_defaults(){
         defaults.set(mode_difficulty, forKey: "mode_difficulty");
-        
         defaults.set(modesActive, forKey: "modesActive")
         defaults.set(questionCount, forKey: "questionCount")
-        
         defaults.synchronize();
     }
     

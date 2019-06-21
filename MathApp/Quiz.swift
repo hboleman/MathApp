@@ -11,42 +11,8 @@ import GameplayKit
 
 // This class controls the quiz view controler
 class Quiz: UIViewController {
+    
     //-------------------- Class Setup --------------------//
-    
-    var num1: Int = 0;
-    var num2: Int = 0;
-    var numAns: Int = 0;
-    var temp1: Int = 0;
-    var temp2: Int = 0;
-    var place: Int = 0;
-    var user_num: Int = 0;
-    var score_right: Int = 0;
-    var score_wrong: Int = 0;
-    var score_Qcurrent: Int = 0;
-    var score_Qmax: Int = 0;
-    var canTouch: Bool = true;
-    var mode_symbol: Int = 0;
-    var mode_difficulty: Int = 0;
-    
-    var modesActive: [Bool] = Array(repeating: false, count: 4)
-    var questionCount: Int = 0;
-    var questionsArray: [Int] = Array.init()
-    var hwArray: [(question: Int, difficulty: Int)] = []
-    var shuffle: Bool = false
-    
-    var seed: UInt64 = 0
-    var generator = SeededGenerator()
-    var doSegue: Bool = false
-    
-    // Needed for resutls & student quiz
-    var instructorCode: Int = 1234;
-    var hwCode: Int = 999
-    var studentCode: Int = 256
-    var stuGrade: Int = 0;
-    var homeworkQuiz: Bool = false
-    
-    //DEBUG - When enabled, just press next to move to results screen.
-    var debugSendToResults: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,7 +74,7 @@ class Quiz: UIViewController {
     }
     
     //-------------------- Outlets --------------------//
-    
+
     // Lables Outlets
     @IBOutlet weak var lbl_top: UILabel!
     @IBOutlet weak var lbl_bottom: UILabel!
@@ -123,6 +89,43 @@ class Quiz: UIViewController {
     
     // Outlets
     @IBOutlet weak var out_nextquestion: UIButton!
+    
+    //-------------------- Variables --------------------//
+    
+    var num1: Int = 0;
+    var num2: Int = 0;
+    var numAns: Int = 0;
+    var temp1: Int = 0;
+    var temp2: Int = 0;
+    var place: Int = 0;
+    var user_num: Int = 0;
+    var score_right: Int = 0;
+    var score_wrong: Int = 0;
+    var score_Qcurrent: Int = 0;
+    var score_Qmax: Int = 0;
+    var canTouch: Bool = true;
+    var mode_symbol: Int = 0;
+    var mode_difficulty: Int = 0;
+    
+    var modesActive: [Bool] = Array(repeating: false, count: 4)
+    var questionCount: Int = 0;
+    var questionsArray: [Int] = Array.init()
+    var hwArray: [(question: Int, difficulty: Int)] = []
+    var shuffle: Bool = false
+    
+    var seed: UInt64 = 0
+    var generator = SeededGenerator()
+    var doSegue: Bool = false
+    
+    // Needed for resutls & student quiz
+    var instructorCode: Int = 1234;
+    var hwCode: Int = 999
+    var studentCode: Int = 256
+    var stuGrade: Int = 0;
+    var homeworkQuiz: Bool = false
+    
+    //DEBUG - When enabled, just press next to move to results screen.
+    var debugSendToResults: Bool = false
     
     //-------------------- Numpad Actions --------------------//
     
@@ -228,7 +231,6 @@ class Quiz: UIViewController {
             // Reset psudo-random number generator
             generator = SeededGenerator(seed: seed)
         }
-        
         //Regular Quiz Setup
         // Set Variables
         num1 = 0;
@@ -241,7 +243,7 @@ class Quiz: UIViewController {
         score_Qcurrent = 0;
         canTouch = true;
         out_nextquestion.isHidden = true;
-        
+        // Prepares first question
         NextQuestion();
         progviewquiz.progress = Float(0);
     }
@@ -367,7 +369,6 @@ class Quiz: UIViewController {
                 num2 = temp2;
                 numAns = num1 / num2;
             }
-            
             // Transfer new numbers to lables
             lbl_top.text = String(num1);
             lbl_bottom.text = String(num2);
@@ -398,7 +399,7 @@ class Quiz: UIViewController {
     // Prepare for segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Regular segue
-        if (debugSendToResults == false && homeworkQuiz == true){
+        if (debugSendToResults == false && homeworkQuiz == true && doSegue){
             // Create a new variable to store the instance of Quiz
             let destinationVC = segue.destination as! ResultsScreen
             // Set other data needed for results

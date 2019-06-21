@@ -36,6 +36,7 @@ class Student: UIViewController {
     }
     
     //-------------------- Outlets --------------------//
+    
     @IBOutlet weak var codeEntryField: UITextField!
     @IBOutlet weak var stuNumField: UITextField!
     @IBOutlet weak var lableAboveCode: UILabel!
@@ -84,16 +85,16 @@ class Student: UIViewController {
     let debugIn: Bool = false
     let debugBinSeperation: Bool = false
     
-    
     //-------------------- Actions --------------------//
     
-    //
+    // Validates that the code sent as input is valid as a code, and not past due date
     @IBAction func checkCode(_ sender: Any) {
         // Reset input failed flag
         checkFailed = false
         
+        // Validation check is run after extraction.
+        
         // Run if data is valid
-        if (checkFailed == false){
             quizNumLable.text = String("Quiz Number: \(hwCode)")
             lableAboveCode.text = "Enter Code"
             quizNumLable.isHidden = false
@@ -101,15 +102,6 @@ class Student: UIViewController {
             lableAboveCode.textColor = UIColor(red:0.56, green:0.81, blue:0.48, alpha:1.0);
             disassembleHumanReadableCode(hrCode: codeEntryField.text!)
             disassembleBinaryCode(binCode: disCodeInBin)
-        }
-        else{
-            // Run if data is invalid
-            lableAboveCode.text = "Invalid Option!"
-            lableAboveCode.textColor = UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0)
-            quizNumLable.text = String("Quiz Number: ")
-            quizNumLable.isHidden = true
-            takeQuiz.isHidden = true
-        }
     }
     
     //-------------------- Other Functions --------------------//
@@ -165,109 +157,73 @@ class Student: UIViewController {
             
             // Extracting Add Question Number
             binarySnipit = ""
-            for index in 0..<8 {
-                binarySnipit.append(binaryCode.character(at: index)!)
-            }
+            for index in 0..<8 {binarySnipit.append(binaryCode.character(at: index)!)}
             print("(BinSnip: \(binarySnipit)")
-            for _ in 0..<8 {
-                binaryCode.removeFirst()
-            }
+            for _ in 0..<8 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             numOfQuestions_add = binToInt(bin: binarySnipit); // 8
             
             // Extracting Sub Question Number
             binarySnipit = ""
-            for index in 0..<8 {
-                binarySnipit.append(binaryCode.character(at: index)!)
-            }
+            for index in 0..<8 {binarySnipit.append(binaryCode.character(at: index)!)}
             print("(BinSnip: \(binarySnipit)")
-            for _ in 0..<8 {
-                binaryCode.removeFirst()
-            }
+            for _ in 0..<8 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             numOfQuestions_sub = binToInt(bin: binarySnipit); // 8
             
             // Extracting Mul Question Number
             binarySnipit = ""
-            for index in 0..<8 {
-                binarySnipit.append(binaryCode.character(at: index)!)
-            }
+            for index in 0..<8 {binarySnipit.append(binaryCode.character(at: index)!)}
             print("(BinSnip: \(binarySnipit)")
-            for _ in 0..<8 {
-                binaryCode.removeFirst()
-            }
+            for _ in 0..<8 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             numOfQuestions_mul = binToInt(bin: binarySnipit); // 8
             
             // Extracting Div Question Number
             binarySnipit = ""
-            for index in 0..<8 {
-                binarySnipit.append(binaryCode.character(at: index)!)
-            }
+            for index in 0..<8 {binarySnipit.append(binaryCode.character(at: index)!)}
             print("(BinSnip: \(binarySnipit)")
-            for _ in 0..<8 {
-                binaryCode.removeFirst()
-            }
+            for _ in 0..<8 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             numOfQuestions_div = binToInt(bin: binarySnipit); // 8
             
             // Extracting Add Diff Number
             binarySnipit = ""
-            for index in 0..<2 {
-                binarySnipit.append(binaryCode.character(at: index)!)
-            }
+            for index in 0..<2 {binarySnipit.append(binaryCode.character(at: index)!)}
             print("(BinSnip: \(binarySnipit)")
-            for _ in 0..<2 {
-                binaryCode.removeFirst()
-            }
+            for _ in 0..<2 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             difficulty_add = binToInt(bin: binarySnipit); // 2
             
             // Extracting Sub Diff Number
             binarySnipit = ""
-            for index in 0..<2 {
-                binarySnipit.append(binaryCode.character(at: index)!)
-            }
+            for index in 0..<2 {binarySnipit.append(binaryCode.character(at: index)!)}
             print("(BinSnip: \(binarySnipit)")
-            for _ in 0..<2 {
-                binaryCode.removeFirst()
-            }
+            for _ in 0..<2 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             difficulty_sub = binToInt(bin: binarySnipit); // 2
             
             // Extracting Mul Diff Number
             binarySnipit = ""
-            for index in 0..<2 {
-                binarySnipit.append(binaryCode.character(at: index)!)
-            }
+            for index in 0..<2 {binarySnipit.append(binaryCode.character(at: index)!)}
             print("(BinSnip: \(binarySnipit)")
-            for _ in 0..<2 {
-                binaryCode.removeFirst()
-            }
+            for _ in 0..<2 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             difficulty_mul = binToInt(bin: binarySnipit); // 2
             
             // Extracting Div Diff Number
             binarySnipit = ""
-            for index in 0..<2 {
-                binarySnipit.append(binaryCode.character(at: index)!)
-            }
+            for index in 0..<2 {binarySnipit.append(binaryCode.character(at: index)!)}
             print("(BinSnip: \(binarySnipit)")
-            for _ in 0..<2 {
-                binaryCode.removeFirst()
-            }
+            for _ in 0..<2 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             difficulty_div = binToInt(bin: binarySnipit); // 2
             
             // Extracting Date
             binarySnipit = ""
-            for index in 0..<28 {
-                binarySnipit.append(binaryCode.character(at: index)!)
-            }
+            for index in 0..<28 {binarySnipit.append(binaryCode.character(at: index)!)}
             print("(BinSnip: \(binarySnipit)")
-            for _ in 0..<28 {
-                binaryCode.removeFirst()
-            }
+            for _ in 0..<28 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             getDate(dateStr: binarySnipit)  // 28
             
@@ -282,42 +238,29 @@ class Student: UIViewController {
             
             // Extracting Instructor Code
             binarySnipit = ""
-            for index in 0..<15 {
-                binarySnipit.append(binaryCode.character(at: index)!)
-            }
+            for index in 0..<15 {binarySnipit.append(binaryCode.character(at: index)!)}
             print("(BinSnip: \(binarySnipit)")
-            for _ in 0..<15 {
-                binaryCode.removeFirst()
-            }
+            for _ in 0..<15 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             instructorCode = binToInt(bin: binarySnipit); // 15
             
             // Extracting Homework Code
             binarySnipit = ""
-            for index in 0..<11 {
-                binarySnipit.append(binaryCode.character(at: index)!)
-            }
+            for index in 0..<11 {binarySnipit.append(binaryCode.character(at: index)!)}
             print("(BinSnip: \(binarySnipit)")
-            for _ in 0..<11 {
-                binaryCode.removeFirst()
-            }
+            for _ in 0..<11 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             hwCode = binToInt(bin: binarySnipit); // 15
             quizNumLable.text = ("Quiz Number: \(String(hwCode))")
             
             // Extracting Student Code
             binarySnipit = ""
-            for index in 0..<9 {
-                binarySnipit.append(binaryCode.character(at: index)!)
-            }
+            for index in 0..<9 {binarySnipit.append(binaryCode.character(at: index)!)}
             print("(BinSnip: \(binarySnipit)")
-            for _ in 0..<9 {
-                binaryCode.removeFirst()
-            }
+            for _ in 0..<9 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             // Had to modify code to input what the student given code is
             studentCode = Int(stuNumField.text!)!
-            //studentCode = binToInt(bin: binarySnipit); // 9
             
             // Extracting Parity
             binarySnipit = ""
@@ -328,7 +271,7 @@ class Student: UIViewController {
             else {parityBit = false} // 1
             print("LeftBin: \(binaryCode)")
             
-            // Print the read values
+            // PRINT EXTRACTED VALUES
             print("---------- ENCODED DATA ----------")
             print("QADD: \(numOfQuestions_add) QSUB: \(numOfQuestions_sub)   QMUL: \(numOfQuestions_mul)   QDIV: \(numOfQuestions_div)")
             print("DADD: \(difficulty_add) DSUB: \(difficulty_sub)   DMUL: \(difficulty_mul)   DDIV: \(difficulty_div)")
@@ -336,7 +279,7 @@ class Student: UIViewController {
             print("SHUF: \(shuffle)   Teach: \(instructorCode)")
             print("HW#: \(hwCode)   STU: \(studentCode)   PAR: \(parityBit)")
             print("----------------------------------")
-            
+            // If in debug, skip validation check
             if (debugIn == false){checkForValidInput()}
             
         }
@@ -347,6 +290,7 @@ class Student: UIViewController {
             quizNumLable.text = String("Quiz Number: ")
             quizNumLable.isHidden = true
             takeQuiz.isHidden = true
+            // If check passed,
         }
     }
     

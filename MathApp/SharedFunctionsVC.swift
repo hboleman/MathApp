@@ -23,27 +23,21 @@ class SharedFunctionsVC: UIViewController {
 //    @objc func appMovedToBackground() {
 //        print("ENT_BKRND")
 //    }
-//
 //    @objc func appCameToForeground() {
 //        print("ENT_FORRND")
 //    }
-//
 //    override func viewWillAppear(_ animated: Bool) {
 //        super.viewWillAppear(animated)
 //        print("VC:ViewWillApp");
-//
 //    }
-//
 //    override func viewDidAppear(_ animated: Bool) {
 //        super.viewDidAppear(animated)
 //        print("VC:ViewDidApp");
 //    }
-//
 //    override func viewWillDisappear(_ animated: Bool) {
 //        super.viewWillDisappear(animated)
 //        print("VC:ViewWillDis");
 //    }
-//
 //    override func viewDidDisappear(_ animated: Bool) {
 //        super.viewDidAppear(animated)
 //        print("VC:ViewDidDis");
@@ -227,7 +221,7 @@ func intToBin(number: Int) -> String{
     return strSwap
 }
 
-//------------------------------ Extension ------------------------------//
+//------------------------------ Extensions ------------------------------//
 
 // This string extensions allows for indexAt
 extension String {
