@@ -133,9 +133,7 @@ class Student: UIViewController {
         // Parity
         if (checkFailed == false){
             var posCount = 0
-            for index in 0..<disCodeInBin.count{
-                if (disCodeInBin.character(at: index)! == "1"){posCount = posCount + 1}
-            }
+            for index in 0..<disCodeInBin.count{if (disCodeInBin.character(at: index)! == "1"){posCount = posCount + 1}}
             let posMod = posCount % 2
             var tempPar: Bool = false
             if (posMod != 0){tempPar = true}
@@ -154,7 +152,6 @@ class Student: UIViewController {
         print("disCount: \(binaryCode.count)")
         // If Validity Passed Start Extraction
         if (checkFailed == false){
-            
             // Extracting Add Question Number
             binarySnipit = ""
             for index in 0..<8 {binarySnipit.append(binaryCode.character(at: index)!)}
@@ -162,7 +159,6 @@ class Student: UIViewController {
             for _ in 0..<8 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             numOfQuestions_add = binToInt(bin: binarySnipit); // 8
-            
             // Extracting Sub Question Number
             binarySnipit = ""
             for index in 0..<8 {binarySnipit.append(binaryCode.character(at: index)!)}
@@ -170,7 +166,6 @@ class Student: UIViewController {
             for _ in 0..<8 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             numOfQuestions_sub = binToInt(bin: binarySnipit); // 8
-            
             // Extracting Mul Question Number
             binarySnipit = ""
             for index in 0..<8 {binarySnipit.append(binaryCode.character(at: index)!)}
@@ -178,7 +173,6 @@ class Student: UIViewController {
             for _ in 0..<8 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             numOfQuestions_mul = binToInt(bin: binarySnipit); // 8
-            
             // Extracting Div Question Number
             binarySnipit = ""
             for index in 0..<8 {binarySnipit.append(binaryCode.character(at: index)!)}
@@ -186,7 +180,6 @@ class Student: UIViewController {
             for _ in 0..<8 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             numOfQuestions_div = binToInt(bin: binarySnipit); // 8
-            
             // Extracting Add Diff Number
             binarySnipit = ""
             for index in 0..<2 {binarySnipit.append(binaryCode.character(at: index)!)}
@@ -194,7 +187,6 @@ class Student: UIViewController {
             for _ in 0..<2 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             difficulty_add = binToInt(bin: binarySnipit); // 2
-            
             // Extracting Sub Diff Number
             binarySnipit = ""
             for index in 0..<2 {binarySnipit.append(binaryCode.character(at: index)!)}
@@ -202,7 +194,6 @@ class Student: UIViewController {
             for _ in 0..<2 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             difficulty_sub = binToInt(bin: binarySnipit); // 2
-            
             // Extracting Mul Diff Number
             binarySnipit = ""
             for index in 0..<2 {binarySnipit.append(binaryCode.character(at: index)!)}
@@ -210,7 +201,6 @@ class Student: UIViewController {
             for _ in 0..<2 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             difficulty_mul = binToInt(bin: binarySnipit); // 2
-            
             // Extracting Div Diff Number
             binarySnipit = ""
             for index in 0..<2 {binarySnipit.append(binaryCode.character(at: index)!)}
@@ -218,7 +208,6 @@ class Student: UIViewController {
             for _ in 0..<2 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             difficulty_div = binToInt(bin: binarySnipit); // 2
-            
             // Extracting Date
             binarySnipit = ""
             for index in 0..<28 {binarySnipit.append(binaryCode.character(at: index)!)}
@@ -226,7 +215,6 @@ class Student: UIViewController {
             for _ in 0..<28 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             getDate(dateStr: binarySnipit)  // 28
-            
             // Extracting Shuffle Bool
             binarySnipit = ""
             binarySnipit.append(binaryCode.character(at: 0)!)
@@ -235,7 +223,6 @@ class Student: UIViewController {
             if (binarySnipit == "1"){shuffle = true}
             else {shuffle = false} // 1
             print("LeftBin: \(binaryCode)")
-            
             // Extracting Instructor Code
             binarySnipit = ""
             for index in 0..<15 {binarySnipit.append(binaryCode.character(at: index)!)}
@@ -243,7 +230,6 @@ class Student: UIViewController {
             for _ in 0..<15 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             instructorCode = binToInt(bin: binarySnipit); // 15
-            
             // Extracting Homework Code
             binarySnipit = ""
             for index in 0..<11 {binarySnipit.append(binaryCode.character(at: index)!)}
@@ -252,7 +238,6 @@ class Student: UIViewController {
             print("LeftBin: \(binaryCode)")
             hwCode = binToInt(bin: binarySnipit); // 15
             quizNumLable.text = ("Quiz Number: \(String(hwCode))")
-            
             // Extracting Student Code
             binarySnipit = ""
             for index in 0..<9 {binarySnipit.append(binaryCode.character(at: index)!)}
@@ -261,7 +246,6 @@ class Student: UIViewController {
             print("LeftBin: \(binaryCode)")
             // Had to modify code to input what the student given code is
             studentCode = Int(stuNumField.text!)!
-            
             // Extracting Parity
             binarySnipit = ""
             binarySnipit.append(binaryCode.character(at: 0)!)
@@ -270,7 +254,6 @@ class Student: UIViewController {
             if (binarySnipit == "1"){parityBit = true}
             else {parityBit = false} // 1
             print("LeftBin: \(binaryCode)")
-            
             // PRINT EXTRACTED VALUES
             print("---------- ENCODED DATA ----------")
             print("QADD: \(numOfQuestions_add) QSUB: \(numOfQuestions_sub)   QMUL: \(numOfQuestions_mul)   QDIV: \(numOfQuestions_div)")
@@ -281,7 +264,6 @@ class Student: UIViewController {
             print("----------------------------------")
             // If in debug, skip validation check
             if (debugIn == false){checkForValidInput()}
-            
         }
         if (checkFailed == true) {
             // if check failed
@@ -298,64 +280,39 @@ class Student: UIViewController {
     func getDate(dateStr: String){
         var binarySnipit: String = ""
         var binaryCode: String = dateStr
-        
         // Extracting Year Code
         binarySnipit = ""
-        for index in 0..<7 {
-            binarySnipit.append(binaryCode.character(at: index)!)
-        }
+        for index in 0..<7 {binarySnipit.append(binaryCode.character(at: index)!)}
         print("(BinSnip: \(binarySnipit)")
-        for _ in 0..<7 {
-            binaryCode.removeFirst()
-        }
+        for _ in 0..<7 {binaryCode.removeFirst()}
         print("LeftBin: \(binaryCode)")
         year = String(binToInt(bin: binarySnipit)) // 7
-        
         // Extracting Month Code
         binarySnipit = ""
-        for index in 0..<4 {
-            binarySnipit.append(binaryCode.character(at: index)!)
-        }
+        for index in 0..<4 {binarySnipit.append(binaryCode.character(at: index)!)}
         print("(BinSnip: \(binarySnipit)")
-        for _ in 0..<4 {
-            binaryCode.removeFirst()
-        }
+        for _ in 0..<4 {binaryCode.removeFirst()}
         print("LeftBin: \(binaryCode)")
         month = String(binToInt(bin: binarySnipit)) // 4
-        
         // Extracting Day Code
         binarySnipit = ""
-        for index in 0..<6 {
-            binarySnipit.append(binaryCode.character(at: index)!)
-        }
+        for index in 0..<6 {binarySnipit.append(binaryCode.character(at: index)!)}
         print("(BinSnip: \(binarySnipit)")
-        for _ in 0..<6 {
-            binaryCode.removeFirst()
-        }
+        for _ in 0..<6 {binaryCode.removeFirst()}
         print("LeftBin: \(binaryCode)")
         day = String(binToInt(bin: binarySnipit)) // 6
-        
         // Extracting Hour Code
         binarySnipit = ""
-        for index in 0..<5 {
-            binarySnipit.append(binaryCode.character(at: index)!)
-        }
+        for index in 0..<5 {binarySnipit.append(binaryCode.character(at: index)!)}
         print("(BinSnip: \(binarySnipit)")
-        for _ in 0..<5 {
-            binaryCode.removeFirst()
-        }
+        for _ in 0..<5 {binaryCode.removeFirst()}
         print("LeftBin: \(binaryCode)")
         hour = String(binToInt(bin: binarySnipit)) // 5
-        
         // Extracting Min Code
         binarySnipit = ""
-        for index in 0..<6 {
-            binarySnipit.append(binaryCode.character(at: index)!)
-        }
+        for index in 0..<6 {binarySnipit.append(binaryCode.character(at: index)!)}
         print("(BinSnip: \(binarySnipit)")
-        for _ in 0..<6 {
-            binaryCode.removeFirst()
-        }
+        for _ in 0..<6 {binaryCode.removeFirst()}
         print("LeftBin: \(binaryCode)")
         min = String(binToInt(bin: binarySnipit)) // 6
     }
@@ -363,22 +320,18 @@ class Student: UIViewController {
     // Turns the code into binary
     func disassembleHumanReadableCode(hrCode: String){
         var fullBinString = ""
-        
         for index in 0..<hrCode.count{
             let hrChar = String(hrCode.character(at: index)!)
             let codeStr = codeConversionCharToBin(str: hrChar)
             fullBinString.append(contentsOf: codeStr)
         }
-        
+        // Copy over binary
         let origBinStr = fullBinString
-        
         // Remove extra zeros at end
-        for _ in 0..<leadingBuffer {
-            fullBinString.removeLast()
-        }
-        
+        for _ in 0..<leadingBuffer {fullBinString.removeLast()}
+        // Copies over the binary version
         disCodeInBin = fullBinString
-        
+        // Print Related Info
         print("Reassembled Binary Code:")
         print(fullBinString)
         print("Orig Binary Code:")
@@ -389,7 +342,6 @@ class Student: UIViewController {
     
     func getDate(yr: String, mo: String, d: String, h: String, m: String) -> String{
         var temp: String = ""
-        
         // Year
         let tempYr = padStringInt(num: Int(yr)!, length: 7, padding: "0")
         temp.append(contentsOf: tempYr)
@@ -405,32 +357,7 @@ class Student: UIViewController {
         // Minute
         let tempM = padStringInt(num: Int(m)!, length: 6, padding: "0")
         temp.append(contentsOf: tempM)
-        
         return temp
-    }
-    
-    // Returns a padded string to specified length and paddign character
-    func padStringStr(str: String, length: Int, padding: String) -> String {
-        let diff: Int = length - str.count
-        var temp: String = ""
-        if (diff > 0){
-            for _ in 0..<diff {
-                temp.append(contentsOf: padding)
-            }
-            temp.append(contentsOf: str)
-        }
-        else {
-            // If no need to pad, just send variable
-            temp.append(contentsOf: str)
-        }
-        return temp
-    }
-    
-    // Taked in an Int and feeds it to the string padder
-    func padStringInt(num: Int, length: Int, padding: String) -> String{
-        let tempStr = intToBin(number: num)
-        let str: String = padStringStr(str: tempStr, length: length, padding: padding)
-        return str
     }
     
     //------------------ Utilities ------------------//
@@ -455,7 +382,6 @@ class Student: UIViewController {
         if (self.numOfQuestions_mul > 0){modesActive[2] = true}
         if (self.numOfQuestions_div > 0){modesActive[3] = true}
         //destinationVC.modesActive = self.modesActive
-        
         // Sets true question count
         count = 0
         count = numOfQuestions_add + count
@@ -464,7 +390,6 @@ class Student: UIViewController {
         count = numOfQuestions_div + count
         destinationVC.questionCount = count
         destinationVC.score_Qmax = count
-        
         // Generation question array
         for _ in 0..<numOfQuestions_add {
             if difficulty_add == 1 {hwArray.append((1, 1))}
@@ -486,7 +411,6 @@ class Student: UIViewController {
             if numOfQuestions_div == 2 {hwArray.append((4, 2))}
             if numOfQuestions_div == 3 {hwArray.append((4, 3))}
         }
-        
         // Sets and sends the seed
         let tempStr = (String(instructorCode) + String(hwCode))
         let tempInt = UInt64(tempStr)
@@ -508,7 +432,6 @@ class Student: UIViewController {
         }
             // If not shuffling array
         else {destinationVC.hwArray = hwArray}
-        
         // Set other data needed for results
         destinationVC.instructorCode = self.instructorCode
         destinationVC.hwCode = self.hwCode

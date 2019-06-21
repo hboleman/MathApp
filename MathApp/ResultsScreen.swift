@@ -67,7 +67,7 @@ class ResultsScreen: UIViewController {
             //parityBit
             parityBit = false
         }
-        
+        // Regular Setup
         let test = Double(stuGrade / 10000)
         // Setup lables
         scoreLable.text = String("\(test)")
@@ -79,7 +79,6 @@ class ResultsScreen: UIViewController {
     // Get Date in Binary
     func getDate(mo: String, d: String, h: String) -> String{
         var temp: String = ""
-        
         // Month
         let tempMo = padStringInt(num: Int(mo)!, length: 4, padding: "0")
         temp.append(contentsOf: tempMo)
@@ -89,7 +88,6 @@ class ResultsScreen: UIViewController {
         // Hour
         let tempH = padStringInt(num: Int(h)!, length: 5, padding: "0")
         temp.append(contentsOf: tempH)
-        
         return temp
     }
     
@@ -98,29 +96,28 @@ class ResultsScreen: UIViewController {
     // Assemble Binary Code
     func assembleBinaryResultsCode(){
         assembledBinCode = ""
-        
         // FORMATTING DATE
         let date = Date.init()
         let format = DateFormatter()
         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let _ = format.string(from: date)
-        
+        // Calander Setup
         let calendar = Calendar.current
         let tempMonth = calendar.component(.month, from: date)
         let tempDay = calendar.component(.day, from: date)
         let tempHour = calendar.component(.hour, from: date)
-        
+        // Getting Relevant Values
         let month = String(tempMonth)
         let day = String(tempDay)
         let hour = String(tempHour)
-        
+        // Get other binary values
         let tempDate = getDate(mo: month, d: day, h: hour)
         let teachCode: String = padStringInt( num: instructorCode, length: 15, padding: "0")
         let homewkCode: String = padStringInt( num: hwCode, length: 11, padding: "0")
         let stuCode: String = padStringInt(num: studentCode, length: 9, padding: "0")
         let grade: String = padStringInt(num: stuGrade, length: 8, padding: "0")
         // makes 43
-        
+        // Form Together All Binary Values
         var wholeString: String = ""
         if (debugBinSeperation){wholeString.append(contentsOf: " DAT ")} // should be 8
         wholeString.append(contentsOf: tempDate)
@@ -136,9 +133,7 @@ class ResultsScreen: UIViewController {
         if (debugBinSeperation){wholeString.append(contentsOf: " PAR ")} // should be 8
         // For Parity
         var posCount = 0
-        for index in 0..<wholeString.count{
-            if (wholeString.character(at: index)! == "1"){posCount = posCount + 1}
-        }
+        for index in 0..<wholeString.count{if (wholeString.character(at: index)! == "1"){posCount = posCount + 1}}
         let posMod = posCount % 2
         if (posMod != 0){parityBit = true}
         else {parityBit = false}
@@ -147,7 +142,7 @@ class ResultsScreen: UIViewController {
         else{parityValue = "0"}
         // End Parity
         wholeString.append(contentsOf: parityValue)
-        
+        // Print Related Info
         print("Whole String: \(wholeString)")
         print("Count: \(wholeString.count)")
         assembledBinCode = wholeString
@@ -160,39 +155,30 @@ class ResultsScreen: UIViewController {
         var strOfSix = ""
         
         while (codeToCrunch.count > 0) {
+            // Get code snippit
             if (codeToCrunch.count > 6){
                 strOfSix = ""
-                for index in 0..<6 {
-                    strOfSix.append(codeToCrunch.character(at: index)!)
-                }
+                for index in 0..<6 {strOfSix.append(codeToCrunch.character(at: index)!)}
                 print(codeToCrunch)
-                for _ in 0..<6 {
-                    codeToCrunch.removeFirst()
-                }
+                for _ in 0..<6 {codeToCrunch.removeFirst()}
                 print(codeToCrunch)
                 print("of6: \(strOfSix)")
             }
             else {
                 strOfSix = ""
-                for index in 0..<codeToCrunch.count {
-                    strOfSix.append(codeToCrunch.character(at: index)!)
-                }
+                for index in 0..<codeToCrunch.count {strOfSix.append(codeToCrunch.character(at: index)!)}
                 print(codeToCrunch)
-                for _ in 0..<codeToCrunch.count {
-                    codeToCrunch.removeFirst()
-                }
+                for _ in 0..<codeToCrunch.count {codeToCrunch.removeFirst()}
                 print(codeToCrunch)
                 print("ofX: \(strOfSix)")
             }
-            
+            // Convert snippit to code charactrer
             let codeCharacter = codeConversionBinToChar(str: strOfSix)
             formingFullString.append(contentsOf: codeCharacter)
             print("HR: \(codeCharacter)")
         }
-        
+        // Print and Assign Full Coded Value
         print("FULL CODE: \(formingFullString)")
-        
         assembledHrCode = formingFullString
     }
-    
 }

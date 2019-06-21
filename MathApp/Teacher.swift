@@ -89,19 +89,16 @@ class Teacher: UIViewController {
         if (checkFailed == false){
             codeLable.textColor = UIColor(red:0.56, green:0.81, blue:0.48, alpha:1.0);
             if (debugIn == false){
-            
             // If input valid, set variabels from input
             numOfQuestions_add = Int(addQuestionNum.text!)!
             numOfQuestions_sub = Int(subQuestionNum.text!)!
             numOfQuestions_mul = Int(mulQuestionNum.text!)!
             numOfQuestions_div = Int(divQuestionNum.text!)!
-            
             let arrInt: [Int] = [1, 2, 3]
             difficulty_add = arrInt[segAdd.selectedSegmentIndex]
             difficulty_sub = arrInt[segSub.selectedSegmentIndex]
             difficulty_mul = arrInt[segMul.selectedSegmentIndex]
             difficulty_div = arrInt[segDiv.selectedSegmentIndex]
-            
             // Logic for date formatting
             let date = datePickerOutlet.date
             let format = DateFormatter()
@@ -122,7 +119,6 @@ class Teacher: UIViewController {
             min = String(tempMin)
             // Format the year for two digits
             if (Int(year)! > 2000){ year = String(Int(year)! - 2000)}
-            
             // Assign Remaining Variables
             shuffle = shuffleToggle.isOn
             instructorCode = Int(teacherCode.text!)!
@@ -159,7 +155,6 @@ class Teacher: UIViewController {
                 //parityBit
                 parityBit = false
             }
-            
             // If data has been assigned, and input is valid, call on the functions to generate the code
             if (checkFailed == false){
                 assembleBinaryCode()
@@ -251,21 +246,17 @@ class Teacher: UIViewController {
         wholeString.append(contentsOf: stuCode)
         // Logic for parity bit - even parity
         var posCount = 0
-        for index in 0..<wholeString.count{
-            if (wholeString.character(at: index)! == "1"){posCount = posCount + 1}
-        }
+        for index in 0..<wholeString.count{if (wholeString.character(at: index)! == "1"){posCount = posCount + 1}}
         if (debugIn == false){
         let posMod = posCount % 2
         if (posMod != 0){parityBit = true}
-        else {parityBit = false}
-        }
+        else {parityBit = false}}
         var parityValue: String = ""
         if (parityBit){parityValue = "1"}
         else{parityValue = "0"}
         if (debugBinSeperation){wholeString.append(contentsOf: " PAR ")}
         wholeString.append(contentsOf: parityValue)
         // End parity logic
-        
         // Extra consol info
         print("Whole String: \(wholeString)")
         print("Count: \(wholeString.count)")
@@ -281,33 +272,24 @@ class Teacher: UIViewController {
         var codeToCrunch = binCode
         // Resets the chunk value
         var strOfSix = ""
-        
         // While string contains anything, take chunks of 6 binary digits
         //    and convert to custom code map, then append to string.
         while (codeToCrunch.count > 0) {
             if (codeToCrunch.count > 6){
                 // Take a chunk of six characters and remove them from the whole binary string.
                 strOfSix = ""
-                for index in 0..<6 {
-                    strOfSix.append(codeToCrunch.character(at: index)!)
-                }
+                for index in 0..<6 {strOfSix.append(codeToCrunch.character(at: index)!)}
                 print(codeToCrunch)
-                for _ in 0..<6 {
-                    codeToCrunch.removeFirst()
-                }
+                for _ in 0..<6 {codeToCrunch.removeFirst()}
                 print(codeToCrunch)
                 print("of6: \(strOfSix)")
             }
             else {
                 // Pad whatever chunks are left to six characters and remove them from the whole binary string.
                 strOfSix = ""
-                for index in 0..<codeToCrunch.count {
-                    strOfSix.append(codeToCrunch.character(at: index)!)
-                }
+                for index in 0..<codeToCrunch.count {strOfSix.append(codeToCrunch.character(at: index)!)}
                 print(codeToCrunch)
-                for _ in 0..<codeToCrunch.count {
-                    codeToCrunch.removeFirst()
-                }
+                for _ in 0..<codeToCrunch.count {codeToCrunch.removeFirst()}
                 print(codeToCrunch)
                 print("ofX: \(strOfSix)")
             }
@@ -320,7 +302,6 @@ class Teacher: UIViewController {
         print("FULL CODE: \(formingStr)")
         assembledHrCode = formingStr
     }
-    
     // Prepares a binary blob constructed to our code specification for the date portion.
     func getDate(yr: String, mo: String, d: String, h: String, m: String) -> String{
         var temp: String = ""

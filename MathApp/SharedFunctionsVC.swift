@@ -107,13 +107,13 @@ func checkIfDefaultsNeedSetup(){
         defaults.set(true, forKey: "canTouch");
         defaults.set(1, forKey: "mode_difficulty");
         defaults.set("TEST", forKey: "nil_test");
-        
+        // Newer Variables
         modesActive[0] = true
         defaults.set(modesActive, forKey: "modesActive")
         defaults.set(1, forKey: "questionCount")
         defaults.set(true, forKey: "shuffle")
         defaults.set(true, forKey: "stuNum")
-        
+        //Sync
         defaults.synchronize();
     }
 }
@@ -153,7 +153,7 @@ func padStringStr(str: String, length: Int, padding: String) -> String {
     var temp: String = ""
     if (diff > 0){
         for _ in 0..<diff {
-            temp.append(contentsOf: padding)
+        temp.append(contentsOf: padding)
         }
         temp.append(contentsOf: str)
     }
@@ -180,7 +180,6 @@ func binToInt(bin: String) -> Int {
     for index in 0..<test.count {
         swapStr.append(contentsOf: String(test.character(at: ((test.count - index) - 1))!))
     }
-    
     
     for index in 0..<swapStr.count {
         if(swapStr.character(at: index) == "1"){

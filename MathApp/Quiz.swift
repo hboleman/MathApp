@@ -32,15 +32,13 @@ class Quiz: UIViewController {
             score_Qmax = defaults.integer(forKey: "score_Qmax");
             canTouch = defaults.bool(forKey: "canTouch");
             mode_difficulty = defaults.integer(forKey: "mode_difficulty");
-            
+            // Newer variables
             modesActive = defaults.array(forKey: "modesActive") as! [Bool]
             questionCount = defaults.integer(forKey: "questionCount")
             shuffle = defaults.bool(forKey: "shuffle")
         }
         if (debugSendToResults == false){start()}
-        else {
-            doSegue = true
-        }
+        else {doSegue = true}
     }
     
     func save_defaults(){
@@ -58,11 +56,10 @@ class Quiz: UIViewController {
             defaults.set(score_Qmax, forKey: "score_Qmax");
             defaults.set(canTouch, forKey: "canTouch");
             defaults.set(mode_difficulty, forKey: "mode_difficulty");
-            
+            // Newer Variables
             defaults.set(modesActive, forKey: "modesActive")
-            //defaults.set(questionCount, forKey: "questionCount")
             defaults.set(shuffle, forKey: "shuffle")
-            
+            // Sync
             defaults.synchronize();
         }
     }
@@ -91,7 +88,7 @@ class Quiz: UIViewController {
     @IBOutlet weak var out_nextquestion: UIButton!
     
     //-------------------- Variables --------------------//
-    
+    // Quiz Vars
     var num1: Int = 0;
     var num2: Int = 0;
     var numAns: Int = 0;
@@ -106,24 +103,22 @@ class Quiz: UIViewController {
     var canTouch: Bool = true;
     var mode_symbol: Int = 0;
     var mode_difficulty: Int = 0;
-    
+    // HW Vars
     var modesActive: [Bool] = Array(repeating: false, count: 4)
     var questionCount: Int = 0;
     var questionsArray: [Int] = Array.init()
     var hwArray: [(question: Int, difficulty: Int)] = []
     var shuffle: Bool = false
-    
+    // Rand Vars
     var seed: UInt64 = 0
     var generator = SeededGenerator()
     var doSegue: Bool = false
-    
     // Needed for resutls & student quiz
     var instructorCode: Int = 1234;
     var hwCode: Int = 999
     var studentCode: Int = 256
     var stuGrade: Int = 0;
     var homeworkQuiz: Bool = false
-    
     //DEBUG - When enabled, just press next to move to results screen.
     var debugSendToResults: Bool = false
     
