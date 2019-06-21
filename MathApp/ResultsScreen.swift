@@ -194,4 +194,5 @@ class ResultsScreen: UIViewController {
         
         assembledHrCode = formingFullString
     }
+    
 }

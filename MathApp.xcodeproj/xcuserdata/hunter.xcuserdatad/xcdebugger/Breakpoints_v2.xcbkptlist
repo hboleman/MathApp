@@ -14,9 +14,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "645"
-            endingLineNumber = "645"
-            landmarkName = "prepare(for:sender:)"
-            landmarkType = "7">
+            endingLineNumber = "645">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -30,9 +28,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "642"
-            endingLineNumber = "642"
-            landmarkName = "prepare(for:sender:)"
-            landmarkType = "7">
+            endingLineNumber = "642">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -62,9 +58,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "631"
-            endingLineNumber = "631"
-            landmarkName = "prepare(for:sender:)"
-            landmarkType = "7">
+            endingLineNumber = "631">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -74,7 +68,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MathApp/Quiz.swift"
-            timestampString = "582531254.563161"
+            timestampString = "582531403.736537"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "105"
@@ -122,7 +116,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MathApp/Quiz.swift"
-            timestampString = "582531254.5637881"
+            timestampString = "582531403.737092"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "249"
@@ -138,7 +132,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MathApp/Quiz.swift"
-            timestampString = "582531254.564167"
+            timestampString = "582531403.737393"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "260"
@@ -154,7 +148,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MathApp/Quiz.swift"
-            timestampString = "582531254.56451"
+            timestampString = "582531403.7376831"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "210"
@@ -170,7 +164,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MathApp/Quiz.swift"
-            timestampString = "582531254.56484"
+            timestampString = "582531403.737965"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "53"
@@ -186,7 +180,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MathApp/Quiz.swift"
-            timestampString = "582531254.565146"
+            timestampString = "582531403.738242"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "261"
@@ -202,7 +196,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MathApp/Quiz.swift"
-            timestampString = "582531254.565456"
+            timestampString = "582531403.7385271"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "416"
