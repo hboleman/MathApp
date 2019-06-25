@@ -20,28 +20,12 @@ class SharedFunctionsVC: UIViewController {
         //        notificationCenter.addObserver(self, selector: #selector(appCameToForeground), name: UIApplication.willEnterForegroundNotification, object: nil);
     }
     
-    //    @objc func appMovedToBackground() {
-    //        print("ENT_BKRND")
-    //    }
-    //    @objc func appCameToForeground() {
-    //        print("ENT_FORRND")
-    //    }
-    //    override func viewWillAppear(_ animated: Bool) {
-    //        super.viewWillAppear(animated)
-    //        print("VC:ViewWillApp");
-    //    }
-    //    override func viewDidAppear(_ animated: Bool) {
-    //        super.viewDidAppear(animated)
-    //        print("VC:ViewDidApp");
-    //    }
-    //    override func viewWillDisappear(_ animated: Bool) {
-    //        super.viewWillDisappear(animated)
-    //        print("VC:ViewWillDis");
-    //    }
-    //    override func viewDidDisappear(_ animated: Bool) {
-    //        super.viewDidAppear(animated)
-    //        print("VC:ViewDidDis");
-    //    }
+    //    @objc func appMovedToBackground() {print("ENT_BKRND")}
+    //    @objc func appCameToForeground() {print("ENT_FORRND")}
+    //    override func viewWillAppear(_ animated: Bool) {super.viewWillAppear(animated); print("VC:ViewWillApp")}
+    //    override func viewDidAppear(_ animated: Bool) {super.viewDidAppear(animated); print("VC:ViewDidApp")}
+    //    override func viewWillDisappear(_ animated: Bool) {super.viewWillDisappear(animated); print("VC:ViewWillDis")}
+    //    override func viewDidDisappear(_ animated: Bool) {super.viewDidAppear(animated); print("VC:ViewDidDis")}
 }
 
 /*
@@ -84,10 +68,7 @@ class SharedFunctionsVC: UIViewController {
 
 
 
-//-------------------- Globally Acessable Functions and Variables --------------------//
-
-//---------- Subsection: Score History Management ----------//
-
+//-------------------- Score History Database Management --------------------//
 // Score DB arrays
 var scoreArr: [String] = Array.init()
 var gradeArr: [String] = Array.init()
@@ -153,7 +134,7 @@ func readInDB(){
     quizIDArr = defaults.stringArray(forKey: "SDB-quizID") ?? [String]()
 }
 
-//---------- Regular Section ----------//
+//-------------------- Globally Acessable Functions and Variables --------------------//
 
 // Make UserDefautls Accessable
 let defaults = UserDefaults.standard
