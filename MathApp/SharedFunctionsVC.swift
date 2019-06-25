@@ -86,6 +86,75 @@ class SharedFunctionsVC: UIViewController {
 
 //-------------------- Globally Acessable Functions and Variables --------------------//
 
+//---------- Subsection: Score History Management ----------//
+
+// Score DB arrays
+var scoreArr: [String] = Array.init()
+var gradeArr: [String] = Array.init()
+var quizIDArr: [String] = Array.init() // Quiz ID is q# + teacher code
+// Score DB variables
+var tempQuizID = ""
+let dbLimit = 10
+// Debug mode to ignore reading or writing
+let disableScoreHistoryValidation = false
+let disableScoreAdding = false
+let disableDBTrim = false
+let debugScoreHistoryManagement = false
+
+// Ability to add a score to "database"
+func addScoreToDatabase(score: String, grade: String, quizNum: String, teachCode: String){
+    if (disableScoreAdding == false){
+        readInDB()
+        tempQuizID = quizNum + teachCode
+        scoreArr.append(score)
+        gradeArr.append(grade)
+        quizIDArr.append(tempQuizID)
+        writeOutDB()
+    }
+    if (disableDBTrim == false){checkIfTrimDB()}
+}
+
+// Dupe check
+func ScoreDBContains(checkSTR: String, mode: String) -> Bool{
+        readInDB()
+        // Check for dupes
+        if (scoreArr.contains(checkSTR) && mode == "fullScore"){return true}
+        else if (quizIDArr.contains(checkSTR) && mode == "quizID"){return true} else {return false}
+}
+
+// Used to validate a new quiz
+func isQuizRepeat(quizNum: String, teachCode: String) -> Bool {
+    if (disableScoreHistoryValidation == false){
+        readInDB()
+        tempQuizID = quizNum + teachCode
+        if (ScoreDBContains(checkSTR: tempQuizID, mode: "quizID")){return true} else {return false}
+    } else {return true}
+}
+
+// History Limit Check
+func checkIfTrimDB(){
+    readInDB()
+    if (scoreArr.count > dbLimit){while (scoreArr.count > dbLimit){scoreArr.removeLast(); gradeArr.removeLast(); quizIDArr.removeLast()}}
+    writeOutDB()
+}
+
+// Set vars and sync DB
+func writeOutDB(){
+    defaults.set(scoreArr, forKey: "SDB-score")
+    defaults.set(gradeArr, forKey: "SDB-grade")
+    defaults.set(quizIDArr, forKey: "SDB-quizID")
+    defaults.synchronize();
+}
+
+// Read in DB Arrs
+func readInDB(){
+    scoreArr = defaults.stringArray(forKey: "SDB-score") ?? [String]()
+    gradeArr = defaults.stringArray(forKey: "SDB-grade") ?? [String]()
+    quizIDArr = defaults.stringArray(forKey: "SDB-quizID") ?? [String]()
+}
+
+//---------- Regular Section ----------//
+
 // Make UserDefautls Accessable
 let defaults = UserDefaults.standard
 // Populate local variables with UserData information
@@ -113,6 +182,11 @@ func checkIfDefaultsNeedSetup(){
         defaults.set(1, forKey: "questionCount")
         defaults.set(true, forKey: "shuffle")
         defaults.set(true, forKey: "stuNum")
+        // For score DB
+        let tempArr: [String] = Array.init()
+        defaults.set(tempArr, forKey: "SDB-score")
+        defaults.set(tempArr, forKey: "SDB-grade")
+        defaults.set(tempArr, forKey: "SDB-quizID")
         //Sync
         defaults.synchronize();
     }
