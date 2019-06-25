@@ -15,58 +15,58 @@ class SharedFunctionsVC: UIViewController {
         super.viewDidLoad()
         
         // Allow for code to run going into or out of background foreground
-//        let notificationCenter = NotificationCenter.default
-//        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.didEnterBackgroundNotification, object: nil);
-//        notificationCenter.addObserver(self, selector: #selector(appCameToForeground), name: UIApplication.willEnterForegroundNotification, object: nil);
+        //        let notificationCenter = NotificationCenter.default
+        //        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.didEnterBackgroundNotification, object: nil);
+        //        notificationCenter.addObserver(self, selector: #selector(appCameToForeground), name: UIApplication.willEnterForegroundNotification, object: nil);
     }
     
-//    @objc func appMovedToBackground() {
-//        print("ENT_BKRND")
-//    }
-//    @objc func appCameToForeground() {
-//        print("ENT_FORRND")
-//    }
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        print("VC:ViewWillApp");
-//    }
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        print("VC:ViewDidApp");
-//    }
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        print("VC:ViewWillDis");
-//    }
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        print("VC:ViewDidDis");
-//    }
+    //    @objc func appMovedToBackground() {
+    //        print("ENT_BKRND")
+    //    }
+    //    @objc func appCameToForeground() {
+    //        print("ENT_FORRND")
+    //    }
+    //    override func viewWillAppear(_ animated: Bool) {
+    //        super.viewWillAppear(animated)
+    //        print("VC:ViewWillApp");
+    //    }
+    //    override func viewDidAppear(_ animated: Bool) {
+    //        super.viewDidAppear(animated)
+    //        print("VC:ViewDidApp");
+    //    }
+    //    override func viewWillDisappear(_ animated: Bool) {
+    //        super.viewWillDisappear(animated)
+    //        print("VC:ViewWillDis");
+    //    }
+    //    override func viewDidDisappear(_ animated: Bool) {
+    //        super.viewDidAppear(animated)
+    //        print("VC:ViewDidDis");
+    //    }
 }
 
-    /*
-  //-------------------- Custom Psudo Random --------------------//
-  Make a random seed and store in a database
+/*
+ //-------------------- Custom Psudo Random --------------------//
+ Make a random seed and store in a database
  let seed = UInt64.random(in: UInt64.min ... UInt64.max)
  var generator = Generator(seed: seed)
-  Or if you just need the seeding ability for testing,
-  var generator = Generator()
-  uses a default seed of 0
+ Or if you just need the seeding ability for testing,
+ var generator = Generator()
+ uses a default seed of 0
  let chars = ['a','b','c','d','e','f']
  let randomChar = chars.randomElement(using: &generator)
  let randomInt = Int.random(in: 0 ..< 1000, using: &generator)
-  etc.
+ etc.
  
  
-//-------------------- Color Ref --------------------//
-myRed = UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0);
-myBlue = UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0);
-myGreen = UIColor(red:0.56, green:0.81, blue:0.48, alpha:1.0);
+ //-------------------- Color Ref --------------------//
+ myRed = UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0);
+ myBlue = UIColor(red:0.19, green:0.62, blue:0.79, alpha:1.0);
+ myGreen = UIColor(red:0.56, green:0.81, blue:0.48, alpha:1.0);
  
  
-//-------------------- Mode Notes --------------------//
-mode_symbol         1=+ 2=- 3=* 4=%
-mode_difficulty     1=easy 2=medium 3=hard
+ //-------------------- Mode Notes --------------------//
+ mode_symbol         1=+ 2=- 3=* 4=%
+ mode_difficulty     1=easy 2=medium 3=hard
  
  
  //-------------------- Student Notes --------------------//
@@ -153,7 +153,7 @@ func padStringStr(str: String, length: Int, padding: String) -> String {
     var temp: String = ""
     if (diff > 0){
         for _ in 0..<diff {
-        temp.append(contentsOf: padding)
+            temp.append(contentsOf: padding)
         }
         temp.append(contentsOf: str)
     }

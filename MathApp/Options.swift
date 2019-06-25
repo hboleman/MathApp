@@ -70,30 +70,30 @@ class Options: UIViewController {
     // Button for Mode
     @IBAction func btn_mode_plus(_ sender: Any) {
         if (notLast(index: 0)) {
-        if (modesActive[0] == true) {modesActive[0] = false}
-        else {modesActive[0] = true}
-        color_plus();
+            if (modesActive[0] == true) {modesActive[0] = false}
+            else {modesActive[0] = true}
+            color_plus();
         }
     }
     @IBAction func btn_mode_minus(_ sender: Any) {
         if (notLast(index: 1)) {
-        if (modesActive[1] == true) {modesActive[1] = false}
-        else {modesActive[1] = true}
-        color_minus();
+            if (modesActive[1] == true) {modesActive[1] = false}
+            else {modesActive[1] = true}
+            color_minus();
         }
     }
     @IBAction func btn_mode_multiply(_ sender: Any) {
         if (notLast(index: 2)) {
-        if (modesActive[2] == true) {modesActive[2] = false}
-        else {modesActive[2] = true}
-        color_multiply();
+            if (modesActive[2] == true) {modesActive[2] = false}
+            else {modesActive[2] = true}
+            color_multiply();
         }
     }
     @IBAction func btn_mode_divide(_ sender: Any) {
         if (notLast(index: 3)) {
-        if (modesActive[3] == true) {modesActive[3] = false}
-        else {modesActive[3] = true}
-        color_divide();
+            if (modesActive[3] == true) {modesActive[3] = false}
+            else {modesActive[3] = true}
+            color_divide();
         }
     }
     
@@ -111,7 +111,7 @@ class Options: UIViewController {
         color_hard();
     }
     
-     //-------------------- Actions - Color --------------------//
+    //-------------------- Actions - Color --------------------//
     
     // Color Change for Mode
     func color_plus(){
@@ -161,7 +161,7 @@ class Options: UIViewController {
         if (count > 1 && modesActive[index] == true){return true}
         else {return false}
     }
-
+    
     //-------------------- Action - Incremental --------------------//
     
     @IBAction func decrimentButton(_ sender: Any) {

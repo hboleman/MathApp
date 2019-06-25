@@ -95,13 +95,13 @@ class Student: UIViewController {
         // Validation check is run after extraction.
         
         // Run if data is valid
-            quizNumLable.text = String("Quiz Number: \(hwCode)")
-            lableAboveCode.text = "Enter Code"
-            quizNumLable.isHidden = false
-            takeQuiz.isHidden = false
-            lableAboveCode.textColor = UIColor(red:0.56, green:0.81, blue:0.48, alpha:1.0);
-            disassembleHumanReadableCode(hrCode: codeEntryField.text!)
-            disassembleBinaryCode(binCode: disCodeInBin)
+        quizNumLable.text = String("Quiz Number: \(hwCode)")
+        lableAboveCode.text = "Enter Code"
+        quizNumLable.isHidden = false
+        takeQuiz.isHidden = false
+        lableAboveCode.textColor = UIColor(red:0.56, green:0.81, blue:0.48, alpha:1.0);
+        disassembleHumanReadableCode(hrCode: codeEntryField.text!)
+        disassembleBinaryCode(binCode: disCodeInBin)
     }
     
     //-------------------- Other Functions --------------------//
@@ -362,13 +362,9 @@ class Student: UIViewController {
     
     //------------------ Utilities ------------------//
     
-    @IBAction func codeMessageFieldPrimaryAction(_ sender: Any) {
-        codeEntryField.resignFirstResponder()
-    }
+    @IBAction func codeMessageFieldPrimaryAction(_ sender: Any) {codeEntryField.resignFirstResponder()}
     
-    @IBAction func stuMessageFieldPrimaryAction(_ sender: Any) {
-        stuNumField.resignFirstResponder()
-    }
+    @IBAction func stuMessageFieldPrimaryAction(_ sender: Any) {stuNumField.resignFirstResponder()}
     
     // Prep for segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -423,10 +419,10 @@ class Student: UIViewController {
         var hwArrayCopy: [(question: Int, difficulty: Int)] = []
         if (shuffle){
             for _ in 0..<hwArray.count {
-            let randomInt = Int.random(in: 0 ..< (hwArray.count), using: &generator)
-            let tempVar = hwArray[randomInt]
+                let randomInt = Int.random(in: 0 ..< (hwArray.count), using: &generator)
+                let tempVar = hwArray[randomInt]
                 hwArray.remove(at: randomInt)
-            hwArrayCopy.append((question: tempVar.question, difficulty: tempVar.difficulty))
+                hwArrayCopy.append((question: tempVar.question, difficulty: tempVar.difficulty))
             }
             destinationVC.hwArray = hwArrayCopy
         }

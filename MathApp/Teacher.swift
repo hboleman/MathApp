@@ -89,43 +89,43 @@ class Teacher: UIViewController {
         if (checkFailed == false){
             codeLable.textColor = UIColor(red:0.56, green:0.81, blue:0.48, alpha:1.0);
             if (debugIn == false){
-            // If input valid, set variabels from input
-            numOfQuestions_add = Int(addQuestionNum.text!)!
-            numOfQuestions_sub = Int(subQuestionNum.text!)!
-            numOfQuestions_mul = Int(mulQuestionNum.text!)!
-            numOfQuestions_div = Int(divQuestionNum.text!)!
-            let arrInt: [Int] = [1, 2, 3]
-            difficulty_add = arrInt[segAdd.selectedSegmentIndex]
-            difficulty_sub = arrInt[segSub.selectedSegmentIndex]
-            difficulty_mul = arrInt[segMul.selectedSegmentIndex]
-            difficulty_div = arrInt[segDiv.selectedSegmentIndex]
-            // Logic for date formatting
-            let date = datePickerOutlet.date
-            let format = DateFormatter()
-            format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                // If input valid, set variabels from input
+                numOfQuestions_add = Int(addQuestionNum.text!)!
+                numOfQuestions_sub = Int(subQuestionNum.text!)!
+                numOfQuestions_mul = Int(mulQuestionNum.text!)!
+                numOfQuestions_div = Int(divQuestionNum.text!)!
+                let arrInt: [Int] = [1, 2, 3]
+                difficulty_add = arrInt[segAdd.selectedSegmentIndex]
+                difficulty_sub = arrInt[segSub.selectedSegmentIndex]
+                difficulty_mul = arrInt[segMul.selectedSegmentIndex]
+                difficulty_div = arrInt[segDiv.selectedSegmentIndex]
+                // Logic for date formatting
+                let date = datePickerOutlet.date
+                let format = DateFormatter()
+                format.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 _ = format.string(from: date)
-            // Get needed components from date
-            let calendar = Calendar.current
-            let tempYear = calendar.component(.year, from: date)
-            let tempMonth = calendar.component(.month, from: date)
-            let tempDay = calendar.component(.day, from: date)
-            let tempHour = calendar.component(.hour, from: date)
-            let tempMin = calendar.component(.minute, from: date)
-            // Assign temp date components to assosiated variables
-            year = String(tempYear)
-            month = String(tempMonth)
-            day = String(tempDay)
-            hour = String(tempHour)
-            min = String(tempMin)
-            // Format the year for two digits
-            if (Int(year)! > 2000){ year = String(Int(year)! - 2000)}
-            // Assign Remaining Variables
-            shuffle = shuffleToggle.isOn
-            instructorCode = Int(teacherCode.text!)!
-            hwCode = Int(homeworkCode.text!)!
-            studentCode = 123
+                // Get needed components from date
+                let calendar = Calendar.current
+                let tempYear = calendar.component(.year, from: date)
+                let tempMonth = calendar.component(.month, from: date)
+                let tempDay = calendar.component(.day, from: date)
+                let tempHour = calendar.component(.hour, from: date)
+                let tempMin = calendar.component(.minute, from: date)
+                // Assign temp date components to assosiated variables
+                year = String(tempYear)
+                month = String(tempMonth)
+                day = String(tempDay)
+                hour = String(tempHour)
+                min = String(tempMin)
+                // Format the year for two digits
+                if (Int(year)! > 2000){ year = String(Int(year)! - 2000)}
+                // Assign Remaining Variables
+                shuffle = shuffleToggle.isOn
+                instructorCode = Int(teacherCode.text!)!
+                hwCode = Int(homeworkCode.text!)!
+                studentCode = 123
             }
-            // If Debugging, assign data with predetermined patterns
+                // If Debugging, assign data with predetermined patterns
             else if (debugIn){
                 // 11111111 : 255 or 0
                 numOfQuestions_add = 255
@@ -248,9 +248,9 @@ class Teacher: UIViewController {
         var posCount = 0
         for index in 0..<wholeString.count{if (wholeString.character(at: index)! == "1"){posCount = posCount + 1}}
         if (debugIn == false){
-        let posMod = posCount % 2
-        if (posMod != 0){parityBit = true}
-        else {parityBit = false}}
+            let posMod = posCount % 2
+            if (posMod != 0){parityBit = true}
+            else {parityBit = false}}
         var parityValue: String = ""
         if (parityBit){parityValue = "1"}
         else{parityValue = "0"}

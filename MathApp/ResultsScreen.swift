@@ -9,7 +9,7 @@
 import UIKit
 
 class ResultsScreen: UIViewController {
-
+    
     //-------------------- Class Setup --------------------//
     
     @IBOutlet weak var scoreLable: UILabel!
@@ -43,8 +43,8 @@ class ResultsScreen: UIViewController {
     let properBinaryCount = 65
     
     // Debug
-    let debugIn: Bool = true
-    let debugBinSeperation: Bool = true
+    let debugIn: Bool = false
+    let debugBinSeperation: Bool = false
     
     //-------------------- Functions --------------------//
     
@@ -68,12 +68,16 @@ class ResultsScreen: UIViewController {
             parityBit = false
         }
         // Regular Setup
-        let test = Double(stuGrade / 10000)
+        var gradeIntFirst = Double(stuGrade)
+        var gradeValue = gradeIntFirst
+        gradeValue = (gradeValue / 100)
+        let hrGradeValue = String(format: "%.2f%%", gradeValue)
         // Setup lables
-        scoreLable.text = String("\(test)")
+        scoreLable.text = String("\(hrGradeValue)")
         assembleBinaryResultsCode()
         assembleHumanReadableResultsCode(binCode: assembledBinCode)
         resultsCode.text = ("\(assembledHrCode)")
+        // Send code to history tracker (make hist tracker in shared library)
     }
     
     // Get Date in Binary

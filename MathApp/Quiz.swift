@@ -71,7 +71,7 @@ class Quiz: UIViewController {
     }
     
     //-------------------- Outlets --------------------//
-
+    
     // Lables Outlets
     @IBOutlet weak var lbl_top: UILabel!
     @IBOutlet weak var lbl_bottom: UILabel!
@@ -120,7 +120,7 @@ class Quiz: UIViewController {
     var stuGrade: Int = 0;
     var homeworkQuiz: Bool = false
     //DEBUG - When enabled, just press next to move to results screen.
-    var debugSendToResults: Bool = false
+    var debugSendToResults: Bool = true
     
     //-------------------- Numpad Actions --------------------//
     
@@ -146,7 +146,7 @@ class Quiz: UIViewController {
     @IBAction func btn_nine(_ sender: Any) {if (canTouch == true){let ins_num: Int = 9; user_num = (user_num * 10) + ins_num; place = place + 1; lbl_answer.text = String(user_num);}}
     // CLEAR
     @IBAction func btn_clear(_ sender: Any) {if (canTouch == true){ place = 1; user_num = 0; lbl_answer.text = String(user_num);}}
-
+    
     //-------------------- Actions --------------------//
     
     // Processes answer and question to determine corectness
@@ -252,7 +252,7 @@ class Quiz: UIViewController {
                 let tempNum = questionsArray.removeFirst()
                 mode_symbol = tempNum
             }
-            // Student Quiz
+                // Student Quiz
             else {
                 let tempNum = hwArray.removeFirst()
                 let tempDiff = tempNum.difficulty
@@ -407,21 +407,23 @@ class Quiz: UIViewController {
             // Setup lables
             //destinationVC.scoreLable.text = String(self.stuGrade)
         }
-        // Debug segue
-        else if (debugSendToResults == true && homeworkQuiz == true){
+            // Debug segue
+        else if (debugSendToResults == true){
             // Create a new variable to store the instance of Quiz
             let destinationVC = segue.destination as! ResultsScreen
             // Set other data needed for results
             destinationVC.instructorCode = 1234
             destinationVC.hwCode = 0
             destinationVC.studentCode = 511
-            // Create Grade
-            score_right = 10
-            score_Qmax = 13
-            self.stuGrade = Int(Double(score_right / score_Qmax) * 10000)
+            // Create Testing Grade
+            score_right = 2
+            score_Qmax = 11
+            let rightDouble = Double(score_right)
+            let maxDouble = Double(score_Qmax)
+            let tempGrade = Double(rightDouble / maxDouble)
+            let tempGradeInt = Int(Double(tempGrade * 10000))
+            self.stuGrade = tempGradeInt
             destinationVC.stuGrade = self.stuGrade
-            // Setup lables
-            //destinationVC.scoreLable.text = String(self.stuGrade)
         }
     }
     
