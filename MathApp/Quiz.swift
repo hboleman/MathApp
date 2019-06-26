@@ -401,7 +401,11 @@ class Quiz: UIViewController {
             destinationVC.hwCode = self.hwCode
             destinationVC.studentCode = self.studentCode
             // Create Grade
-            self.stuGrade = Int(Double(score_right / score_Qmax) * 10000)
+            let rightDouble = Double(score_right)
+            let maxDouble = Double(score_Qmax)
+            let tempGrade = Double(rightDouble / maxDouble)
+            let tempGradeInt = Int(Double(tempGrade * 10000))
+            self.stuGrade = tempGradeInt
             destinationVC.stuGrade = self.stuGrade
             // Setup lables
             //destinationVC.scoreLable.text = String(self.stuGrade)

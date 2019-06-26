@@ -17,6 +17,7 @@
 		5A5826EF21FA6EFE0077D940 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A5826EE21FA6EFE0077D940 /* Assets.xcassets */; };
 		5A5826FD21FA6EFE0077D940 /* MathAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5826FC21FA6EFE0077D940 /* MathAppTests.swift */; };
 		5A58270821FA6EFE0077D940 /* MathAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58270721FA6EFE0077D940 /* MathAppUITests.swift */; };
+		5A69F40E22C32240008B6CA5 /* PastGradesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A69F40D22C32240008B6CA5 /* PastGradesVC.swift */; };
 		5A6F326622ADD05500FE4CD5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A6F326522ADD05500FE4CD5 /* Launch Screen.storyboard */; };
 		5A6F326822ADE4F000FE4CD5 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6F326722ADE4F000FE4CD5 /* Student.swift */; };
 /* End PBXBuildFile section */
@@ -55,6 +56,7 @@
 		5A58270321FA6EFE0077D940 /* MathAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MathAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A58270721FA6EFE0077D940 /* MathAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathAppUITests.swift; sourceTree = "<group>"; };
 		5A58270921FA6EFE0077D940 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5A69F40D22C32240008B6CA5 /* PastGradesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastGradesVC.swift; sourceTree = "<group>"; };
 		5A6F326522ADD05500FE4CD5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		5A6F326722ADE4F000FE4CD5 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,6 +115,7 @@
 				5A3807A2221E70CF00F75BFD /* Quiz.swift */,
 				5A3807A0221E704B00F75BFD /* Options.swift */,
 				5A6F326722ADE4F000FE4CD5 /* Student.swift */,
+				5A69F40D22C32240008B6CA5 /* PastGradesVC.swift */,
 				5A276D0422B7FF64009F93E4 /* ResultsScreen.swift */,
 				5A5826E721FA6EFC0077D940 /* AppDelegate.swift */,
 				5A5826EE21FA6EFE0077D940 /* Assets.xcassets */,
@@ -278,6 +281,7 @@
 				5A5826EA21FA6EFC0077D940 /* SharedFunctionsVC.swift in Sources */,
 				5A6F326822ADE4F000FE4CD5 /* Student.swift in Sources */,
 				5A3807A7221E724400F75BFD /* Teacher.swift in Sources */,
+				5A69F40E22C32240008B6CA5 /* PastGradesVC.swift in Sources */,
 				5A3807A1221E704B00F75BFD /* Options.swift in Sources */,
 				5A3807A3221E70CF00F75BFD /* Quiz.swift in Sources */,
 				5A5826E821FA6EFC0077D940 /* AppDelegate.swift in Sources */,
