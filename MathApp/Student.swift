@@ -121,6 +121,7 @@ class Student: UIViewController {
         invalidLable.text = ""
         dueDateLable.text = ""
         // run after valid
+        invalidLable.isHidden = true
         quizNumLable.isHidden = false
         quizNumDispLbl.isHidden = false
         dueDateLable.isHidden = false
@@ -141,14 +142,16 @@ class Student: UIViewController {
     }
     
     func runInvalid(){
+        print("INVALID")
         prepInvalidDisp()
         invalidLable.text = invalidMessage
         invalidLable.isHidden = false
-        quizNumLable.text = String("")
+        quizNumLable.text = ""
         quizNumLable.isHidden = true
         quizNumDispLbl.isHidden = true
-        dueDateLable.isHidden = false
-        dueLable.isHidden = false
+        dueDateLable.isHidden = true
+        dueLable.isHidden = true
+        if (invalidPastDue) {dueLable.isHidden = false ; dueDateLable.isHidden = false}
         takeQuiz.isHidden = true
     }
     
@@ -205,6 +208,8 @@ class Student: UIViewController {
             // Aready Taken Quiz
             if (isQuizRepeat(quizNum: String(self.hwCode), teachCode: String(self.instructorCode))){checkFailed = true ; invalidAreadyTaken = true}
             }
+            
+            if (checkFailed){runInvalid()}
         }
     }
     
@@ -235,7 +240,11 @@ class Student: UIViewController {
     }
     
     func checkCount(){
-        if (disCodeInBin.count != properBinaryCount && debugIn == false){checkFailed = true ; invalidCount = true ; runInvalid()}
+        if (disCodeInBin.count != properBinaryCount && debugIn == false){
+            checkFailed = true ;
+            invalidCount = true ;
+            //runInvalid()
+        }
         print("disCount: \(disCodeInBin.count)")
     }
     
@@ -356,7 +365,7 @@ class Student: UIViewController {
             print("HW#: \(hwCode)   STU: \(studentCode)   PAR: \(parityBit)")
             print("----------------------------------")
         }
-        if (checkFailed == true) {runInvalid()}
+        //if (checkFailed == true) {runInvalid()}
     }
     
     // Function gets date data from binary
