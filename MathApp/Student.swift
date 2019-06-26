@@ -43,6 +43,8 @@ class Student: UIViewController {
     @IBOutlet weak var takeQuiz: UIButton!
     @IBOutlet weak var quizNumDispLbl: UILabel!
     @IBOutlet weak var invalidLable: UILabel!
+    @IBOutlet weak var dueDateLable: UILabel!
+    @IBOutlet weak var dueLable: UILabel!
     
     //-------------------- Variables --------------------//
     // For reading code
@@ -108,17 +110,21 @@ class Student: UIViewController {
         runPreCheck(binCode: disCodeInBin)
         getDataFromCode()
         runPostCheck()
+        dispPostCheck()
     }
     
     //-------------------- Other Functions --------------------//
     
     func getDataFromCode(){
         // run to clear error message
-        quizNumLable.text = String("\(hwCode)")
+        quizNumLable.text = String("")
         invalidLable.text = ""
+        dueDateLable.text = ""
         // run after valid
         quizNumLable.isHidden = false
         quizNumDispLbl.isHidden = false
+        dueDateLable.isHidden = false
+        dueLable.isHidden = false
         takeQuiz.isHidden = false
         // get code info
         disassembleHumanReadableCode(hrCode: codeEntryField.text!)
@@ -129,6 +135,11 @@ class Student: UIViewController {
         checkFailed = false
     }
     
+    func dispPostCheck(){
+        dueDateLable.text = " \(year)-\(padStringStr(str: month, length: 2, padding: "0"))-\(padStringStr(str: day, length: 2, padding: "0")) at \(padStringStr(str: hour, length: 2, padding: "0")):\(padStringStr(str: min, length: 2, padding: "0"))"
+        quizNumLable.text = String("\(hwCode)")
+    }
+    
     func runInvalid(){
         prepInvalidDisp()
         invalidLable.text = invalidMessage
@@ -136,6 +147,8 @@ class Student: UIViewController {
         quizNumLable.text = String("")
         quizNumLable.isHidden = true
         quizNumDispLbl.isHidden = true
+        dueDateLable.isHidden = false
+        dueLable.isHidden = false
         takeQuiz.isHidden = true
     }
     
