@@ -42,6 +42,8 @@ class Student: UIViewController {
     @IBOutlet weak var lableAboveCode: UILabel!
     @IBOutlet weak var quizNumLable: UILabel!
     @IBOutlet weak var takeQuiz: UIButton!
+    @IBOutlet weak var quizNumDispLbl: UILabel!
+    @IBOutlet weak var invalidLable: UILabel!
     
     //-------------------- Variables --------------------//
     // For reading code
@@ -79,6 +81,21 @@ class Student: UIViewController {
     let gradeResultBuffer = 5
     let properBinaryCount = 105
     
+    var binaryCode = ""
+    var binarySnipit = ""
+    
+    // For invalid message
+    var invalidMessage = ""
+    var invalidNumOfQsBounds = false
+    var invalidTeacherCodeBounds = false
+    var invalidHWCodeBounds = false
+    var invalidStuCodeBounds = false
+    var invalidParity = false
+    var invalidPastDue = false
+    var invalidCount = false
+    var invalidAreadyTaken = false
+    
+    // Arrays
     var hwArray: [(question: Int, difficulty: Int)] = []
     
     // Debug
@@ -89,30 +106,65 @@ class Student: UIViewController {
     
     // Validates that the code sent as input is valid as a code, and not past due date
     @IBAction func checkCode(_ sender: Any) {
-        // Reset input failed flag
-        checkFailed = false
-        
-        // Validation check is run after extraction.
-        
-        // Run if data is valid
-        quizNumLable.text = String("Quiz Number: \(hwCode)")
-        lableAboveCode.text = "Enter Code"
-        quizNumLable.isHidden = false
-        takeQuiz.isHidden = false
-        lableAboveCode.textColor = UIColor(red:0.56, green:0.81, blue:0.48, alpha:1.0);
-        disassembleHumanReadableCode(hrCode: codeEntryField.text!)
-        disassembleBinaryCode(binCode: disCodeInBin)
+        runPreCheck(binCode: disCodeInBin)
+        getDataFromCode()
+        if (debugIn == false){runPostCheck()}
     }
     
     //-------------------- Other Functions --------------------//
     
+    func getDataFromCode(){
+        // run to clear error message
+        quizNumLable.text = String("\(hwCode)")
+        lableAboveCode.text = "Enter Code"
+        // run after valid
+        quizNumLable.isHidden = false
+        quizNumDispLbl.isHidden = false
+        takeQuiz.isHidden = false
+        lableAboveCode.textColor = UIColor(red:0.56, green:0.81, blue:0.48, alpha:1.0);
+        // get code info
+        disassembleHumanReadableCode(hrCode: codeEntryField.text!)
+        disassembleBinaryCode(binCode: disCodeInBin)
+    }
+    
+    func runPreCheck(binCode: String){
+        checkFailed = false
+        binaryCode = binCode
+        binarySnipit = ""
+        if (binCode.count != properBinaryCount && debugIn == false){checkFailed = true ; invalidCount = true ; runInvalid()}
+        print("disCount: \(binaryCode.count)")
+    }
+    
+    func runInvalid(){
+        prepInvalidDisp()
+        lableAboveCode.textColor = UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0)
+        lableAboveCode.text = "Invalid"
+        invalidLable.isHidden = false
+        quizNumLable.text = String("")
+        quizNumLable.isHidden = true
+        quizNumDispLbl.isHidden = true
+        takeQuiz.isHidden = true
+    }
+    
+    func prepInvalidDisp(){
+        invalidMessage = ""
+        if (invalidNumOfQsBounds){invalidMessage.append(contentsOf: "\nInvalid number of questions")}
+        else if (invalidTeacherCodeBounds){invalidMessage.append(contentsOf: "\nInvalid teacher code")}
+        else if (invalidHWCodeBounds){invalidMessage.append(contentsOf: "\nInvalid homework number")}
+        else if (invalidStuCodeBounds){invalidMessage.append(contentsOf: "\nInvalid student number")}
+        else if (invalidParity){invalidMessage.append(contentsOf: "\nCode does not validate")}
+        else if (invalidPastDue){invalidMessage.append(contentsOf: "\nQuiz past due")}
+        else if (invalidCount){invalidMessage.append(contentsOf: "\nCode does not validate")}
+        else if (invalidAreadyTaken){invalidMessage.append(contentsOf: "\nQuiz has already been taken")}
+    }
+    
     // Checks inputed values or code for validity
-    func checkForValidInput(){
-        //checks that number of questions has a valud number
-        if(numOfQuestions_add < 0 && numOfQuestions_add > 255){ checkFailed = true }
-        if(numOfQuestions_sub < 0 && numOfQuestions_sub > 255){ checkFailed = true }
-        if(numOfQuestions_mul < 0 && numOfQuestions_mul > 255){ checkFailed = true }
-        if(numOfQuestions_div < 0 && numOfQuestions_div > 255){ checkFailed = true }
+    func runPostCheck(){
+        //checks that number of questions has a valid number
+        if(numOfQuestions_add < 0 && numOfQuestions_add > 255){ checkFailed = true ; invalidNumOfQsBounds = true }
+        if(numOfQuestions_sub < 0 && numOfQuestions_sub > 255){ checkFailed = true ; invalidNumOfQsBounds = true }
+        if(numOfQuestions_mul < 0 && numOfQuestions_mul > 255){ checkFailed = true ; invalidNumOfQsBounds = true }
+        if(numOfQuestions_div < 0 && numOfQuestions_div > 255){ checkFailed = true ; invalidNumOfQsBounds = true }
         // checks that there is at least one question
         if (checkFailed == false){
             var total = 0
@@ -120,16 +172,16 @@ class Student: UIViewController {
             total = total + numOfQuestions_sub
             total = total + numOfQuestions_mul
             total = total + numOfQuestions_div
-            if (total < 1){checkFailed = true}
+            if (total < 1){checkFailed = true ; invalidNumOfQsBounds = true}
         }
         // Teacher Code
-        if((instructorCode < 1111 || instructorCode > 9999) && checkFailed == false){ checkFailed = true }
+        if((instructorCode < 1111 || instructorCode > 9999) && checkFailed == false){ checkFailed = true ; invalidTeacherCodeBounds = true}
         // Homework Code
-        if((hwCode < 1 || hwCode > 999) && checkFailed == false){ checkFailed = true }
+        if((hwCode < 1 || hwCode > 999) && checkFailed == false){ checkFailed = true ; invalidHWCodeBounds = true}
         // Student Code Check
-        if((stuNumField.text?.isEmpty ?? nil)!){ checkFailed = true}
-        if((stuNumField.text!.count > 3 || stuNumField.text!.count < 0) && checkFailed == false){ checkFailed = true }
-        if((Int(stuNumField.text!)! < 1 || Int(stuNumField.text!)! > 999) && checkFailed == false){ checkFailed = true }
+        if((stuNumField.text?.isEmpty ?? nil)!){ checkFailed = true ; invalidStuCodeBounds = true}
+        if((stuNumField.text!.count > 3 || stuNumField.text!.count < 0) && checkFailed == false){ checkFailed = true ; invalidStuCodeBounds = true}
+        if((Int(stuNumField.text!)! < 1 || Int(stuNumField.text!)! > 999) && checkFailed == false){ checkFailed = true ; invalidStuCodeBounds = true}
         // Parity
         if (checkFailed == false){
             var posCount = 0
@@ -138,18 +190,42 @@ class Student: UIViewController {
             var tempPar: Bool = false
             if (posMod != 0){tempPar = true}
             else {tempPar = false}
-            if (tempPar != false){checkFailed = true}
+            if (tempPar != false){checkFailed = true ; invalidParity = true}
         }
+        //Due Date Check
+        if (pastDue()){checkFailed = true ; invalidPastDue = true}
+        // Aready Taken Quiz
+        if (isQuizRepeat(quizNum: String(self.hwCode), teachCode: String(self.instructorCode))){checkFailed = true ; invalidAreadyTaken = true}
+    }
+    
+    func pastDue() -> Bool {
+        // Get date of now
+        let date = Date.init()
+        // Get date in comparable format
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        _ = format.string(from: date)
+        // Get needed components from date
+        let calendar = Calendar.current
+        let tempYear = calendar.component(.year, from: date)
+        let tempMonth = calendar.component(.month, from: date)
+        let tempDay = calendar.component(.day, from: date)
+        let tempHour = calendar.component(.hour, from: date)
+        let tempMin = calendar.component(.minute, from: date)
+        // Format the year for two digits
+        if (Int(year)! > 2000){ year = String(Int(year)! - 2000)}
+        
+        // Compare date of code to now
+        if(Int(self.year)! > Int(tempYear)){return false}
+        else if(Int(self.month)! > Int(tempMonth)){return false}
+        else if(Int(self.day)! > Int(tempDay)){return false}
+        else if(Int(self.hour)! > Int(tempHour)){return false}
+        else if(Int(self.min)! > Int(tempMin)){return false}
+        else {return true}
     }
     
     // Turns binary code to useable data
     func disassembleBinaryCode(binCode: String) {
-        checkFailed = false
-        var binaryCode = binCode
-        var binarySnipit = ""
-        // Pre-Check
-        if (binCode.count != properBinaryCount && debugIn == false){checkFailed = true}
-        print("disCount: \(binaryCode.count)")
         // If Validity Passed Start Extraction
         if (checkFailed == false){
             // Extracting Add Question Number
@@ -237,7 +313,7 @@ class Student: UIViewController {
             for _ in 0..<11 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
             hwCode = binToInt(bin: binarySnipit); // 15
-            quizNumLable.text = ("Quiz Number: \(String(hwCode))")
+            quizNumLable.text = ("\(String(hwCode))")
             // Extracting Student Code
             binarySnipit = ""
             for index in 0..<9 {binarySnipit.append(binaryCode.character(at: index)!)}
@@ -262,18 +338,8 @@ class Student: UIViewController {
             print("SHUF: \(shuffle)   Teach: \(instructorCode)")
             print("HW#: \(hwCode)   STU: \(studentCode)   PAR: \(parityBit)")
             print("----------------------------------")
-            // If in debug, skip validation check
-            if (debugIn == false){checkForValidInput()}
         }
-        if (checkFailed == true) {
-            // if check failed
-            lableAboveCode.textColor = UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0)
-            lableAboveCode.text = "Invalid"
-            quizNumLable.text = String("Quiz Number: ")
-            quizNumLable.isHidden = true
-            takeQuiz.isHidden = true
-            // If check passed,
-        }
+        if (checkFailed == true) {runInvalid()}
     }
     
     // Function gets date data from binary
@@ -340,30 +406,9 @@ class Student: UIViewController {
         print("DisassembleHR Count: \(fullBinString.count)")
     }
     
-    func getDate(yr: String, mo: String, d: String, h: String, m: String) -> String{
-        var temp: String = ""
-        // Year
-        let tempYr = padStringInt(num: Int(yr)!, length: 7, padding: "0")
-        temp.append(contentsOf: tempYr)
-        // Month
-        let tempMo = padStringInt(num: Int(mo)!, length: 4, padding: "0")
-        temp.append(contentsOf: tempMo)
-        // Day
-        let tempD = padStringInt(num: Int(d)!, length: 6, padding: "0")
-        temp.append(contentsOf: tempD)
-        // Hour
-        let tempH = padStringInt(num: Int(h)!, length: 5, padding: "0")
-        temp.append(contentsOf: tempH)
-        // Minute
-        let tempM = padStringInt(num: Int(m)!, length: 6, padding: "0")
-        temp.append(contentsOf: tempM)
-        return temp
-    }
-    
     //------------------ Utilities ------------------//
     
     @IBAction func codeMessageFieldPrimaryAction(_ sender: Any) {codeEntryField.resignFirstResponder()}
-    
     @IBAction func stuMessageFieldPrimaryAction(_ sender: Any) {stuNumField.resignFirstResponder()}
     
     // Prep for segue

@@ -1106,8 +1106,20 @@ All rights reserved</string>
                                     <action selector="stuMessageFieldPrimaryAction:" destination="saF-S7-dl0" eventType="primaryActionTriggered" id="RgJ-eG-XnR"/>
                                 </connections>
                             </textField>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quiz Number: " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eeJ-7S-Fk4">
-                                <rect key="frame" x="13" y="474" width="364" height="37"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quiz Number: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vkp-xs-6TD">
+                                <rect key="frame" x="37" y="474" width="206" height="37"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                <color key="textColor" red="0.56911879779999996" green="0.82907623050000001" blue="0.46586191649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Invalid 1" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cxj-D9-6Zz">
+                                <rect key="frame" x="13" y="519" width="364" height="44"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" red="0.91436064240000003" green="0.43796855210000002" blue="0.28751158710000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Num" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eeJ-7S-Fk4">
+                                <rect key="frame" x="251" y="474" width="96" height="37"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="31"/>
                                 <color key="textColor" red="0.56911879779999996" green="0.82907623050000001" blue="0.46586191649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1117,9 +1129,12 @@ All rights reserved</string>
                         <constraints>
                             <constraint firstItem="UUo-lh-0KD" firstAttribute="centerX" secondItem="dZk-Oc-4AP" secondAttribute="centerX" id="3kh-dU-S49"/>
                             <constraint firstItem="oOC-gu-gsC" firstAttribute="trailing" secondItem="hb6-ZG-l5j" secondAttribute="trailing" constant="20" id="4yN-Ph-YUi"/>
-                            <constraint firstItem="eeJ-7S-Fk4" firstAttribute="leading" secondItem="hb6-ZG-l5j" secondAttribute="leading" id="7fp-qe-HN7"/>
+                            <constraint firstItem="eeJ-7S-Fk4" firstAttribute="leading" secondItem="hb6-ZG-l5j" secondAttribute="leading" constant="238" id="7fp-qe-HN7"/>
+                            <constraint firstItem="eeJ-7S-Fk4" firstAttribute="leading" secondItem="vkp-xs-6TD" secondAttribute="trailing" constant="8" symbolic="YES" id="F2T-eF-uqg"/>
+                            <constraint firstItem="vkp-xs-6TD" firstAttribute="baseline" secondItem="eeJ-7S-Fk4" secondAttribute="baseline" id="Hvr-fH-VVY"/>
                             <constraint firstItem="oOC-gu-gsC" firstAttribute="trailing" secondItem="dZk-Oc-4AP" secondAttribute="trailing" constant="20" id="SWp-uq-1Rr"/>
                             <constraint firstItem="Jkj-QA-El0" firstAttribute="leading" secondItem="748-oq-WCr" secondAttribute="trailing" constant="8" symbolic="YES" id="YaD-sJ-bli"/>
+                            <constraint firstItem="vkp-xs-6TD" firstAttribute="leading" secondItem="748-oq-WCr" secondAttribute="leading" id="aW3-bv-Wy7"/>
                             <constraint firstItem="Su3-xB-5LY" firstAttribute="bottom" secondItem="oOC-gu-gsC" secondAttribute="bottom" constant="-34" id="ai0-qN-f96"/>
                             <constraint firstItem="hb6-ZG-l5j" firstAttribute="top" secondItem="dZk-Oc-4AP" secondAttribute="bottom" constant="16" id="dJt-ug-r51"/>
                             <constraint firstItem="dZk-Oc-4AP" firstAttribute="trailing" secondItem="aik-G9-rAQ" secondAttribute="trailingMargin" id="gVf-AW-qAW"/>
@@ -1127,7 +1142,8 @@ All rights reserved</string>
                             <constraint firstItem="eeJ-7S-Fk4" firstAttribute="top" secondItem="748-oq-WCr" secondAttribute="bottom" constant="28" id="hYM-pU-o0d"/>
                             <constraint firstItem="hb6-ZG-l5j" firstAttribute="leading" secondItem="Su3-xB-5LY" secondAttribute="leading" constant="13" id="hsP-Id-rW1"/>
                             <constraint firstItem="dZk-Oc-4AP" firstAttribute="leading" secondItem="aik-G9-rAQ" secondAttribute="leadingMargin" id="iwL-ih-nnX"/>
-                            <constraint firstItem="eeJ-7S-Fk4" firstAttribute="trailing" secondItem="Jkj-QA-El0" secondAttribute="trailing" id="l5V-4e-FyQ"/>
+                            <constraint firstItem="cxj-D9-6Zz" firstAttribute="top" secondItem="vkp-xs-6TD" secondAttribute="bottom" constant="8" symbolic="YES" id="l0D-yz-ySy"/>
+                            <constraint firstItem="eeJ-7S-Fk4" firstAttribute="trailing" secondItem="Jkj-QA-El0" secondAttribute="trailing" constant="-30" id="l5V-4e-FyQ"/>
                             <constraint firstItem="Su3-xB-5LY" firstAttribute="trailing" secondItem="Jkj-QA-El0" secondAttribute="trailing" constant="37" id="lFc-70-ThL"/>
                             <constraint firstItem="748-oq-WCr" firstAttribute="top" secondItem="hb6-ZG-l5j" secondAttribute="bottom" constant="16" id="lKz-Ia-4JS"/>
                             <constraint firstItem="748-oq-WCr" firstAttribute="centerY" secondItem="Jkj-QA-El0" secondAttribute="centerY" id="mlt-Mq-kgq"/>
@@ -1141,7 +1157,9 @@ All rights reserved</string>
                     <navigationItem key="navigationItem" title="Student" id="b38-Z7-l3p"/>
                     <connections>
                         <outlet property="codeEntryField" destination="dZk-Oc-4AP" id="VGO-sB-Una"/>
+                        <outlet property="invalidLable" destination="cxj-D9-6Zz" id="oUN-Ex-JiX"/>
                         <outlet property="lableAboveCode" destination="UUo-lh-0KD" id="cWa-Em-fRm"/>
+                        <outlet property="quizNumDispLbl" destination="vkp-xs-6TD" id="rPb-Te-D4i"/>
                         <outlet property="quizNumLable" destination="eeJ-7S-Fk4" id="kbB-rf-qWT"/>
                         <outlet property="stuNumField" destination="Jkj-QA-El0" id="ox3-Nj-i4v"/>
                         <outlet property="takeQuiz" destination="oOC-gu-gsC" id="grr-6U-HI0"/>
@@ -1149,7 +1167,7 @@ All rights reserved</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kGz-nc-xAd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1287" y="-64"/>
+            <point key="canvasLocation" x="1286.9565217391305" y="-64.285714285714278"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zXq-Zs-AIN">

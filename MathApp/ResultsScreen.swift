@@ -77,7 +77,8 @@ class ResultsScreen: UIViewController {
         assembleBinaryResultsCode()
         assembleHumanReadableResultsCode(binCode: assembledBinCode)
         resultsCode.text = ("\(assembledHrCode)")
-        // Send code to history tracker (make hist tracker in shared library)
+        // Add result info to database
+        addScoreToDatabase(score: self.assembledHrCode, grade: String(self.stuGrade), quizNum: String(self.hwCode), teachCode: String(self.instructorCode))
     }
     
     // Get Date in Binary
