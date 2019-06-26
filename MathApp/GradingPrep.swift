@@ -10,16 +10,24 @@ import UIKit
 
 class GradingPrep: UIViewController {
 
+    //-------------------- Class Setup --------------------//
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    //-------------------- Outlets --------------------//
+    
     @IBOutlet weak var instructorCodeOutlet: UITextField!
     @IBOutlet weak var homeworkCodeOutlet: UITextField!
+    
+    //-------------------- Variables --------------------//
     
     var instructorCode: Int = 1234;
     var hwCode: Int = 999
     var checkFailed = false
+    
+    //-------------------- Actions --------------------//
     
     @IBAction func startGrading(_ sender: Any) {
         checkFailed = false
@@ -28,6 +36,8 @@ class GradingPrep: UIViewController {
             
         }
     }
+    
+    //-------------------- Functions --------------------//
     
     func ValidationCheck(){
         // Teacher code bounds check

@@ -107,7 +107,7 @@ class Student: UIViewController {
     
     // Validates that the code sent as input is valid as a code, and not past due date
     @IBAction func checkCode(_ sender: Any) {
-        runPreCheck(binCode: disCodeInBin)
+        checkFailed = false
         getDataFromCode()
         runPostCheck()
         dispPostCheck()
@@ -115,6 +115,7 @@ class Student: UIViewController {
     
     //-------------------- Other Functions --------------------//
     
+    // Get data from code
     func getDataFromCode(){
         // run to clear error message
         quizNumLable.text = String("")
@@ -132,15 +133,13 @@ class Student: UIViewController {
         disassembleBinaryCode(binCode: disCodeInBin)
     }
     
-    func runPreCheck(binCode: String){
-        checkFailed = false
-    }
-    
+    // Displays info on VC after everything is ready
     func dispPostCheck(){
         dueDateLable.text = " \(year)-\(padStringStr(str: month, length: 2, padding: "0"))-\(padStringStr(str: day, length: 2, padding: "0")) at \(padStringStr(str: hour, length: 2, padding: "0")):\(padStringStr(str: min, length: 2, padding: "0"))"
         quizNumLable.text = String("\(hwCode)")
     }
     
+    // Runs when input is invalid
     func runInvalid(){
         print("INVALID")
         prepInvalidDisp()
@@ -155,6 +154,7 @@ class Student: UIViewController {
         takeQuiz.isHidden = true
     }
     
+    // Prepares detailed information for invalid code
     func prepInvalidDisp(){
         invalidMessage = ""
         if (invalidNumOfQsBounds){invalidMessage.append(contentsOf: "\nInvalid number of questions")}
@@ -208,11 +208,11 @@ class Student: UIViewController {
             // Aready Taken Quiz
             if (isQuizRepeat(quizNum: String(self.hwCode), teachCode: String(self.instructorCode))){checkFailed = true ; invalidAreadyTaken = true}
             }
-            
             if (checkFailed){runInvalid()}
         }
     }
     
+    // Returns wether or not the code's date is past due
     func pastDue() -> Bool {
         // Get date of now
         let date = Date.init()
@@ -229,7 +229,6 @@ class Student: UIViewController {
         let tempMin = calendar.component(.minute, from: date)
         // Format the year for two digits
         if (tempYear > 2000){ year = String(tempYear - 2000)}
-        
         // Compare date of code to now
         if(Int(self.year)! > Int(tempYear)){return false}
         else if(Int(self.month)! > Int(tempMonth)){return false}
@@ -239,6 +238,7 @@ class Student: UIViewController {
         else {return true}
     }
     
+    // Checks binary count against what it should be
     func checkCount(){
         if (disCodeInBin.count != properBinaryCount && debugIn == false){
             checkFailed = true ;

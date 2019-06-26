@@ -10,10 +10,14 @@ import UIKit
 
 class GradingScreen: UIViewController {
 
+    //-------------------- Class Setup --------------------//
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
+    
+    //-------------------- Outlets --------------------//
     
     @IBOutlet weak var studentCodeOutlet: UITextField!
     @IBOutlet weak var scoreOutlet: UILabel!
@@ -21,10 +25,12 @@ class GradingScreen: UIViewController {
     @IBOutlet weak var quizNumOutlet: UILabel!
     @IBOutlet weak var dateOutlet: UILabel!
     
+    //-------------------- Variables --------------------//
     
     var instructorCode: Int = 1234;
     var hwCode: Int = 999
     
+    //-------------------- Actions --------------------//
     
     @IBAction func runCode(_ sender: Any) {
         
