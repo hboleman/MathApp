@@ -38,7 +38,6 @@ class Quiz: UIViewController {
             shuffle = defaults.bool(forKey: "shuffle")
         }
         if (debugSendToResults == false){start()}
-        else {doSegue = true}
     }
     
     func save_defaults(){
@@ -195,7 +194,7 @@ class Quiz: UIViewController {
     }
     
     // Button that activates next question processes
-    @IBAction func btn_nextQuestion(_ sender: Any) {if (debugSendToResults == false){NextQuestion()}; segueCheck()}
+    @IBAction func btn_nextQuestion(_ sender: Any) {if (debugSendToResults == false){NextQuestion()} ; if (debugSendToResults){doSegue = true} ; segueCheck()}
     
     
     //-------------------- Other Functions --------------------//
@@ -408,7 +407,7 @@ class Quiz: UIViewController {
             //destinationVC.scoreLable.text = String(self.stuGrade)
         }
             // Debug segue
-        else if (debugSendToResults == true){
+        else if (debugSendToResults == true && doSegue){
             // Create a new variable to store the instance of Quiz
             let destinationVC = segue.destination as! ResultsScreen
             // Set other data needed for results

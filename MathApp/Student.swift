@@ -108,7 +108,7 @@ class Student: UIViewController {
     @IBAction func checkCode(_ sender: Any) {
         runPreCheck(binCode: disCodeInBin)
         getDataFromCode()
-        if (debugIn == false){runPostCheck()}
+        runPostCheck()
     }
     
     //-------------------- Other Functions --------------------//
@@ -160,42 +160,44 @@ class Student: UIViewController {
     
     // Checks inputed values or code for validity
     func runPostCheck(){
-        //checks that number of questions has a valid number
-        if(numOfQuestions_add < 0 && numOfQuestions_add > 255){ checkFailed = true ; invalidNumOfQsBounds = true }
-        if(numOfQuestions_sub < 0 && numOfQuestions_sub > 255){ checkFailed = true ; invalidNumOfQsBounds = true }
-        if(numOfQuestions_mul < 0 && numOfQuestions_mul > 255){ checkFailed = true ; invalidNumOfQsBounds = true }
-        if(numOfQuestions_div < 0 && numOfQuestions_div > 255){ checkFailed = true ; invalidNumOfQsBounds = true }
-        // checks that there is at least one question
-        if (checkFailed == false){
-            var total = 0
-            total = numOfQuestions_add
-            total = total + numOfQuestions_sub
-            total = total + numOfQuestions_mul
-            total = total + numOfQuestions_div
-            if (total < 1){checkFailed = true ; invalidNumOfQsBounds = true}
+        if (debugIn == false){
+            //checks that number of questions has a valid number
+            if(numOfQuestions_add < 0 && numOfQuestions_add > 255){ checkFailed = true ; invalidNumOfQsBounds = true }
+            if(numOfQuestions_sub < 0 && numOfQuestions_sub > 255){ checkFailed = true ; invalidNumOfQsBounds = true }
+            if(numOfQuestions_mul < 0 && numOfQuestions_mul > 255){ checkFailed = true ; invalidNumOfQsBounds = true }
+            if(numOfQuestions_div < 0 && numOfQuestions_div > 255){ checkFailed = true ; invalidNumOfQsBounds = true }
+            // checks that there is at least one question
+            if (checkFailed == false){
+                var total = 0
+                total = numOfQuestions_add
+                total = total + numOfQuestions_sub
+                total = total + numOfQuestions_mul
+                total = total + numOfQuestions_div
+                if (total < 1){checkFailed = true ; invalidNumOfQsBounds = true}
+            }
+            // Teacher Code
+            if((instructorCode < 1111 || instructorCode > 9999) && checkFailed == false){ checkFailed = true ; invalidTeacherCodeBounds = true}
+            // Homework Code
+            if((hwCode < 1 || hwCode > 999) && checkFailed == false){ checkFailed = true ; invalidHWCodeBounds = true}
+            // Student Code Check
+            if((stuNumField.text?.isEmpty ?? nil)!){ checkFailed = true ; invalidStuCodeBounds = true}
+            if((stuNumField.text!.count > 3 || stuNumField.text!.count < 0) && checkFailed == false){ checkFailed = true ; invalidStuCodeBounds = true}
+            if((Int(stuNumField.text!)! < 1 || Int(stuNumField.text!)! > 999) && checkFailed == false){ checkFailed = true ; invalidStuCodeBounds = true}
+            // Parity
+            if (checkFailed == false){
+                var posCount = 0
+                for index in 0..<disCodeInBin.count{if (disCodeInBin.character(at: index)! == "1"){posCount = posCount + 1}}
+                let posMod = posCount % 2
+                var tempPar: Bool = false
+                if (posMod != 0){tempPar = true}
+                else {tempPar = false}
+                if (tempPar != false){checkFailed = true ; invalidParity = true}
+            }
+            //Due Date Check
+            if (pastDue()){checkFailed = true ; invalidPastDue = true}
+            // Aready Taken Quiz
+            if (isQuizRepeat(quizNum: String(self.hwCode), teachCode: String(self.instructorCode))){checkFailed = true ; invalidAreadyTaken = true}
         }
-        // Teacher Code
-        if((instructorCode < 1111 || instructorCode > 9999) && checkFailed == false){ checkFailed = true ; invalidTeacherCodeBounds = true}
-        // Homework Code
-        if((hwCode < 1 || hwCode > 999) && checkFailed == false){ checkFailed = true ; invalidHWCodeBounds = true}
-        // Student Code Check
-        if((stuNumField.text?.isEmpty ?? nil)!){ checkFailed = true ; invalidStuCodeBounds = true}
-        if((stuNumField.text!.count > 3 || stuNumField.text!.count < 0) && checkFailed == false){ checkFailed = true ; invalidStuCodeBounds = true}
-        if((Int(stuNumField.text!)! < 1 || Int(stuNumField.text!)! > 999) && checkFailed == false){ checkFailed = true ; invalidStuCodeBounds = true}
-        // Parity
-        if (checkFailed == false){
-            var posCount = 0
-            for index in 0..<disCodeInBin.count{if (disCodeInBin.character(at: index)! == "1"){posCount = posCount + 1}}
-            let posMod = posCount % 2
-            var tempPar: Bool = false
-            if (posMod != 0){tempPar = true}
-            else {tempPar = false}
-            if (tempPar != false){checkFailed = true ; invalidParity = true}
-        }
-        //Due Date Check
-        if (pastDue()){checkFailed = true ; invalidPastDue = true}
-        // Aready Taken Quiz
-        if (isQuizRepeat(quizNum: String(self.hwCode), teachCode: String(self.instructorCode))){checkFailed = true ; invalidAreadyTaken = true}
     }
     
     func pastDue() -> Bool {
@@ -213,7 +215,7 @@ class Student: UIViewController {
         let tempHour = calendar.component(.hour, from: date)
         let tempMin = calendar.component(.minute, from: date)
         // Format the year for two digits
-        if (Int(year)! > 2000){ year = String(Int(year)! - 2000)}
+        if (tempYear > 2000){ year = String(tempYear - 2000)}
         
         // Compare date of code to now
         if(Int(self.year)! > Int(tempYear)){return false}
