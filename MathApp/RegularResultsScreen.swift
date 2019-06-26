@@ -10,6 +10,8 @@ import UIKit
 
 class RegularResultsScreen: UIViewController {
 
+    //-------------------- Class Setup --------------------//
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         DisplayResults()
@@ -35,5 +37,4 @@ class RegularResultsScreen: UIViewController {
         // Setup lables
         scoreLable.text = String("\(hrGradeValue)")
     }
-
 }

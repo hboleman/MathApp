@@ -24,6 +24,7 @@ class StudentResultsScreen: UIViewController {
     }
     
     //-------------------- Variables --------------------//
+    
     var instructorCode: Int = 1234;
     var hwCode: Int = 999
     var studentCode: Int = 256

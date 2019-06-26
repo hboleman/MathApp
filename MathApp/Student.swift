@@ -243,7 +243,6 @@ class Student: UIViewController {
         if (disCodeInBin.count != properBinaryCount && debugIn == false){
             checkFailed = true ;
             invalidCount = true ;
-            //runInvalid()
         }
         print("disCount: \(disCodeInBin.count)")
     }

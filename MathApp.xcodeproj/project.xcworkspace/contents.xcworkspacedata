@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:MathApp.xcodeproj">
+      location = "group:/Users/hunter/Documents/XCode/BBB Sen Proj/MathApp/MathApp/Grading.swift">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>
