@@ -309,11 +309,12 @@
                         <outlet property="out_nextquestion" destination="82y-55-Kpn" id="xTi-VT-4Q0"/>
                         <outlet property="progviewquiz" destination="CjC-aI-ZNm" id="nKH-AW-XOg"/>
                         <segue destination="9dk-Ri-Tgx" kind="showDetail" identifier="resultsScreenSegue" id="ngz-oZ-kfK"/>
+                        <segue destination="wmH-kg-Hra" kind="showDetail" identifier="RegResultsScreenSegue" id="yRy-PQ-eWr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1861" y="-1013"/>
+            <point key="canvasLocation" x="-375" y="-1013"/>
         </scene>
         <!--Shared FunctionsVC-->
         <scene sceneID="sUU-ue-Ysw">
@@ -1218,10 +1219,10 @@ All rights reserved</string>
             </objects>
             <point key="canvasLocation" x="3071" y="-1714"/>
         </scene>
-        <!--Results Screen-->
+        <!--Student Results Screen-->
         <scene sceneID="pO7-nS-OvT">
             <objects>
-                <viewController id="9dk-Ri-Tgx" customClass="ResultsScreen" customModule="MathApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9dk-Ri-Tgx" customClass="StudentResultsScreen" customModule="MathApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lOO-Ef-pSm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1267,6 +1268,14 @@ All rights reserved</string>
                                     <segue destination="p6w-r5-kJU" kind="showDetail" id="cmj-XR-yAB"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Result Saved" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O5O-Vk-hjy">
+                                <rect key="frame" x="0.0" y="64" width="414" height="129"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.1487618983" green="0.61697542670000005" blue="0.79630565639999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                <color key="textColor" red="0.1072467505" green="0.4571010915" blue="0.59202490480000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.1487618983" green="0.61697542670000005" blue="0.79630565639999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -1293,7 +1302,7 @@ All rights reserved</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ScN-ta-8pp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="844.92753623188412" y="-1013.1696428571428"/>
+            <point key="canvasLocation" x="15.942028985507248" y="-283.25892857142856"/>
         </scene>
         <!--Student-->
         <scene sceneID="8Gq-yR-HmO">
@@ -1504,9 +1513,65 @@ All rights reserved</string>
             </objects>
             <point key="canvasLocation" x="1392.753623188406" y="709.82142857142856"/>
         </scene>
+        <!--Regular Results Screen-->
+        <scene sceneID="VUy-o1-21L">
+            <objects>
+                <viewController id="wmH-kg-Hra" customClass="RegularResultsScreen" customModule="MathApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="g0r-d5-h1I">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="10.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bht-hz-DfG">
+                                <rect key="frame" x="57" y="307" width="301" height="48"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                <color key="textColor" red="0.56911879779999996" green="0.82907623050000001" blue="0.46586191649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fLK-aV-Rd4">
+                                <rect key="frame" x="0.0" y="763" width="414" height="133"/>
+                                <color key="backgroundColor" red="0.56911879779999996" green="0.82907623050000001" blue="0.46586191649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="133" id="lTZ-d2-FbF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <state key="normal" title="Main Menu">
+                                    <color key="titleColor" red="0.1487618983" green="0.61697542670000005" blue="0.79630565639999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="p6w-r5-kJU" kind="showDetail" id="c1l-7Z-W2a"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sOM-5c-YAx">
+                                <rect key="frame" x="153" y="251" width="108" height="48"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                <color key="textColor" red="0.56911879779999996" green="0.82907623050000001" blue="0.46586191649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1487618983" green="0.61697542670000005" blue="0.79630565639999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="fLK-aV-Rd4" firstAttribute="leading" secondItem="g0r-d5-h1I" secondAttribute="leading" id="09b-o5-cSh"/>
+                            <constraint firstItem="bht-hz-DfG" firstAttribute="top" secondItem="sOM-5c-YAx" secondAttribute="bottom" constant="8" symbolic="YES" id="3IM-jv-Ere"/>
+                            <constraint firstItem="sOM-5c-YAx" firstAttribute="centerX" secondItem="bht-hz-DfG" secondAttribute="centerX" id="96c-XU-95y"/>
+                            <constraint firstAttribute="bottom" secondItem="fLK-aV-Rd4" secondAttribute="bottom" id="Hlo-z7-msI"/>
+                            <constraint firstItem="sOM-5c-YAx" firstAttribute="top" secondItem="gmt-fq-iXW" secondAttribute="top" constant="207" id="PiY-fZ-SsN"/>
+                            <constraint firstItem="bht-hz-DfG" firstAttribute="centerX" secondItem="fLK-aV-Rd4" secondAttribute="centerX" id="XP5-Mu-5jn"/>
+                            <constraint firstItem="bht-hz-DfG" firstAttribute="leading" secondItem="gmt-fq-iXW" secondAttribute="leading" constant="57" id="aBO-70-ltw"/>
+                            <constraint firstAttribute="trailing" secondItem="fLK-aV-Rd4" secondAttribute="trailing" id="fdU-Dy-OK5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="gmt-fq-iXW"/>
+                    </view>
+                    <connections>
+                        <outlet property="scoreLable" destination="bht-hz-DfG" id="QpU-l8-QlE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pxY-vN-4l4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-767" y="-283"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="cmj-XR-yAB"/>
+        <segue reference="c1l-7Z-W2a"/>
         <segue reference="XhH-C8-Cdl"/>
     </inferredMetricsTieBreakers>
 </document>

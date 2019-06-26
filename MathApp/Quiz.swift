@@ -111,7 +111,9 @@ class Quiz: UIViewController {
     // Rand Vars
     var seed: UInt64 = 0
     var generator = SeededGenerator()
-    var doSegue: Bool = false
+    var doHWSegue: Bool = false
+    var doRegSegue: Bool = false
+    
     // Needed for resutls & student quiz
     var instructorCode: Int = 1234;
     var hwCode: Int = 999
@@ -194,13 +196,16 @@ class Quiz: UIViewController {
     }
     
     // Button that activates next question processes
-    @IBAction func btn_nextQuestion(_ sender: Any) {if (debugSendToResults == false){NextQuestion()} ; if (debugSendToResults){doSegue = true} ; segueCheck()}
+    @IBAction func btn_nextQuestion(_ sender: Any) {if (debugSendToResults == false){NextQuestion()} ; if (debugSendToResults){doHWSegue = true} ; segueCheck()}
     
     
     //-------------------- Other Functions --------------------//
     
     // Checks if doSegue is true, if so, segue to results screen
-    func segueCheck(){if (doSegue){self.performSegue(withIdentifier: "resultsScreenSegue", sender: self)}}
+    func segueCheck(){
+        if (doHWSegue && doRegSegue == false){self.performSegue(withIdentifier: "resultsScreenSegue", sender: self)}
+        else if (doHWSegue == false && doRegSegue){self.performSegue(withIdentifier: "RegResultsScreenSegue", sender: self)}
+    }
     
     // Function sets gets everything setup for a new quiz.
     func start(){
@@ -383,9 +388,10 @@ class Quiz: UIViewController {
             lbl_bottom.text = "";
             lbl_answer.text = "DONE!";
             lbl_symbol.text = "";
+            doRegSegue = true
             // If this is a student quiz, segue to results.
             if(homeworkQuiz){
-                doSegue = true
+                doHWSegue = true
             }
         }
     }
@@ -393,9 +399,9 @@ class Quiz: UIViewController {
     // Prepare for segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Regular segue
-        if (debugSendToResults == false && homeworkQuiz == true && doSegue){
+        if (debugSendToResults == false && homeworkQuiz == true && doHWSegue){
             // Create a new variable to store the instance of Quiz
-            let destinationVC = segue.destination as! ResultsScreen
+            let destinationVC = segue.destination as! StudentResultsScreen
             // Set other data needed for results
             destinationVC.instructorCode = self.instructorCode
             destinationVC.hwCode = self.hwCode
@@ -407,13 +413,11 @@ class Quiz: UIViewController {
             let tempGradeInt = Int(Double(tempGrade * 10000))
             self.stuGrade = tempGradeInt
             destinationVC.stuGrade = self.stuGrade
-            // Setup lables
-            //destinationVC.scoreLable.text = String(self.stuGrade)
         }
             // Debug segue
-        else if (debugSendToResults == true && doSegue){
+        else if (debugSendToResults == true && doHWSegue){
             // Create a new variable to store the instance of Quiz
-            let destinationVC = segue.destination as! ResultsScreen
+            let destinationVC = segue.destination as! StudentResultsScreen
             // Set other data needed for results
             destinationVC.instructorCode = 1234
             destinationVC.hwCode = 0
@@ -421,6 +425,16 @@ class Quiz: UIViewController {
             // Create Testing Grade
             score_right = 2
             score_Qmax = 11
+            let rightDouble = Double(score_right)
+            let maxDouble = Double(score_Qmax)
+            let tempGrade = Double(rightDouble / maxDouble)
+            let tempGradeInt = Int(Double(tempGrade * 10000))
+            self.stuGrade = tempGradeInt
+            destinationVC.stuGrade = self.stuGrade
+        }
+        else if (debugSendToResults == false && doHWSegue == false && doRegSegue && homeworkQuiz == false){
+            let destinationVC = segue.destination as! RegularResultsScreen
+            // Create Grade
             let rightDouble = Double(score_right)
             let maxDouble = Double(score_Qmax)
             let tempGrade = Double(rightDouble / maxDouble)

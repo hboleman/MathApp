@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ResultsScreen: UIViewController {
+class StudentResultsScreen: UIViewController {
     
     //-------------------- Class Setup --------------------//
     
