@@ -1158,7 +1158,6 @@ All rights reserved</string>
                     <connections>
                         <outlet property="codeEntryField" destination="dZk-Oc-4AP" id="VGO-sB-Una"/>
                         <outlet property="invalidLable" destination="cxj-D9-6Zz" id="oUN-Ex-JiX"/>
-                        <outlet property="lableAboveCode" destination="UUo-lh-0KD" id="cWa-Em-fRm"/>
                         <outlet property="quizNumDispLbl" destination="vkp-xs-6TD" id="rPb-Te-D4i"/>
                         <outlet property="quizNumLable" destination="eeJ-7S-Fk4" id="kbB-rf-qWT"/>
                         <outlet property="stuNumField" destination="Jkj-QA-El0" id="ox3-Nj-i4v"/>

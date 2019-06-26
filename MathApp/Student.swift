@@ -39,7 +39,6 @@ class Student: UIViewController {
     
     @IBOutlet weak var codeEntryField: UITextField!
     @IBOutlet weak var stuNumField: UITextField!
-    @IBOutlet weak var lableAboveCode: UILabel!
     @IBOutlet weak var quizNumLable: UILabel!
     @IBOutlet weak var takeQuiz: UIButton!
     @IBOutlet weak var quizNumDispLbl: UILabel!
@@ -116,12 +115,11 @@ class Student: UIViewController {
     func getDataFromCode(){
         // run to clear error message
         quizNumLable.text = String("\(hwCode)")
-        lableAboveCode.text = "Enter Code"
+        invalidLable.text = ""
         // run after valid
         quizNumLable.isHidden = false
         quizNumDispLbl.isHidden = false
         takeQuiz.isHidden = false
-        lableAboveCode.textColor = UIColor(red:0.56, green:0.81, blue:0.48, alpha:1.0);
         // get code info
         disassembleHumanReadableCode(hrCode: codeEntryField.text!)
         disassembleBinaryCode(binCode: disCodeInBin)
@@ -129,16 +127,11 @@ class Student: UIViewController {
     
     func runPreCheck(binCode: String){
         checkFailed = false
-        binaryCode = binCode
-        binarySnipit = ""
-        if (binCode.count != properBinaryCount && debugIn == false){checkFailed = true ; invalidCount = true ; runInvalid()}
-        print("disCount: \(binaryCode.count)")
     }
     
     func runInvalid(){
         prepInvalidDisp()
-        lableAboveCode.textColor = UIColor(red:0.89, green:0.44, blue:0.31, alpha:1.0)
-        lableAboveCode.text = "Invalid"
+        invalidLable.text = invalidMessage
         invalidLable.isHidden = false
         quizNumLable.text = String("")
         quizNumLable.isHidden = true
@@ -194,9 +187,11 @@ class Student: UIViewController {
                 if (tempPar != false){checkFailed = true ; invalidParity = true}
             }
             //Due Date Check
+            if (checkFailed == false){
             if (pastDue()){checkFailed = true ; invalidPastDue = true}
             // Aready Taken Quiz
             if (isQuizRepeat(quizNum: String(self.hwCode), teachCode: String(self.instructorCode))){checkFailed = true ; invalidAreadyTaken = true}
+            }
         }
     }
     
@@ -226,10 +221,17 @@ class Student: UIViewController {
         else {return true}
     }
     
+    func checkCount(){
+        if (disCodeInBin.count != properBinaryCount && debugIn == false){checkFailed = true ; invalidCount = true ; runInvalid()}
+        print("disCount: \(disCodeInBin.count)")
+    }
+    
     // Turns binary code to useable data
     func disassembleBinaryCode(binCode: String) {
+        checkCount()
         // If Validity Passed Start Extraction
         if (checkFailed == false){
+            binaryCode = binCode
             // Extracting Add Question Number
             binarySnipit = ""
             for index in 0..<8 {binarySnipit.append(binaryCode.character(at: index)!)}
