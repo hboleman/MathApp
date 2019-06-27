@@ -102,15 +102,19 @@ class Student: UIViewController {
     // Debug
     let debugIn: Bool = false
     let debugBinSeperation: Bool = false
+    let debugInvalid: Bool = false
     
     //-------------------- Actions --------------------//
     
     // Validates that the code sent as input is valid as a code, and not past due date
     @IBAction func checkCode(_ sender: Any) {
+        if (debugInvalid == false){
         checkFailed = false
         getDataFromCode()
         runPostCheck()
         dispPostCheck()
+        }
+        else {runInvalid()}
     }
     
     //-------------------- Other Functions --------------------//
@@ -150,21 +154,23 @@ class Student: UIViewController {
         quizNumDispLbl.isHidden = true
         dueDateLable.isHidden = true
         dueLable.isHidden = true
-        if (invalidPastDue) {dueLable.isHidden = false ; dueDateLable.isHidden = false}
+        if (invalidPastDue && debugInvalid == false) {dueLable.isHidden = false ; dueDateLable.isHidden = false}
+        else if (debugInvalid){dueLable.isHidden = false}
         takeQuiz.isHidden = true
     }
     
     // Prepares detailed information for invalid code
     func prepInvalidDisp(){
         invalidMessage = ""
-        if (invalidNumOfQsBounds){invalidMessage.append(contentsOf: "\nInvalid number of questions")}
-        else if (invalidTeacherCodeBounds){invalidMessage.append(contentsOf: "\nInvalid teacher code")}
-        else if (invalidHWCodeBounds){invalidMessage.append(contentsOf: "\nInvalid homework number")}
-        else if (invalidStuCodeBounds){invalidMessage.append(contentsOf: "\nInvalid student number")}
-        else if (invalidParity){invalidMessage.append(contentsOf: "\nCode does not validate")}
-        else if (invalidPastDue){invalidMessage.append(contentsOf: "\nQuiz past due")}
-        else if (invalidCount){invalidMessage.append(contentsOf: "\nCode does not validate")}
-        else if (invalidAreadyTaken){invalidMessage.append(contentsOf: "\nQuiz has already been taken")}
+        
+        if (invalidNumOfQsBounds || debugInvalid){invalidMessage.append(contentsOf: "\nInvalid number of questions")}
+        if (invalidTeacherCodeBounds || debugInvalid){invalidMessage.append(contentsOf: "\nInvalid teacher code")}
+        if (invalidHWCodeBounds || debugInvalid){invalidMessage.append(contentsOf: "\nInvalid homework number")}
+        if (invalidStuCodeBounds || debugInvalid){invalidMessage.append(contentsOf: "\nInvalid student number")}
+        if (invalidParity || debugInvalid){invalidMessage.append(contentsOf: "\nCode does not validate")}
+        if (invalidPastDue || debugInvalid){invalidMessage.append(contentsOf: "\nQuiz past due")}
+        if (invalidCount || debugInvalid){invalidMessage.append(contentsOf: "\nCode does not validate")}
+        if (invalidAreadyTaken || debugInvalid){invalidMessage.append(contentsOf: "\nQuiz has already been taken")}
     }
     
     // Checks inputed values or code for validity
