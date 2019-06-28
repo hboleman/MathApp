@@ -923,6 +923,9 @@ All rights reserved</string>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                <connections>
+                                    <action selector="teacherCodeField:" destination="tCu-t8-MTc" eventType="primaryActionTriggered" id="RSJ-Id-4Vg"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="grP-Rn-c6j">
                                 <rect key="frame" x="0.0" y="763" width="414" height="133"/>
@@ -942,6 +945,9 @@ All rights reserved</string>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                <connections>
+                                    <action selector="homeworkCodeField:" destination="tCu-t8-MTc" eventType="primaryActionTriggered" id="TdN-zP-W2y"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Homework Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJM-Cy-7Qa">
                                 <rect key="frame" x="105" y="279" width="196" height="30"/>
@@ -1430,6 +1436,9 @@ All rights reserved</string>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                <connections>
+                                    <action selector="studentCodeField:" destination="kND-2G-LAc" eventType="primaryActionTriggered" id="hjL-2f-sJA"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Student Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nEE-RV-vhU">
                                 <rect key="frame" x="126" y="136" width="162" height="30"/>

@@ -266,4 +266,9 @@ class GradingScreen: UIViewController {
         print("LeftBin: \(binaryCode)")
         hour = String(binToInt(bin: binarySnipit)) // 5
     }
+    
+    //------------------ Utilities ------------------//
+    
+    @IBAction func studentCodeField(_ sender: Any) {studentNumOutlet.resignFirstResponder()}
+    
 }

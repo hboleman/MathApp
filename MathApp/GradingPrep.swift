@@ -50,6 +50,14 @@ class GradingPrep: UIViewController {
         if((Int(homeworkCodeOutlet.text!)! < 1 || Int(homeworkCodeOutlet.text!)! > 999) && checkFailed == false){ checkFailed = true }
     }
     
+    //------------------ Utilities ------------------//
+    
+    @IBAction func teacherCodeField(_ sender: Any) {instructorCodeOutlet.resignFirstResponder()}
+    @IBAction func homeworkCodeField(_ sender: Any) {homeworkCodeOutlet.resignFirstResponder()}
+    
+    
+    //------------------ Other Functions ------------------//
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! GradingScreen
         destinationVC.hwCode = Int(homeworkCodeOutlet.text!)!
