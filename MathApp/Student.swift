@@ -79,7 +79,6 @@ class Student: UIViewController {
     var disCodeInBin: String = ""
     var disCodeInHR: String = ""
     let leadingBuffer = 3
-    let gradeResultBuffer = 5
     let properBinaryCount = 105
     
     var binaryCode = ""
@@ -133,7 +132,7 @@ class Student: UIViewController {
         dueLable.isHidden = false
         takeQuiz.isHidden = false
         // get code info
-        disassembleHumanReadableCode(hrCode: codeEntryField.text!)
+        disCodeInBin = disassembleHumanReadableCode(hrCode: codeEntryField.text!, leadingBuffer: self.leadingBuffer)
         disassembleBinaryCode(binCode: disCodeInBin)
     }
     
@@ -210,38 +209,12 @@ class Student: UIViewController {
             }
             //Due Date Check
             if (checkFailed == false){
-            if (pastDue()){checkFailed = true ; invalidPastDue = true}
+                if (pastDue(year: Int(self.year)!, month: Int(self.month)!, day: Int(self.day)!, hour: Int(self.hour)!, min: Int(self.min)!, ignoreYear: false)){checkFailed = true ; invalidPastDue = true}
             // Aready Taken Quiz
             if (isQuizRepeat(quizNum: String(self.hwCode), teachCode: String(self.instructorCode))){checkFailed = true ; invalidAreadyTaken = true}
             }
             if (checkFailed){runInvalid()}
         }
-    }
-    
-    // Returns wether or not the code's date is past due
-    func pastDue() -> Bool {
-        // Get date of now
-        let date = Date.init()
-        // Get date in comparable format
-        let format = DateFormatter()
-        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        _ = format.string(from: date)
-        // Get needed components from date
-        let calendar = Calendar.current
-        let tempYear = calendar.component(.year, from: date)
-        let tempMonth = calendar.component(.month, from: date)
-        let tempDay = calendar.component(.day, from: date)
-        let tempHour = calendar.component(.hour, from: date)
-        let tempMin = calendar.component(.minute, from: date)
-        // Format the year for two digits
-        if (tempYear > 2000){ year = String(tempYear - 2000)}
-        // Compare date of code to now
-        if(Int(self.year)! > Int(tempYear)){return false}
-        else if(Int(self.month)! > Int(tempMonth)){return false}
-        else if(Int(self.day)! > Int(tempDay)){return false}
-        else if(Int(self.hour)! > Int(tempHour)){return false}
-        else if(Int(self.min)! > Int(tempMin)){return false}
-        else {return true}
     }
     
     // Checks binary count against what it should be
@@ -412,29 +385,6 @@ class Student: UIViewController {
         for _ in 0..<6 {binaryCode.removeFirst()}
         print("LeftBin: \(binaryCode)")
         min = String(binToInt(bin: binarySnipit)) // 6
-    }
-    
-    // Turns the code into binary
-    func disassembleHumanReadableCode(hrCode: String){
-        var fullBinString = ""
-        for index in 0..<hrCode.count{
-            let hrChar = String(hrCode.character(at: index)!)
-            let codeStr = codeConversionCharToBin(str: hrChar)
-            fullBinString.append(contentsOf: codeStr)
-        }
-        // Copy over binary
-        let origBinStr = fullBinString
-        // Remove extra zeros at end
-        for _ in 0..<leadingBuffer {fullBinString.removeLast()}
-        // Copies over the binary version
-        disCodeInBin = fullBinString
-        // Print Related Info
-        print("Reassembled Binary Code:")
-        print(fullBinString)
-        print("Orig Binary Code:")
-        print(origBinStr)
-        print("DisassembleHR Code: \(fullBinString)")
-        print("DisassembleHR Count: \(fullBinString.count)")
     }
     
     //------------------ Utilities ------------------//

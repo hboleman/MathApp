@@ -52,19 +52,31 @@ class PastGradesVC: UIViewController {
     //-------------------- Functions --------------------//
     
     func updateDisplay(){
-        // Score Code
-        resultsCodeOutlet.text = scoreArr[(currStat - 1)]
-        // Grade Value
-        let gradeIntFirst = Double(gradeArr[(currStat - 1)])
-        let gradeValue = (gradeIntFirst! / 100)
-        scoreOutlet.text = String(format: "%.2f%%", gradeValue)
-        // Quiz Num
-        tempStr = quizIDArr[(currStat - 1)]
-        for _ in 0..<4 {
-            tempStr.removeFirst()
+        if (scoreArr.count > 1){
+            // Score Code
+            resultsCodeOutlet.text = scoreArr[(currStat - 1)]
+            // Grade Value
+            let gradeIntFirst = Double(gradeArr[(currStat - 1)])
+            let gradeValue = (gradeIntFirst! / 100)
+            scoreOutlet.text = String(format: "%.2f%%", gradeValue)
+            // Quiz Num
+            tempStr = quizIDArr[(currStat - 1)]
+            for _ in 0..<4 {
+                tempStr.removeFirst()
+            }
+            quizNumOutlet.text = tempStr
+            // Past Quiz Num
+            pastQuizNum.text = ("\(currStat)/\(maxStat)")
         }
-        quizNumOutlet.text = tempStr
-        // Past Quiz Num
-        pastQuizNum.text = ("\(currStat)/\(maxStat)")
+        else {
+            // Score Code
+            resultsCodeOutlet.text = "n/a"
+            // Grade Value
+            scoreOutlet.text = "n/a"
+            // Quiz Num
+            quizNumOutlet.text = tempStr
+            // Past Quiz Num
+            pastQuizNum.text = "n/a"
+        }
     }
 }

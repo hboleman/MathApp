@@ -74,9 +74,9 @@ class StudentResultsScreen: UIViewController {
         gradeValue = (gradeValue / 100)
         let hrGradeValue = String(format: "%.2f%%", gradeValue)
         // Setup lables
-        scoreLable.text = String("\(hrGradeValue)")
+        scoreLable.text = hrGradeValue
         assembleBinaryResultsCode()
-        assembleHumanReadableResultsCode(binCode: assembledBinCode)
+        assembledHrCode = assembleHumanReadableCode(binCode: assembledBinCode)
         resultsCode.text = ("\(assembledHrCode)")
         // Add result info to database
         addScoreToDatabase(score: self.assembledHrCode, grade: String(self.stuGrade), quizNum: String(self.hwCode), teachCode: String(self.instructorCode))
@@ -154,37 +154,4 @@ class StudentResultsScreen: UIViewController {
         assembledBinCode = wholeString
     }
     
-    // Assemble Human Readable Code
-    func assembleHumanReadableResultsCode(binCode: String){
-        var formingFullString = ""
-        var codeToCrunch = binCode
-        var strOfSix = ""
-        
-        while (codeToCrunch.count > 0) {
-            // Get code snippit
-            if (codeToCrunch.count > 6){
-                strOfSix = ""
-                for index in 0..<6 {strOfSix.append(codeToCrunch.character(at: index)!)}
-                print(codeToCrunch)
-                for _ in 0..<6 {codeToCrunch.removeFirst()}
-                print(codeToCrunch)
-                print("of6: \(strOfSix)")
-            }
-            else {
-                strOfSix = ""
-                for index in 0..<codeToCrunch.count {strOfSix.append(codeToCrunch.character(at: index)!)}
-                print(codeToCrunch)
-                for _ in 0..<codeToCrunch.count {codeToCrunch.removeFirst()}
-                print(codeToCrunch)
-                print("ofX: \(strOfSix)")
-            }
-            // Convert snippit to code charactrer
-            let codeCharacter = codeConversionBinToChar(str: strOfSix)
-            formingFullString.append(contentsOf: codeCharacter)
-            print("HR: \(codeCharacter)")
-        }
-        // Print and Assign Full Coded Value
-        print("FULL CODE: \(formingFullString)")
-        assembledHrCode = formingFullString
-    }
 }

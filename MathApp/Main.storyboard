@@ -992,12 +992,6 @@ All rights reserved</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Instructor's 4 Digit Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ko9-IL-PJ4">
-                                <rect key="frame" x="65" y="154" width="285" height="30"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                <color key="textColor" red="0.56911879779999996" green="0.82907623050000001" blue="0.46586191649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="grP-Rn-c6j">
                                 <rect key="frame" x="0.0" y="763" width="414" height="133"/>
                                 <color key="backgroundColor" red="0.56911879779999996" green="0.82907623050000001" blue="0.46586191649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1012,7 +1006,7 @@ All rights reserved</string>
                                     <action selector="startGrading:" destination="tCu-t8-MTc" eventType="touchUpInside" id="hsr-ov-A3z"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SkA-od-rta">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SkA-od-rta">
                                 <rect key="frame" x="20" y="317" width="374" height="46"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
@@ -1024,24 +1018,30 @@ All rights reserved</string>
                                 <color key="textColor" red="0.56911879779999996" green="0.82907623050000001" blue="0.46586191649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Instructor's 4 Digit Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ko9-IL-PJ4">
+                                <rect key="frame" x="38" y="154" width="329" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <color key="textColor" red="0.56911879779999996" green="0.82907623050000001" blue="0.46586191649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.1487618983" green="0.61697542670000005" blue="0.79630565639999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="SkA-od-rta" firstAttribute="top" secondItem="mJM-Cy-7Qa" secondAttribute="bottom" constant="8" symbolic="YES" id="3oW-IR-qip"/>
                             <constraint firstItem="h45-o6-E3a" firstAttribute="trailing" secondItem="EZN-p2-Ln0" secondAttribute="trailing" constant="24" id="4G6-Zo-dfs"/>
-                            <constraint firstItem="ko9-IL-PJ4" firstAttribute="leading" secondItem="h45-o6-E3a" secondAttribute="leading" constant="65" id="6ka-Qg-cAA"/>
+                            <constraint firstItem="ko9-IL-PJ4" firstAttribute="leading" secondItem="h45-o6-E3a" secondAttribute="leading" constant="38" id="6e6-YO-abE"/>
                             <constraint firstItem="mJM-Cy-7Qa" firstAttribute="leading" secondItem="h45-o6-E3a" secondAttribute="leading" constant="105" id="87m-yd-YD5"/>
                             <constraint firstItem="SkA-od-rta" firstAttribute="centerX" secondItem="grP-Rn-c6j" secondAttribute="centerX" id="C1j-Q2-p8c"/>
-                            <constraint firstItem="ko9-IL-PJ4" firstAttribute="centerX" secondItem="SkA-od-rta" secondAttribute="centerX" id="FR8-N8-AiM"/>
                             <constraint firstItem="grP-Rn-c6j" firstAttribute="leading" secondItem="HtD-ZN-za5" secondAttribute="leading" id="Gj7-ci-H8O"/>
+                            <constraint firstItem="ko9-IL-PJ4" firstAttribute="centerX" secondItem="EZN-p2-Ln0" secondAttribute="centerX" id="HgK-aE-fiG"/>
+                            <constraint firstItem="ko9-IL-PJ4" firstAttribute="top" secondItem="h45-o6-E3a" secondAttribute="top" constant="66" id="ID2-st-9be"/>
                             <constraint firstItem="SkA-od-rta" firstAttribute="leading" secondItem="HtD-ZN-za5" secondAttribute="leadingMargin" id="NGR-Yw-nOi"/>
+                            <constraint firstItem="EZN-p2-Ln0" firstAttribute="top" secondItem="ko9-IL-PJ4" secondAttribute="bottom" constant="8" symbolic="YES" id="OEn-zd-OzB"/>
                             <constraint firstItem="EZN-p2-Ln0" firstAttribute="centerX" secondItem="mJM-Cy-7Qa" secondAttribute="centerX" id="SGz-Rs-0K2"/>
                             <constraint firstItem="mJM-Cy-7Qa" firstAttribute="top" secondItem="EZN-p2-Ln0" secondAttribute="bottom" constant="41" id="WR5-xn-9oh"/>
                             <constraint firstAttribute="trailing" secondItem="grP-Rn-c6j" secondAttribute="trailing" id="bdx-Bz-0Zl"/>
                             <constraint firstAttribute="bottom" secondItem="grP-Rn-c6j" secondAttribute="bottom" id="fil-qk-pzf"/>
-                            <constraint firstItem="ko9-IL-PJ4" firstAttribute="top" secondItem="h45-o6-E3a" secondAttribute="top" constant="66" id="on5-s6-Gie"/>
                             <constraint firstItem="EZN-p2-Ln0" firstAttribute="leading" secondItem="h45-o6-E3a" secondAttribute="leading" constant="16" id="wXp-yK-Kmf"/>
-                            <constraint firstItem="EZN-p2-Ln0" firstAttribute="top" secondItem="ko9-IL-PJ4" secondAttribute="bottom" constant="8" symbolic="YES" id="zwt-oR-ikd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="h45-o6-E3a"/>
                     </view>
@@ -1054,7 +1054,7 @@ All rights reserved</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ab-a5-831" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4312" y="710"/>
+            <point key="canvasLocation" x="4311.594202898551" y="709.82142857142856"/>
         </scene>
         <!--Quiz Code-->
         <scene sceneID="rDB-qM-ZBK">

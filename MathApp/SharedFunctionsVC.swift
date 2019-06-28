@@ -78,7 +78,7 @@ var tempQuizID = ""
 let dbLimit = 10
 // Debug mode to ignore reading or writing
 let disableScoreHistoryValidation = false
-let disableScoreAdding = false
+let disableScoreAdding = true
 let disableDBTrim = false
 let debugScoreHistoryManagement = false
 
@@ -109,7 +109,7 @@ func isQuizRepeat(quizNum: String, teachCode: String) -> Bool {
         readInDB()
         tempQuizID = quizNum + teachCode
         if (ScoreDBContains(checkSTR: tempQuizID, mode: "quizID")){return true} else {return false}
-    } else {return true}
+    } else {return false}
 }
 
 // History Limit Check
@@ -171,6 +171,97 @@ func checkIfDefaultsNeedSetup(){
         //Sync
         defaults.synchronize();
     }
+}
+
+// Turns the code into binary
+func disassembleHumanReadableCode(hrCode: String, leadingBuffer: Int) -> String {
+    var fullBinString = ""
+    for index in 0..<hrCode.count{
+        let hrChar = String(hrCode.character(at: index)!)
+        let codeStr = codeConversionCharToBin(str: hrChar)
+        fullBinString.append(contentsOf: codeStr)
+    }
+    // Copy over binary
+    let origBinStr = fullBinString
+    // Remove extra zeros at end
+    for _ in 0..<leadingBuffer {fullBinString.removeLast()}
+    // Copies over the binary version
+    // Print Related Info
+    print("Reassembled Binary Code:")
+    print(fullBinString)
+    print("Orig Binary Code:")
+    print(origBinStr)
+    print("DisassembleHR Code: \(fullBinString)")
+    print("DisassembleHR Count: \(fullBinString.count)")
+    return fullBinString
+}
+
+// Create the human readable code representation of the input data using custom code mapping
+func assembleHumanReadableCode(binCode: String) -> String{
+    // String will be used to append data to
+    var formingStr = ""
+    // Copies our binary data to a temporary string
+    var codeToCrunch = binCode
+    // Resets the chunk value
+    var strOfSix = ""
+    // While string contains anything, take chunks of 6 binary digits
+    //    and convert to custom code map, then append to string.
+    while (codeToCrunch.count > 0) {
+        if (codeToCrunch.count > 6){
+            // Take a chunk of six characters and remove them from the whole binary string.
+            strOfSix = ""
+            for index in 0..<6 {strOfSix.append(codeToCrunch.character(at: index)!)}
+            print(codeToCrunch)
+            for _ in 0..<6 {codeToCrunch.removeFirst()}
+            print(codeToCrunch)
+            print("of6: \(strOfSix)")
+        }
+        else {
+            // Pad whatever chunks are left to six characters and remove them from the whole binary string.
+            strOfSix = ""
+            for index in 0..<codeToCrunch.count {strOfSix.append(codeToCrunch.character(at: index)!)}
+            print(codeToCrunch)
+            for _ in 0..<codeToCrunch.count {codeToCrunch.removeFirst()}
+            print(codeToCrunch)
+            print("ofX: \(strOfSix)")
+        }
+        // Convert chunk to a mapped code character, append to string
+        let codeCharacter = codeConversionBinToChar(str: strOfSix)
+        formingStr.append(contentsOf: codeCharacter)
+        print("HR: \(codeCharacter)")
+    }
+    // Assign final code to it's variable
+    print("FULL CODE: \(formingStr)")
+    return formingStr
+}
+
+
+// Returns wether or not the code's date is past due
+func pastDue(year: Int, month: Int, day: Int, hour: Int, min: Int, ignoreYear: Bool) -> Bool {
+    // Get date of now
+    let date = Date.init()
+    // Get date in comparable format
+    let format = DateFormatter()
+    format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    _ = format.string(from: date)
+    // Get needed components from date
+    let calendar = Calendar.current
+    let tempYear = calendar.component(.year, from: date)
+    let tempMonth = calendar.component(.month, from: date)
+    let tempDay = calendar.component(.day, from: date)
+    let tempHour = calendar.component(.hour, from: date)
+    let tempMin = calendar.component(.minute, from: date)
+    var tempYearTrunk = 0
+    // Format the year for two digits
+    //if (tempYear > 2000){ year = String(tempYear - 2000)}
+    if (tempYear > 2000){ tempYearTrunk = (tempYear - 2000)}
+    // Compare date of code to now
+    if(year > tempYearTrunk && ignoreYear == false){return false}
+    else if(month > Int(tempMonth)){return false}
+    else if(day > Int(tempDay)){return false}
+    else if(hour > Int(tempHour)){return false}
+    else if(min > Int(tempMin)){return false}
+    else {return true}
 }
 
 // Takes in a single number String and returns it's int

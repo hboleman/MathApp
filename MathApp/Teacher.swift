@@ -158,7 +158,7 @@ class Teacher: UIViewController {
             // If data has been assigned, and input is valid, call on the functions to generate the code
             if (checkFailed == false){
                 assembleBinaryCode()
-                assembleHumanReadableCode(binCode: assembledBinCode)
+                assembledHrCode = assembleHumanReadableCode(binCode: assembledBinCode)
                 codeLable.text = assembledHrCode
             }
         }
@@ -264,44 +264,6 @@ class Teacher: UIViewController {
         assembledBinCode = wholeString
     }
     
-    // Create the human readable code representation of the input data using custom code mapping
-    func assembleHumanReadableCode(binCode: String){
-        // String will be used to append data to
-        var formingStr = ""
-        // Copies our binary data to a temporary string
-        var codeToCrunch = binCode
-        // Resets the chunk value
-        var strOfSix = ""
-        // While string contains anything, take chunks of 6 binary digits
-        //    and convert to custom code map, then append to string.
-        while (codeToCrunch.count > 0) {
-            if (codeToCrunch.count > 6){
-                // Take a chunk of six characters and remove them from the whole binary string.
-                strOfSix = ""
-                for index in 0..<6 {strOfSix.append(codeToCrunch.character(at: index)!)}
-                print(codeToCrunch)
-                for _ in 0..<6 {codeToCrunch.removeFirst()}
-                print(codeToCrunch)
-                print("of6: \(strOfSix)")
-            }
-            else {
-                // Pad whatever chunks are left to six characters and remove them from the whole binary string.
-                strOfSix = ""
-                for index in 0..<codeToCrunch.count {strOfSix.append(codeToCrunch.character(at: index)!)}
-                print(codeToCrunch)
-                for _ in 0..<codeToCrunch.count {codeToCrunch.removeFirst()}
-                print(codeToCrunch)
-                print("ofX: \(strOfSix)")
-            }
-            // Convert chunk to a mapped code character, append to string
-            let codeCharacter = codeConversionBinToChar(str: strOfSix)
-            formingStr.append(contentsOf: codeCharacter)
-            print("HR: \(codeCharacter)")
-        }
-        // Assign final code to it's variable
-        print("FULL CODE: \(formingStr)")
-        assembledHrCode = formingStr
-    }
     // Prepares a binary blob constructed to our code specification for the date portion.
     func getDate(yr: String, mo: String, d: String, h: String, m: String) -> String{
         var temp: String = ""
