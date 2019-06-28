@@ -69,7 +69,7 @@ class StudentResultsScreen: UIViewController {
             parityBit = false // 1
         }
         // Regular Setup
-        var gradeIntFirst = Double(stuGrade)
+        let gradeIntFirst = Double(stuGrade)
         var gradeValue = gradeIntFirst
         gradeValue = (gradeValue / 100)
         let hrGradeValue = String(format: "%.2f%%", gradeValue)
@@ -116,9 +116,9 @@ class StudentResultsScreen: UIViewController {
         let tempDay = calendar.component(.day, from: date)
         let tempHour = calendar.component(.hour, from: date)
         // Getting Relevant Values
-        let month = String(tempMonth)
-        let day = String(tempDay)
-        let hour = String(tempHour)
+        month = String(tempMonth)
+        day = String(tempDay)
+        hour = String(tempHour)
         }
         // Get other binary values
         let tempDate = getDate(mo: month, d: day, h: hour)
