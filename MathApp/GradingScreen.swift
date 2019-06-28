@@ -70,13 +70,13 @@ class GradingScreen: UIViewController {
     //-------------------- Actions --------------------//
     
     @IBAction func runCode(_ sender: Any) {
-        //if (debugInvalid == false){
+        if (debugInvalid == false){
             checkFailed = false
-            //getDataFromCode()
-            //runPostCheck()
-            //dispPostCheck()
-        //}
-        //else {runInvalid()}
+            getDataFromCode()
+            runPostCheck()
+            dispPostCheck()
+        }
+        else {runInvalid()}
     }
     
     //-------------------- Other Functions --------------------//
@@ -87,7 +87,7 @@ class GradingScreen: UIViewController {
 //        quizNumLable.text = String("")
 //        invalidLable.text = ""
 //        dueDateLable.text = ""
-        // run after valid
+//        // run after valid
 //        invalidLable.isHidden = true
 //        quizNumLable.isHidden = false
 //        quizNumDispLbl.isHidden = false
