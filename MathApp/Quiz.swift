@@ -388,10 +388,12 @@ class Quiz: UIViewController {
             lbl_bottom.text = "";
             lbl_answer.text = "DONE!";
             lbl_symbol.text = "";
-            doRegSegue = true
             // If this is a student quiz, segue to results.
             if(homeworkQuiz){
                 doHWSegue = true
+            }
+            else{
+                doRegSegue = true
             }
         }
     }
