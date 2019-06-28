@@ -209,7 +209,7 @@ class Student: UIViewController {
             }
             //Due Date Check
             if (checkFailed == false){
-                if (pastDue(year: Int(self.year)!, month: Int(self.month)!, day: Int(self.day)!, hour: Int(self.hour)!, min: Int(self.min)!, ignoreYear: false)){checkFailed = true ; invalidPastDue = true}
+                if (pastDue(year: Int(self.year)!, month: Int(self.month)!, day: Int(self.day)!, hour: Int(self.hour)!, min: Int(self.min)!, ignoreYearMonth: false)){checkFailed = true ; invalidPastDue = true}
             // Aready Taken Quiz
             if (isQuizRepeat(quizNum: String(self.hwCode), teachCode: String(self.instructorCode))){checkFailed = true ; invalidAreadyTaken = true}
             }
@@ -335,13 +335,13 @@ class Student: UIViewController {
             else {parityBit = false} // 1
             print("LeftBin: \(binaryCode)")
             // PRINT EXTRACTED VALUES
-            print("---------- ENCODED DATA ----------")
+            print("---------- ENCODED STUDENT DATA ----------")
             print("QADD: \(numOfQuestions_add) QSUB: \(numOfQuestions_sub)   QMUL: \(numOfQuestions_mul)   QDIV: \(numOfQuestions_div)")
             print("DADD: \(difficulty_add) DSUB: \(difficulty_sub)   DMUL: \(difficulty_mul)   DDIV: \(difficulty_div)")
             print("DATE: Y:\(year) M:\(month) D:\(day) H:\(hour) M:\(min)")
             print("SHUF: \(shuffle)   Teach: \(instructorCode)")
             print("HW#: \(hwCode)   STU: \(studentCode)   PAR: \(parityBit)")
-            print("----------------------------------")
+            print("------------------------------------------")
         }
         //if (checkFailed == true) {runInvalid()}
     }

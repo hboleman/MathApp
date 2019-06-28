@@ -176,6 +176,7 @@ func checkIfDefaultsNeedSetup(){
 // Turns the code into binary
 func disassembleHumanReadableCode(hrCode: String, leadingBuffer: Int) -> String {
     var fullBinString = ""
+    // Decode Binary from Characters
     for index in 0..<hrCode.count{
         let hrChar = String(hrCode.character(at: index)!)
         let codeStr = codeConversionCharToBin(str: hrChar)
@@ -183,6 +184,7 @@ func disassembleHumanReadableCode(hrCode: String, leadingBuffer: Int) -> String 
     }
     // Copy over binary
     let origBinStr = fullBinString
+    print("Length Before Trim: \(origBinStr.count)")
     // Remove extra zeros at end
     for _ in 0..<leadingBuffer {fullBinString.removeLast()}
     // Copies over the binary version
@@ -237,7 +239,7 @@ func assembleHumanReadableCode(binCode: String) -> String{
 
 
 // Returns wether or not the code's date is past due
-func pastDue(year: Int, month: Int, day: Int, hour: Int, min: Int, ignoreYear: Bool) -> Bool {
+func pastDue(year: Int, month: Int, day: Int, hour: Int, min: Int, ignoreYearMonth: Bool) -> Bool {
     // Get date of now
     let date = Date.init()
     // Get date in comparable format
@@ -256,11 +258,11 @@ func pastDue(year: Int, month: Int, day: Int, hour: Int, min: Int, ignoreYear: B
     //if (tempYear > 2000){ year = String(tempYear - 2000)}
     if (tempYear > 2000){ tempYearTrunk = (tempYear - 2000)}
     // Compare date of code to now
-    if(year > tempYearTrunk && ignoreYear == false){return false}
+    if(year > tempYearTrunk && ignoreYearMonth == false){return false}
     else if(month > Int(tempMonth)){return false}
     else if(day > Int(tempDay)){return false}
     else if(hour > Int(tempHour)){return false}
-    else if(min > Int(tempMin)){return false}
+    else if(min > Int(tempMin) && ignoreYearMonth == false){return false}
     else {return true}
 }
 

@@ -44,7 +44,7 @@ class StudentResultsScreen: UIViewController {
     let properBinaryCount = 65
     
     // Debug
-    let debugIn: Bool = false
+    let debugBinary: Bool = true
     let debugBinSeperation: Bool = false
     
     //-------------------- Functions --------------------//
@@ -53,20 +53,20 @@ class StudentResultsScreen: UIViewController {
     func generateCode(){
         checkFailed = false
         // If debug is on, create code with this data
-        if (debugIn){
-            month = "15"
-            day = "63"
-            hour = "31"
+        if (debugBinary){
+            month = "15" // 4
+            day = "63" // 6
+            hour = "31" // 5
             // Instructor Code
-            instructorCode = 0 //32767
+            instructorCode = 0 //32767 15
             // Will pad homework code
-            hwCode = 2047
+            hwCode = 2047   // 11
             // Student Code
-            studentCode = 511 //511
+            studentCode = 0 //511 9
             // grade
-            stuGrade = 16383
+            stuGrade = 16383 // 14
             //parityBit
-            parityBit = false
+            parityBit = false // 1
         }
         // Regular Setup
         var gradeIntFirst = Double(stuGrade)
@@ -84,6 +84,7 @@ class StudentResultsScreen: UIViewController {
     
     // Get Date in Binary
     func getDate(mo: String, d: String, h: String) -> String{
+        print("IN-DATE")
         var temp: String = ""
         // Month
         let tempMo = padStringInt(num: Int(mo)!, length: 4, padding: "0")
@@ -101,7 +102,9 @@ class StudentResultsScreen: UIViewController {
     
     // Assemble Binary Code
     func assembleBinaryResultsCode(){
+        print("IN-ASSBINCODE")
         assembledBinCode = ""
+        if (debugBinary == false){
         // FORMATTING DATE
         let date = Date.init()
         let format = DateFormatter()
@@ -116,27 +119,28 @@ class StudentResultsScreen: UIViewController {
         let month = String(tempMonth)
         let day = String(tempDay)
         let hour = String(tempHour)
+        }
         // Get other binary values
         let tempDate = getDate(mo: month, d: day, h: hour)
         let teachCode: String = padStringInt( num: instructorCode, length: 15, padding: "0")
         let homewkCode: String = padStringInt( num: hwCode, length: 11, padding: "0")
         let stuCode: String = padStringInt(num: studentCode, length: 9, padding: "0")
-        let grade: String = padStringInt(num: stuGrade, length: 8, padding: "0")
+        let grade: String = padStringInt(num: stuGrade, length: 14, padding: "0")
         // makes 43
         // Form Together All Binary Values
         var wholeString: String = ""
-        if (debugBinSeperation){wholeString.append(contentsOf: " DAT ")} // should be 8
+        if (debugBinSeperation){wholeString.append(contentsOf: " DAT ")} // should be 15
         wholeString.append(contentsOf: tempDate)
-        if (debugBinSeperation){wholeString.append(contentsOf: " TEA ")} // should be 8
+        if (debugBinSeperation){wholeString.append(contentsOf: " TEA ")} // should be 15
         wholeString.append(contentsOf: teachCode)
-        if (debugBinSeperation){wholeString.append(contentsOf: " HWC ")} // should be 8
+        if (debugBinSeperation){wholeString.append(contentsOf: " HWC ")} // should be 11
         wholeString.append(contentsOf: homewkCode)
-        if (debugBinSeperation){wholeString.append(contentsOf: " STU ")} // should be 8
+        if (debugBinSeperation){wholeString.append(contentsOf: " STU ")} // should be 9
         wholeString.append(contentsOf: stuCode)
-        if (debugBinSeperation){wholeString.append(contentsOf: " GRD ")} // should be 8
+        if (debugBinSeperation){wholeString.append(contentsOf: " GRD ")} // should be 14
         wholeString.append(contentsOf: grade)
         // grade: 01100100
-        if (debugBinSeperation){wholeString.append(contentsOf: " PAR ")} // should be 8
+        if (debugBinSeperation){wholeString.append(contentsOf: " PAR ")} // should be 1
         // For Parity
         var posCount = 0
         for index in 0..<wholeString.count{if (wholeString.character(at: index)! == "1"){posCount = posCount + 1}}

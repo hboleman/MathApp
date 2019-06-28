@@ -121,7 +121,7 @@ class Quiz: UIViewController {
     var stuGrade: Int = 0;
     var homeworkQuiz: Bool = false
     //DEBUG - When enabled, just press next to move to results screen.
-    var debugSendToResults: Bool = false
+    var debugSendToResults: Bool = true
     
     //-------------------- Numpad Actions --------------------//
     

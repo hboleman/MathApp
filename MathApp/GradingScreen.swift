@@ -14,7 +14,6 @@ class GradingScreen: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
     
     //-------------------- Outlets --------------------//
@@ -40,17 +39,15 @@ class GradingScreen: UIViewController {
     var assembledHrCode: String = ""
     var disCodeInBin: String = ""
     var disCodeInHR: String = ""
-    let leadingBuffer = 3
-    let properBinaryCount = 105
+    let leadingBuffer = 1
+    let properBinaryCount = 65
     
     var binaryCode = ""
     var binarySnipit = ""
     
-    var year: String = ""
     var month: String = ""
     var day: String = ""
     var hour: String = ""
-    var min: String = ""
     
     // For invalid message
     var invalidMessage = ""
@@ -65,20 +62,21 @@ class GradingScreen: UIViewController {
     var mismatchHwCode = false
     
     // Debug
-    let debugIn: Bool = false
-    let debugBinSeperation: Bool = false
+    let debugBinary: Bool = false
+    let debugBinSeperation: Bool = true
     let debugInvalid: Bool = false
+    let disableValidation: Bool = true
     
     //-------------------- Actions --------------------//
     
     @IBAction func runCode(_ sender: Any) {
-        if (debugInvalid == false){
+        //if (debugInvalid == false){
             checkFailed = false
-            getDataFromCode()
-            runPostCheck()
-            dispPostCheck()
-        }
-        else {runInvalid()}
+            //getDataFromCode()
+            //runPostCheck()
+            //dispPostCheck()
+        //}
+        //else {runInvalid()}
     }
     
     //-------------------- Other Functions --------------------//
@@ -114,7 +112,7 @@ class GradingScreen: UIViewController {
         // Quiz Num
         quizNumOutlet.text = String(hwCode)
         //Date
-        dateOutlet.text = " \(padStringStr(str: month, length: 2, padding: "0"))-\(padStringStr(str: day, length: 2, padding: "0")) at \(padStringStr(str: hour, length: 2, padding: "0")):\(padStringStr(str: min, length: 2, padding: "0"))"
+        dateOutlet.text = " \(padStringStr(str: month, length: 2, padding: "0"))-\(padStringStr(str: day, length: 2, padding: "0")) at \(padStringStr(str: hour, length: 2, padding: "0"))"
     }
     
     // Runs when input is invalid
@@ -148,7 +146,7 @@ class GradingScreen: UIViewController {
     
     // Checks inputed values or code for validity
     func runPostCheck(){
-        if (debugIn == false){
+        if (debugBinary == false){
             // Teacher Code
             if((instructorCode < 1111 || instructorCode > 9999) && checkFailed == false){ checkFailed = true ; invalidTeacherCodeBounds = true}
             // Homework Code
@@ -168,7 +166,7 @@ class GradingScreen: UIViewController {
             }
             //Due Date Check
             if (checkFailed == false){
-                if (pastDue(year: 0, month: Int(self.month)!, day: Int(self.day)!, hour: Int(self.hour)!, min: Int(self.min)!, ignoreYear: true)){checkFailed = true ; invalidPastDue = true}
+                if (pastDue(year: 0, month: Int(self.month)!, day: Int(self.day)!, hour: Int(self.hour)!, min: 0, ignoreYearMonth: true)){checkFailed = true ; invalidPastDue = true}
             }
             if (checkFailed){runInvalid()}
         }
@@ -176,7 +174,7 @@ class GradingScreen: UIViewController {
     
     // Checks binary count against what it should be
     func checkCount(){
-        if (disCodeInBin.count != properBinaryCount && debugIn == false){
+        if (disCodeInBin.count != properBinaryCount && debugBinary == false){
             checkFailed = true ;
             invalidCount = true ;
         }
@@ -193,9 +191,9 @@ class GradingScreen: UIViewController {
             binarySnipit = ""
             for index in 0..<15 {binarySnipit.append(binaryCode.character(at: index)!)}
             print("(BinSnip: \(binarySnipit)")
-            for _ in 0..<28 {binaryCode.removeFirst()}
+            for _ in 0..<15 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
-            getDate(dateStr: binarySnipit)  // 28
+            getDate(dateStr: binarySnipit)  // 15
             // Extracting Instructor Code
             binarySnipit = ""
             for index in 0..<15 {binarySnipit.append(binaryCode.character(at: index)!)}
@@ -209,13 +207,21 @@ class GradingScreen: UIViewController {
             print("(BinSnip: \(binarySnipit)")
             for _ in 0..<11 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
-            hwCode = binToInt(bin: binarySnipit); // 15
+            hwCode = binToInt(bin: binarySnipit); // 11
             // Extracting Student Code
             binarySnipit = ""
             for index in 0..<9 {binarySnipit.append(binaryCode.character(at: index)!)}
             print("(BinSnip: \(binarySnipit)")
             for _ in 0..<9 {binaryCode.removeFirst()}
             print("LeftBin: \(binaryCode)")
+            studentCode = binToInt(bin: binarySnipit); // 9
+            // Extracting Student Grade
+            binarySnipit = ""
+            for index in 0..<14 {binarySnipit.append(binaryCode.character(at: index)!)}
+            print("(BinSnip: \(binarySnipit)")
+            for _ in 0..<14 {binaryCode.removeFirst()}
+            print("LeftBin: \(binaryCode)")
+            stuGrade = binToInt(bin: binarySnipit); // 14
             // Extracting Parity
             binarySnipit = ""
             binarySnipit.append(binaryCode.character(at: 0)!)
@@ -225,11 +231,11 @@ class GradingScreen: UIViewController {
             else {parityBit = false} // 1
             print("LeftBin: \(binaryCode)")
             // PRINT EXTRACTED VALUES
-            print("---------- ENCODED DATA ----------")
-            print("DATE: M:\(month) D:\(day) H:\(hour) M:\(min)")
+            print("---------- ENCODED GRADING DATA ----------")
+            print("DATE: M:\(month) D:\(day) H:\(hour)")
             print("SHUF: Teach: \(instructorCode)")
             print("HW#: \(hwCode)   STU: \(studentCode)   PAR: \(parityBit)")
-            print("----------------------------------")
+            print("------------------------------------------")
         }
         //if (checkFailed == true) {runInvalid()}
     }
@@ -259,12 +265,5 @@ class GradingScreen: UIViewController {
         for _ in 0..<5 {binaryCode.removeFirst()}
         print("LeftBin: \(binaryCode)")
         hour = String(binToInt(bin: binarySnipit)) // 5
-        // Extracting Min Code
-        binarySnipit = ""
-        for index in 0..<6 {binarySnipit.append(binaryCode.character(at: index)!)}
-        print("(BinSnip: \(binarySnipit)")
-        for _ in 0..<6 {binaryCode.removeFirst()}
-        print("LeftBin: \(binaryCode)")
-        min = String(binToInt(bin: binarySnipit)) // 6
     }
 }
