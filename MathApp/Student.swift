@@ -161,14 +161,12 @@ class Student: UIViewController {
     // Prepares detailed information for invalid code
     func prepInvalidDisp(){
         invalidMessage = ""
-        
         if (invalidNumOfQsBounds || debugInvalid){invalidMessage.append(contentsOf: "\nInvalid number of questions")}
         if (invalidTeacherCodeBounds || debugInvalid){invalidMessage.append(contentsOf: "\nInvalid teacher code")}
         if (invalidHWCodeBounds || debugInvalid){invalidMessage.append(contentsOf: "\nInvalid homework number")}
         if (invalidStuCodeBounds || debugInvalid){invalidMessage.append(contentsOf: "\nInvalid student number")}
-        if (invalidParity || debugInvalid){invalidMessage.append(contentsOf: "\nCode does not validate")}
+        if (invalidParity || invalidCount || debugInvalid){invalidMessage.append(contentsOf: "\nCode does not validate")}
         if (invalidPastDue || debugInvalid){invalidMessage.append(contentsOf: "\nQuiz past due")}
-        if (invalidCount || debugInvalid){invalidMessage.append(contentsOf: "\nCode does not validate")}
         if (invalidAreadyTaken || debugInvalid){invalidMessage.append(contentsOf: "\nQuiz has already been taken")}
     }
     
@@ -190,13 +188,13 @@ class Student: UIViewController {
                 if (total < 1){checkFailed = true ; invalidNumOfQsBounds = true}
             }
             // Teacher Code
-            if((instructorCode < 1111 || instructorCode > 9999) && checkFailed == false){ checkFailed = true ; invalidTeacherCodeBounds = true}
+            if(instructorCode < 1111 || instructorCode > 9999){ checkFailed = true ; invalidTeacherCodeBounds = true}
             // Homework Code
-            if((hwCode < 1 || hwCode > 999) && checkFailed == false){ checkFailed = true ; invalidHWCodeBounds = true}
+            if(hwCode < 1 || hwCode > 999){ checkFailed = true ; invalidHWCodeBounds = true}
             // Student Code Check
             if((stuNumField.text?.isEmpty ?? nil)!){ checkFailed = true ; invalidStuCodeBounds = true}
-            if((stuNumField.text!.count > 3 || stuNumField.text!.count < 0) && checkFailed == false){ checkFailed = true ; invalidStuCodeBounds = true}
-            if((Int(stuNumField.text!)! < 1 || Int(stuNumField.text!)! > 999) && checkFailed == false){ checkFailed = true ; invalidStuCodeBounds = true}
+            if(stuNumField.text!.count > 3 || stuNumField.text!.count < 0){ checkFailed = true ; invalidStuCodeBounds = true}
+            if(Int(stuNumField.text!)! < 1 || Int(stuNumField.text!)! > 999){ checkFailed = true ; invalidStuCodeBounds = true}
             // Parity
             if (checkFailed == false){
                 var posCount = 0

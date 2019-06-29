@@ -23,6 +23,7 @@ class GradingScreen: UIViewController {
     @IBOutlet weak var studentNumOutlet: UILabel!
     @IBOutlet weak var quizNumOutlet: UILabel!
     @IBOutlet weak var dateOutlet: UILabel!
+    @IBOutlet weak var invalidLabel: UILabel!
     
     //-------------------- Variables --------------------//
     
@@ -31,6 +32,8 @@ class GradingScreen: UIViewController {
     var studentCode: Int = -1
     var parityBit: Bool = false
     var stuGrade: Int = 100
+    var compinstructorCode: Int = 1234
+    var compHwCode: Int = 999
     
     // For code logic
     var checkFailed = false;
@@ -56,16 +59,15 @@ class GradingScreen: UIViewController {
     var invalidHWCodeBounds = false
     var invalidStuCodeBounds = false
     var invalidParity = false
-    var invalidPastDue = false
     var invalidCount = false
     var mismatchTeacherCode = false
     var mismatchHwCode = false
     
     // Debug
     let debugBinary: Bool = false
-    let debugBinSeperation: Bool = true
+    let debugBinSeperation: Bool = false
     let debugInvalid: Bool = false
-    let disableValidation: Bool = true
+    let disableValidation: Bool = false
     
     //-------------------- Actions --------------------//
     
@@ -84,16 +86,13 @@ class GradingScreen: UIViewController {
     // Get data from code
     func getDataFromCode(){
         // run to clear error message
-//        quizNumLable.text = String("")
-//        invalidLable.text = ""
-//        dueDateLable.text = ""
-//        // run after valid
-//        invalidLable.isHidden = true
-//        quizNumLable.isHidden = false
-//        quizNumDispLbl.isHidden = false
-//        dueDateLable.isHidden = false
-//        dueLable.isHidden = false
-//        takeQuiz.isHidden = false
+        quizNumOutlet.text = ""
+        invalidLabel.text = ""
+        dateOutlet.text = ""
+        // run after valid
+        invalidLabel.isHidden = true
+        quizNumOutlet.isHidden = false
+        dateOutlet.isHidden = false
         // get code info
         disCodeInBin = disassembleHumanReadableCode(hrCode: studentCodeOutlet.text!, leadingBuffer: self.leadingBuffer)
         disassembleBinaryCode(binCode: disCodeInBin)
@@ -112,48 +111,45 @@ class GradingScreen: UIViewController {
         // Quiz Num
         quizNumOutlet.text = String(hwCode)
         //Date
-        dateOutlet.text = " \(padStringStr(str: month, length: 2, padding: "0"))-\(padStringStr(str: day, length: 2, padding: "0")) at \(padStringStr(str: hour, length: 2, padding: "0"))"
+        dateOutlet.text = " \(padStringStr(str: month, length: 2, padding: "0"))-\(padStringStr(str: day, length: 2, padding: "0")) at Hour \(padStringStr(str: hour, length: 2, padding: "0"))"
     }
     
     // Runs when input is invalid
     func runInvalid(){
         print("INVALID")
         prepInvalidDisp()
-//        invalidLable.text = invalidMessage
-//        invalidLable.isHidden = false
-//        quizNumLable.text = ""
-//        quizNumLable.isHidden = true
-//        quizNumDispLbl.isHidden = true
-//        dueDateLable.isHidden = true
-//        dueLable.isHidden = true
-//        if (invalidPastDue && debugInvalid == false) {dueLable.isHidden = false ; dueDateLable.isHidden = false}
-//        else if (debugInvalid){dueLable.isHidden = false}
-//        takeQuiz.isHidden = true
+        invalidLabel.text = invalidMessage
+        invalidLabel.isHidden = false
+        quizNumOutlet.text = ""
+        quizNumOutlet.isHidden = true
+        dateOutlet.isHidden = true
+        dateOutlet.isHidden = true
     }
     
     // Prepares detailed information for invalid code
     func prepInvalidDisp(){
         invalidMessage = ""
-//        if (invalidNumOfQsBounds || debugInvalid){invalidMessage.append(contentsOf: "\nInvalid number of questions")}
-//        if (invalidTeacherCodeBounds || debugInvalid){invalidMessage.append(contentsOf: "\nInvalid teacher code")}
-//        if (invalidHWCodeBounds || debugInvalid){invalidMessage.append(contentsOf: "\nInvalid homework number")}
-//        if (invalidStuCodeBounds || debugInvalid){invalidMessage.append(contentsOf: "\nInvalid student number")}
-//        if (invalidParity || debugInvalid){invalidMessage.append(contentsOf: "\nCode does not validate")}
-//        if (invalidPastDue || debugInvalid){invalidMessage.append(contentsOf: "\nQuiz past due")}
-//        if (invalidCount || debugInvalid){invalidMessage.append(contentsOf: "\nCode does not validate")}
-//        if (invalidAreadyTaken || debugInvalid){invalidMessage.append(contentsOf: "\nQuiz has already been taken")}
+        if (invalidNumOfQsBounds || debugInvalid){invalidMessage.append(contentsOf: "\nInvalid number of questions")}
+        if (invalidTeacherCodeBounds || debugInvalid){invalidMessage.append(contentsOf: "\nInvalid teacher code")}
+        if (mismatchTeacherCode || debugInvalid){invalidMessage.append(contentsOf: "\nMismatched teacher code")}
+        if (invalidHWCodeBounds || debugInvalid){invalidMessage.append(contentsOf: "\nInvalid homework number")}
+        if (mismatchHwCode || debugInvalid){invalidMessage.append(contentsOf: "\nMismatched homework code")}
+        if (invalidStuCodeBounds || debugInvalid){invalidMessage.append(contentsOf: "\nInvalid student number")}
+        if (invalidParity || invalidCount || debugInvalid){invalidMessage.append(contentsOf: "\nCode does not validate")}
     }
     
     // Checks inputed values or code for validity
     func runPostCheck(){
         if (debugBinary == false){
             // Teacher Code
-            if((instructorCode < 1111 || instructorCode > 9999) && checkFailed == false){ checkFailed = true ; invalidTeacherCodeBounds = true}
+            if(instructorCode < 1111 || instructorCode > 9999){ checkFailed = true ; invalidTeacherCodeBounds = true}
+            if(compinstructorCode != instructorCode){checkFailed = true ; mismatchTeacherCode = true}
             // Homework Code
-            if((hwCode < 1 || hwCode > 999) && checkFailed == false){ checkFailed = true ; invalidHWCodeBounds = true}
+            if(hwCode < 1 || hwCode > 999){ checkFailed = true ; invalidHWCodeBounds = true}
+            if(compHwCode != hwCode){checkFailed = true ; mismatchHwCode = true}
             // Student Code Check
-            if((studentCode > 3 || studentCode < 0) && checkFailed == false){ checkFailed = true ; invalidStuCodeBounds = true}
-            if((studentCode < 1 || studentCode > 999) && checkFailed == false){ checkFailed = true ; invalidStuCodeBounds = true}
+            if(studentCode > 3 || studentCode < 0){ checkFailed = true ; invalidStuCodeBounds = true}
+            if(studentCode < 1 || studentCode > 999){ checkFailed = true ; invalidStuCodeBounds = true}
             // Parity
             if (checkFailed == false){
                 var posCount = 0
@@ -163,10 +159,6 @@ class GradingScreen: UIViewController {
                 if (posMod != 0){tempPar = true}
                 else {tempPar = false}
                 if (tempPar != false){checkFailed = true ; invalidParity = true}
-            }
-            //Due Date Check
-            if (checkFailed == false){
-                if (pastDue(year: 0, month: Int(self.month)!, day: Int(self.day)!, hour: Int(self.hour)!, min: 0, ignoreYearMonth: true)){checkFailed = true ; invalidPastDue = true}
             }
             if (checkFailed){runInvalid()}
         }

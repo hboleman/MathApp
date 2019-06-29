@@ -60,8 +60,8 @@ class GradingPrep: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! GradingScreen
-        destinationVC.hwCode = Int(homeworkCodeOutlet.text!)!
-        destinationVC.instructorCode = Int(instructorCodeOutlet.text!)!
+        destinationVC.compHwCode = Int(homeworkCodeOutlet.text!)!
+        destinationVC.compinstructorCode = Int(instructorCodeOutlet.text!)!
     }
     
 }

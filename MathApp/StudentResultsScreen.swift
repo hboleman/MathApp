@@ -44,7 +44,7 @@ class StudentResultsScreen: UIViewController {
     let properBinaryCount = 65
     
     // Debug
-    let debugBinary: Bool = true
+    let debugBinary: Bool = false
     let debugBinSeperation: Bool = false
     
     //-------------------- Functions --------------------//

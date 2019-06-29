@@ -78,7 +78,7 @@ var tempQuizID = ""
 let dbLimit = 10
 // Debug mode to ignore reading or writing
 let disableScoreHistoryValidation = false
-let disableScoreAdding = true
+let disableScoreAdding = false
 let disableDBTrim = false
 let debugScoreHistoryManagement = false
 
