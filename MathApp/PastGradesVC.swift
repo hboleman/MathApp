@@ -52,7 +52,7 @@ class PastGradesVC: UIViewController {
     //-------------------- Functions --------------------//
     
     func updateDisplay(){
-        if (scoreArr.count > 1){
+        if (scoreArr.count > 0){
             // Score Code
             resultsCodeOutlet.text = scoreArr[(currStat - 1)]
             // Grade Value
