@@ -13,7 +13,6 @@ class SharedFunctionsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Allow for code to run going into or out of background foreground
         //        let notificationCenter = NotificationCenter.default
         //        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.didEnterBackgroundNotification, object: nil);
