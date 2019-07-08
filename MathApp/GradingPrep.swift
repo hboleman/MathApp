@@ -20,6 +20,8 @@ class GradingPrep: UIViewController {
     
     @IBOutlet weak var instructorCodeOutlet: UITextField!
     @IBOutlet weak var homeworkCodeOutlet: UITextField!
+    @IBOutlet weak var InvalidLabel: UILabel!
+    
     
     //-------------------- Variables --------------------//
     
@@ -32,7 +34,7 @@ class GradingPrep: UIViewController {
     @IBAction func startGrading(_ sender: Any) {
         checkFailed = false
         ValidationCheck()
-        if (checkFailed == false){self.performSegue(withIdentifier: "gradingScreen", sender: self)}
+        if (checkFailed == false){self.performSegue(withIdentifier: "gradingScreen", sender: self) ; InvalidLabel.isHidden = true}
         else {
             invalidDisplay()
         }
@@ -41,7 +43,7 @@ class GradingPrep: UIViewController {
     //-------------------- Functions --------------------//
     
     func invalidDisplay(){
-        
+        InvalidLabel.isHidden = false
     }
     
     func ValidationCheck(){
