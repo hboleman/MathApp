@@ -196,7 +196,7 @@ class Teacher: UIViewController {
         if((Int(teacherCode.text!)! < 1111 || Int(teacherCode.text!)! > 9999) && checkFailed == false){ checkFailed = true }
         // Homework code bounds check
         if((homeworkCode.text?.isEmpty ?? nil)!){ checkFailed = true}
-        if((homeworkCode.text!.count > 3 || homeworkCode.text!.count < 0) && checkFailed == false){ checkFailed = true }
+        if((homeworkCode.text!.count > 3 || homeworkCode.text!.count < 1) && checkFailed == false){ checkFailed = true }
         if((Int(homeworkCode.text!)! < 1 || Int(homeworkCode.text!)! > 999) && checkFailed == false){ checkFailed = true }
     }
     

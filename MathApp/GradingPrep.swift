@@ -31,13 +31,18 @@ class GradingPrep: UIViewController {
     
     @IBAction func startGrading(_ sender: Any) {
         checkFailed = false
+        ValidationCheck()
         if (checkFailed == false){self.performSegue(withIdentifier: "gradingScreen", sender: self)}
         else {
-            
+            invalidDisplay()
         }
     }
     
     //-------------------- Functions --------------------//
+    
+    func invalidDisplay(){
+        
+    }
     
     func ValidationCheck(){
         // Teacher code bounds check
@@ -46,7 +51,7 @@ class GradingPrep: UIViewController {
         if((Int(instructorCodeOutlet.text!)! < 1111 || Int(instructorCodeOutlet.text!)! > 9999) && checkFailed == false){ checkFailed = true }
         // Homework code bounds check
         if((homeworkCodeOutlet.text?.isEmpty ?? nil)!){ checkFailed = true}
-        if((homeworkCodeOutlet.text!.count > 3 || homeworkCodeOutlet.text!.count < 0) && checkFailed == false){ checkFailed = true }
+        if((homeworkCodeOutlet.text!.count > 3 || homeworkCodeOutlet.text!.count < 1) && checkFailed == false){ checkFailed = true }
         if((Int(homeworkCodeOutlet.text!)! < 1 || Int(homeworkCodeOutlet.text!)! > 999) && checkFailed == false){ checkFailed = true }
     }
     

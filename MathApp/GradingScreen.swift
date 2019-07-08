@@ -148,7 +148,7 @@ class GradingScreen: UIViewController {
             if(hwCode < 1 || hwCode > 999){ checkFailed = true ; invalidHWCodeBounds = true}
             if(compHwCode != hwCode){checkFailed = true ; mismatchHwCode = true}
             // Student Code Check
-            if(studentCode > 3 || studentCode < 0){ checkFailed = true ; invalidStuCodeBounds = true}
+            if(studentCode > 3 || studentCode < 1){ checkFailed = true ; invalidStuCodeBounds = true}
             if(studentCode < 1 || studentCode > 999){ checkFailed = true ; invalidStuCodeBounds = true}
             // Parity
             if (checkFailed == false){
